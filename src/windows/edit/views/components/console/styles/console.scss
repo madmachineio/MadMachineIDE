@@ -1,0 +1,28 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-console-body {
+  flex: 1;
+  position: relative;
+  .console-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    @include theme {
+      color: val((console, message, color));
+    }
+    > pre {
+      font-size: 12px;
+      line-height: 1.5;
+      &.stderr {
+        @include theme {
+          color: val((console, message, errColor));
+        }
+      }
+    }
+  }
+}

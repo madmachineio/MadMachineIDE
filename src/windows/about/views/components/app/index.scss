@@ -1,0 +1,57 @@
+@import "~@windows/assets/styles/variables";
+
+html,
+body {
+  @include theme {
+    background-color: val((bgColor));
+  }
+}
+
+.layout-about {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  .logo {
+    position: absolute;
+    // width: 160px;
+    // height: 160px;
+    // right: -24px;
+    // top: -10px;
+    width: 80px;
+    height: 80px;
+    right: 30px;
+    top: 30px;
+  }
+  .body {
+    padding: 36px 28px 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+    .header {
+      flex: 1;
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+        @include theme {
+          color: val((about, titleColor));
+        }
+      }
+      .version {
+        font-size: 16px;
+        margin-top: 4px;
+        @include theme {
+          color: val((about, versionColor));
+        }
+      }
+    }
+    .tip {
+      font-size: 10px;
+      @include theme {
+        color: val((about, tipColor));
+      }
+    }
+  }
+}

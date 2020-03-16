@@ -1,0 +1,20 @@
+@import "~@windows/assets/styles/variables";
+
+.component-progress {
+  border-radius: 2px;
+  height: 8px;
+  width: 100%;
+  overflow: hidden;
+  @include theme {
+    background-color: val((com, progress, bgColor));
+  }
+
+  .main {
+    width: 0%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    @include theme {
+      background-color: val((com, progress, mainBgColor));
+    }
+  }
+}

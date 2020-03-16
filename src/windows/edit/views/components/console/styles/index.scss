@@ -1,0 +1,13 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-console {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  .body-wrap {
+    padding: 10px 10px 10px 16px;
+    flex: 1;
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,33 @@
+default:
+  NAME: MadMachine
+  DEBUG: true
+
+  EDITER:
+    FONTSIZE: 14
+
+  # 编辑窗口
+  EDIT_WINDOW:
+    URL: views/edit.html
+
+  # 设置窗口
+  SETTING_WINDOW:
+    URL: views/setting.html
+
+  # 串口通讯窗口
+  SERIAL_WINDOW:
+    URL: views/serial.html
+
+  # 用户登录窗口
+  USER_WINDOW:
+    URL: views/user.html
+
+  # 关于MadMachine
+  ABOUT_WINDOW:
+    URL: views/about.html
+
+  # 启动页面
+  START_WINDOW:
+    URL: views/start.html
+
+  USB:
+    NAME: SWIFTIO

@@ -1,0 +1,55 @@
+@import "~@windows/assets/styles/variables";
+
+.file-example {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  .example-group {
+    user-select: none;
+    .example-children {
+      display: none;
+    }
+    &.actived {
+      .arrow {
+        display: inline-block;
+        transform: rotateZ(90deg);
+      }
+      .example-children {
+        display: block;
+      }
+    }
+  }
+  .example-item {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    cursor: pointer;
+    &:hover,
+    &.actived {
+      @include theme {
+        @include val((file, fileBlockHover));
+      }
+    }
+
+    .name {
+      font-weight: bold;
+      font-size: 12px;
+    }
+    &.child-item {
+      padding-left: 50px;
+      .name {
+        font-weight: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .folder {
+      margin: 0 8px 0 8px;
+    }
+  }
+}

@@ -1,0 +1,80 @@
+@import "~@windows/assets/styles/variables";
+
+html,
+body {
+  @include theme {
+    background-color: val((bgColor));
+  }
+}
+
+.layout-setting {
+  .row {
+    display: flex;
+    align-items: center;
+    margin-top: 28px;
+    .label {
+      width: 140px;
+      text-align: right;
+      font-size: 14px;
+      font-weight: bold;
+      @include theme {
+        color: val((setting, labelColor));
+      }
+    }
+    .body {
+      padding-left: 20px;
+      flex: 1;
+      display: flex;
+      @include theme {
+        color: val((setting, labelColor));
+      }
+      .icon {
+        cursor: pointer;
+        &.icon-right {
+          margin-left: 12px;
+        }
+      }
+      > select {
+        width: 144px;
+      }
+      &.theme-wrap {
+        .theme {
+          margin-right: 20px;
+          cursor: pointer;
+          position: relative;
+          padding: 0;
+          width: 62px;
+          height: 42px;
+          overflow: hidden;
+          &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+            @include theme {
+              border-color: val((setting, hoverBorderColor));
+            }
+          }
+          > img {
+            width: 62px;
+            height: 44px;
+          }
+          &.actived,
+          &:hover {
+            &:after {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

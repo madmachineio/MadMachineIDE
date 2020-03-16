@@ -1,0 +1,51 @@
+@import "~@windows/assets/styles/variables";
+
+.file-manager {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right-width: 1px;
+  border-right-style: solid;
+  @include theme {
+    border-color: val((borderColor));
+  }
+  .title {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px 0 30px;
+    user-select: none;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    @include theme {
+      border-color: val((borderColor));
+    }
+    .component-icon {
+      cursor: pointer;
+      &:active {
+        transform: scale(1.3);
+      }
+    }
+    @include theme {
+      @include val((file, title));
+    }
+    > .text {
+      font-weight: bold;
+      flex: 1;
+      @include theme {
+        color: val((file, titleColor));
+      }
+    }
+  }
+  .project-wrap {
+    flex: 1;
+    position: relative;
+    @include theme {
+      background-color: val((file, bgColor));
+      color: val((file, color));
+    }
+  }
+  .bottom-bar {
+    overflow: hidden;
+  }
+}

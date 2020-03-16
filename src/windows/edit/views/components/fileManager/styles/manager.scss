@@ -1,0 +1,46 @@
+@import "~@windows/assets/styles/variables";
+
+.file-manager-folder {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  .block-file {
+    padding: 0 10px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    .text {
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .ipt-name {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      margin-left: 10px;
+      flex: 1;
+      &:hover,
+      &:active,
+      &:focus {
+        outline: none;
+      }
+    }
+    &:hover,
+    &.actived {
+      @include theme {
+        @include val((file, fileBlockHover));
+      }
+    }
+    @include theme {
+      @include val((file, fileBlock));
+    }
+  }
+}

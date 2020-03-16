@@ -1,0 +1,132 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-user {
+  height: 100vh;
+  box-sizing: border-box;
+  @include theme {
+    background-color: val((user, bgColor));
+  }
+  .layout-top {
+    height: 40px;
+    -webkit-app-region: drag;
+  }
+  .layout-content {
+    padding: 0 36px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    .logo {
+      width: 70px;
+      min-width: 70px;
+    }
+    .info {
+      flex: 1;
+      padding-left: 12px;
+      font-size: 12px;
+      @include theme {
+        color: val((user, infoColor));
+      }
+      .info-title {
+        font-size: 14px;
+        font-weight: bold;
+        @include theme {
+          color: val((user, infoTitleColor));
+        }
+      }
+      .info-msg {
+        margin-top: 8px;
+        font-size: 12px;
+        line-height: 1.2;
+      }
+    }
+  }
+
+  .ipt-group {
+    padding-top: 10px;
+    .block {
+      margin-top: 10px;
+      .label {
+        font-size: 10px;
+        font-weight: bold;
+        @include theme {
+          color: val((user, iptLabelColor));
+        }
+      }
+      .ipt {
+        margin-top: 4px;
+        > input {
+          width: 100%;
+          box-sizing: border-box;
+          border: 0;
+          height: 26px;
+          font-size: 12px;
+          padding: 0 4px;
+          border-radius: 2px;
+          border: 1px solid #fff;
+
+          @include theme {
+            color: val((user, iptInputColor));
+            background-color: val((user, iptInputBgColor));
+            border-color: val((user, iptInputBorderColor));
+          }
+
+          &:active,
+          &:hover,
+          &:focus {
+            outline: none;
+          }
+          &:focus {
+            border: 1px solid #4e94f9;
+
+            @include theme {
+              border-color: val((user, iptInputBorderFocus));
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .btns {
+    margin-top: 28px;
+    text-align: right;
+    // > button {
+    //   padding: 3px 12px;
+    //   border: 1px solid #d1d1d1;
+    //   font-size: 12px;
+    //   margin-left: 20px;
+    //   border-radius: 4px;
+    //   min-width: 58px;
+    //   cursor: pointer;
+    //   @include theme {
+    //     background-color: val((user, btnBgColor));
+    //     border-color: val((user, btnBorderColor));
+    //     color: val((user, btnColor));
+    //   }
+    //   &:disabled {
+    //     border-color: #cdcdcd;
+    //     background-color: #e5e4e8;
+    //     color: #aaaaaa;
+    //     @include theme {
+    //       background-color: val((user, btnDisabledBgColor));
+    //       border-color: val((user, btnDisabledBorderColor));
+    //       color: val((user, btnDisabledColor));
+    //     }
+    //   }
+    //   &:active,
+    //   &:hover,
+    //   &:focus {
+    //     outline: none;
+    //   }
+    //   &:active {
+    //     border: 1px solid #4e94f9;
+    //     color: #4e94f9;
+    //     @include theme {
+    //       border-color: val((user, btnActiveBorderColor));
+    //       color: val((user, btnActiveColor));
+    //     }
+    //   }
+    // }
+  }
+}
