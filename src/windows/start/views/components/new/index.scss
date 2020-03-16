@@ -1,0 +1,120 @@
+@import "~@windows/assets/styles/variables";
+
+.start-new {
+  padding: 60px 40px 0 40px;
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  @include theme {
+    background-color: val((start, newBgColor));
+  }
+  .new-title {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    @include theme {
+      color: val((start, newTitleColor));
+    }
+    .logo {
+      img {
+        width: 77px;
+      }
+    }
+    .title-info {
+      flex: 1;
+      margin-left: 18px;
+    }
+    .big-title {
+      font-weight: bold;
+      font-size: 22px;
+      @include theme {
+        color: val((start, newBigTitleColor));
+      }
+    }
+    .small-title {
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+  }
+  .new-location {
+    margin-top: 20px;
+    position: relative;
+    z-index: 2;
+    .block {
+      padding-top: 30px;
+    }
+    .tip {
+      font-size: 11px;
+      margin-top: 10px;
+      color: #878787;
+    }
+    .label {
+      font-size: 14px;
+      padding-bottom: 6px;
+      display: block;
+      opacity: 0.7;
+      @include theme {
+        color: val((start, newLabelColor));
+      }
+    }
+    .ipt-group {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      background-color: #fff;
+      position: relative;
+      .border {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        border-radius: 4px;
+        @include theme {
+          box-shadow: 0 0 0 1px val((start, newIptBorderColor));
+        }
+      }
+      > input {
+        flex: 1;
+        border: 0;
+        background: none;
+        height: 33px;
+        padding: 0 10px;
+        font-size: 14px;
+        @include theme {
+          color: val((start, newIptColor));
+        }
+        &:active,
+        &:focus {
+          outline: none;
+          & ~ .border {
+            @include theme {
+              box-shadow: 0 0 0 1px val((user, iptInputBorderFocus));
+            }
+          }
+        }
+      }
+      .component-icon {
+        padding: 0 14px 0 10px;
+        cursor: pointer;
+        @include theme {
+          color: val((start, newIptIconColor));
+        }
+      }
+    }
+  }
+  .new-btns {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 40px;
+    box-sizing: border-box;
+    text-align: right;
+  }
+}

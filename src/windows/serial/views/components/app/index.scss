@@ -1,0 +1,90 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-serial {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  @include theme {
+    background-color: val((serial, bgColor));
+    color: val((serial, fontColor));
+  }
+  .cmd-body {
+    flex: 1;
+    overflow: auto;
+    .msg-list {
+      padding: 20px 20px 0 20px;
+      font-size: 12px;
+      line-height: normal;
+      > div {
+        line-height: 1.5;
+        &.stderr {
+          @include theme {
+            color: val((serial, errColor));
+          }
+        }
+      }
+    }
+    .ipt-wrap {
+      padding: 0 20px 40px;
+      font-size: 12px;
+      line-height: 1.5;
+      .cursor {
+        padding: 0 1px;
+        animation: cursor 2s infinite;
+
+        @keyframes cursor {
+          0% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.2;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  .cmd-tools {
+    display: flex;
+    padding: 10px 20px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    @include theme {
+      border-top-color: val((serial, tools, borderColor));
+    }
+    .block {
+      margin-right: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      &.flex-1 {
+        flex: 1;
+      }
+      .stderr {
+        @include theme {
+          color: val((serial, errColor));
+        }
+      }
+      &:last-of-type {
+        margin-right: 0;
+      }
+      .label {
+        width: 70px;
+      }
+      > select {
+        width: 90px;
+      }
+      .btn {
+        margin-left: 10px;
+        min-width: 100px;
+      }
+      .msg {
+        width: 350px;
+        display: inline-block;
+      }
+    }
+  }
+}

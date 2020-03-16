@@ -1,0 +1,351 @@
+@import "./base/index";
+// 背景
+$headerBg: #454755;
+$tabBg: #30313f;
+
+$themeVals: (
+  black: (
+    com: (
+      progress: (
+        bgColor: #454755,
+        mainBgColor: #fff
+      ),
+      contentMenu: (
+        bgColor: rgba(37, 37, 38, 0.96),
+        boxShadow: rgba(0, 0, 0, 0.4) 0px 1px 4px,
+        fontColor: #fff,
+        hoverBgColor: #4c4e5c,
+        lineColor: #303030
+      ),
+      scroll: (
+        all: (
+          bgColor: #30313f,
+          thumbBgColor: #4c4e5c,
+          hoverBgColor: #515363
+        ),
+        edit: (
+          bgColor: #252531,
+          thumbBgColor: #4c4e5c,
+          hoverBgColor: #515363
+        ),
+        file: (
+          bgColor: rgba(0, 0, 0, 0),
+          thumbBgColor: #4c4e5c,
+          hoverBgColor: rgba(0, 0, 0, 0),
+          trackBgColor: rgba(0, 0, 0, 0)
+        )
+      )
+    ),
+    bgColor: #252531,
+    btnBgColor: #6b69f9,
+    borderColor: #363646,
+    header: (
+      title: (
+        background-color: $headerBg,
+        font-size: 12px,
+        color: #fff
+      ),
+      tools: (
+        bgColor: $headerBg,
+        btnBgColor: #7e7e88,
+        fontColor: #e6e5ea,
+        vLineColor: #72757e,
+        btnFontColor: #fff,
+        btnActionColor: #454755,
+        btnActionBgColor: #d8d8db
+      )
+    ),
+    file: (
+      titleColor: #646570,
+      title: (
+        font-size: 10px,
+        color: #fff,
+        background-color: #373849
+      ),
+      bgColor: $tabBg,
+      color: #fff,
+      fileBlock: (
+        font-size: 12px,
+        color: #fff
+      ),
+      fileBlockHover: (
+        background-color: #4c4e5c
+      ),
+      bar: (
+        bgColor: #373849,
+        fontColor: #94949a,
+        activeFontColor: #fff,
+        activeLineColor: #6e6dfe
+      )
+    ),
+    edit: (
+      tab: (
+        bgColor: #31333f,
+        color: #8e8f96,
+        activeColor: #fff,
+        activeBgColor: #252531,
+        fontSize: 12px,
+        vLineColor: #383a48,
+        moreIconColor: #808088,
+        moreActiveIconColor: #fff,
+        normalIconColor: #fff
+      ),
+      body: (
+        color: #fff,
+        helpColor: #fff
+      )
+    ),
+    console: (
+      status: (
+        borderColor: #363646,
+        color: #fff,
+        uploadIconColor: #252532,
+        uploadIconBgColor: #fff,
+        toolsIconColor: #b2b2b7,
+        toolsIconActionColor: #017aff
+      ),
+      message: (
+        color: #fff,
+        errColor: red
+      )
+    ),
+    setting: (
+      labelColor: #fff,
+      hoverBorderColor: #4e94f9,
+      bgColor: #30313f
+    ),
+    about: (
+      titleColor: #efefef,
+      versionColor: #b9b9b9,
+      tipColor: #9e9e9e
+    ),
+    serial: (
+      bgColor: #252531,
+      fontColor: #fff,
+      errColor: red,
+      tools: (
+        borderColor: #363646
+      )
+    ),
+    user: (
+      bgColor: #252531,
+      infoColor: #d2d2d2,
+      infoTitleColor: #efefef,
+      iptLabelColor: #dcdbdb,
+      iptInputColor: #1a1a1a,
+      iptInputBgColor: #dedddd,
+      iptInputBorderColor: #dedddd,
+      iptInputBorderFocus: #4e94f9,
+      btnBgColor: #dedddd,
+      btnBorderColor: #dedddd,
+      btnColor: #4d4c4c,
+      btnDisabledBorderColor: #cdcdcd,
+      btnDisabledBgColor: #e5e4e8,
+      btnDisabledColor: #aaaaaa,
+      btnActiveBorderColor: #4e94f9,
+      btnActiveColor: #4e94f9
+    ),
+    start: (
+      bgColor: #30313f,
+      recentBgColor: #4c4e5c,
+      titleColor: #fff,
+      titleTipColor: #c5c5c5,
+      toolsTitleIconColor: #fff,
+      toolsTitleColor: #fff,
+      toolsTitleTipColor: #fff,
+      projectTitleColor: #fff,
+      projectTitleTipColor: #fff,
+      projectHoverBgColor: rgba(107, 105, 149, 1),
+      projectHoverTitleColor: #fff,
+      projectHoverTitleTipColor: #fff,
+      newBgColor: rgba(76, 78, 92, 1),
+      newTitleColor: rgba(230, 230, 230, 0.7),
+      newBigTitleColor: rgba(255, 255, 255, 0.7),
+      newLabelColor: #fff,
+      newIptBorderColor: #656565,
+      newIptIconColor: #a0a0a0,
+      newIptColor: #878787,
+      newBtnBorderColor: #d1d1d1,
+      newBtnColor: #797979,
+      newBtnBgColor: #fff,
+      newBtnHoverBorderColor: #6b69f9,
+      newBtnHoverColor: #6b69f9,
+      newBtnPrimaryBgColor: #6b69f9,
+      newBtnPrimaryBorderColor: #6b69f9,
+      newBtnPrimaryColor: #fff
+    )
+  ),
+  white: (
+    com: (
+      progress: (
+        bgColor: #fff,
+        mainBgColor: #0179ff
+      ),
+      contentMenu: (
+        bgColor: rgba(255, 255, 255, 0.96),
+        boxShadow: rgba(0, 0, 0, 0.4) 0px 1px 4px,
+        fontColor: #444242,
+        hoverBgColor: #e4e4e4,
+        lineColor: #e4e4e4
+      ),
+      scroll: (
+        all: (
+          bgColor: #fff,
+          thumbBgColor: #ababab,
+          hoverBgColor: #757575
+        ),
+        edit: (
+          bgColor: #fff,
+          thumbBgColor: #ababab,
+          hoverBgColor: #757575
+        ),
+        file: (
+          bgColor: #fff,
+          thumbBgColor: #ababab,
+          hoverBgColor: #757575,
+          trackBgColor: #757575
+        )
+      )
+    ),
+    bgColor: #fff,
+    btnBgColor: #007aff,
+    borderColor: #d6d6d6,
+    header: (
+      title: (
+        background-color: #dfdfdf,
+        font-size: 12px,
+        color: #656565
+      ),
+      tools: (
+        bgColor: #dfdfdf,
+        btnBgColor: #ffffff,
+        fontColor: #656565,
+        vLineColor: #cdcdcd,
+        btnFontColor: #8c8b8b,
+        btnActionColor: #017aff,
+        btnActionBgColor: #f7f7f7
+      )
+    ),
+    file: (
+      titleColor: #94949a,
+      title: (
+        font-size: 10px,
+        color: #94949a,
+        background-color: #e4e4e4
+      ),
+      bgColor: #e6e6e7,
+      color: #313131,
+      fileBlock: (
+        font-size: 12px,
+        color: #2a2a2a
+      ),
+      fileBlockHover: (
+        background-color: #4d98f4,
+        color: #fff
+      ),
+      bar: (
+        bgColor: #d8d8da,
+        fontColor: #94949a,
+        activeFontColor: #017aff,
+        activeLineColor: #017aff
+      )
+    ),
+    edit: (
+      tab: (
+        bgColor: #e3e3e3,
+        color: #585858,
+        activeColor: #313131,
+        activeBgColor: #ffffff,
+        fontSize: 12px,
+        vLineColor: #b2b3bc,
+        moreIconColor: #8c8b8b,
+        moreActiveIconColor: #8c8b8b,
+        normalIconColor: #017aff
+      ),
+      body: (
+        color: #fff,
+        helpColor: #000
+      )
+    ),
+    console: (
+      status: (
+        borderColor: #d6d6d6,
+        color: #454755,
+        uploadIconColor: #252532,
+        uploadIconBgColor: #9e9e9e,
+        toolsIconColor: #adacac,
+        toolsIconActionColor: #017aff,
+        bgColor: #ececec
+      ),
+      message: (
+        color: #000,
+        errColor: red
+      )
+    ),
+    setting: (
+      labelColor: #1b1b1b,
+      hoverBorderColor: #4e94f9,
+      bgColor: #fff
+    ),
+    about: (
+      titleColor: #252531,
+      versionColor: #81828c,
+      tipColor: #81828c
+    ),
+    serial: (
+      bgColor: #fff,
+      fontColor: #252531,
+      errColor: red,
+      tools: (
+        borderColor: #e9e9ea
+      )
+    ),
+    user: (
+      bgColor: #efeef2,
+      infoColor: #939393,
+      infoTitleColor: #252531,
+      iptLabelColor: #383838,
+      iptInputColor: #1a1a1a,
+      iptInputBgColor: #fff,
+      iptInputBorderColor: #fff,
+      iptInputBorderFocus: #4e94f9,
+      btnBgColor: #fff,
+      btnBorderColor: #d1d1d1,
+      btnColor: #4d4c4c,
+      btnDisabledBorderColor: #cdcdcd,
+      btnDisabledBgColor: #e5e4e8,
+      btnDisabledColor: #aaaaaa,
+      btnActiveBorderColor: #4e94f9,
+      btnActiveColor: #4e94f9
+    ),
+    start: (
+      bgColor: #fff,
+      recentBgColor: #efeef2,
+      titleColor: #252531,
+      titleTipColor: #81828c,
+      toolsTitleIconColor: #252531,
+      toolsTitleColor: #252531,
+      toolsTitleTipColor: #252531,
+      projectTitleColor: #252531,
+      projectTitleTipColor: #252531,
+      projectHoverBgColor: #4e94f9,
+      projectHoverTitleColor: #fff,
+      projectHoverTitleTipColor: #fff,
+      newBgColor: rgba(239, 238, 242, 1),
+      newTitleColor: rgba(129, 130, 140, 1),
+      newBigTitleColor: rgba(37, 37, 49, 1),
+      newLabelColor: #252531,
+      newIptBorderColor: #eee,
+      newIptIconColor: #a0a0a0,
+      newIptColor: #252531,
+      newBtnBorderColor: #d1d1d1,
+      newBtnColor: #797979,
+      newBtnBgColor: #fff,
+      newBtnHoverBorderColor: #4e94f9,
+      newBtnHoverColor: #4e94f9,
+      newBtnPrimaryBgColor: #4e94f9,
+      newBtnPrimaryBorderColor: #4e94f9,
+      newBtnPrimaryColor: #fff
+    )
+  )
+);

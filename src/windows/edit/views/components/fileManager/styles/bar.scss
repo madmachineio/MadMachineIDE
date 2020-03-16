@@ -1,0 +1,48 @@
+@import "~@windows/assets/styles/variables";
+
+.file-manager-bar {
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  border-top-width: 1px;
+  border-top-style: solid;
+  @include theme {
+    background-color: val((file, bar, bgColor));
+    color: val((file, bar, fontColor));
+    border-color: val((borderColor));
+  }
+
+  > div {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    margin-left: 36px;
+    position: relative;
+    cursor: pointer;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:hover {
+      @include theme {
+        color: val((file, bar, activeFontColor));
+      }
+    }
+    &.active {
+      @include theme {
+        color: val((file, bar, activeFontColor));
+      }
+      &:after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        @include theme {
+          background-color: val((file, bar, activeLineColor));
+        }
+      }
+    }
+  }
+}

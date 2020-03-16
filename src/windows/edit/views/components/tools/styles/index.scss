@@ -1,0 +1,75 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-tools {
+  display: flex;
+  padding: 10px 20px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  @include theme {
+    background-color: val((header, tools, bgColor));
+    color: val((header, tools, fontColor));
+    border-color: val((borderColor));
+  }
+  .left-block {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  .right-block {
+    display: flex;
+    align-items: center;
+  }
+  .group {
+    border-radius: 4px;
+    margin-right: 20px;
+    font-size: 12px;
+    overflow: hidden;
+    border-width: 1px;
+    border-style: solid;
+    @include theme {
+      background-color: val((header, tools, btnBgColor));
+      color: val((header, tools, btnFontColor));
+      border-color: val((header, tools, vLineColor));
+    }
+    > span {
+      padding: 2px 8px;
+      display: inline-block;
+      cursor: pointer;
+      > span {
+        cursor: pointer;
+      }
+      &:not(.disabled){
+        &:active {
+          @include theme {
+            color: val((header, tools, btnActionColor));
+            background-color: val((header, tools, btnActionBgColor));
+          }
+        }
+      }
+      &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        > span {
+          cursor: not-allowed;
+        }
+      }
+      &.actived {
+        @include theme {
+          color: val((header, tools, btnActionColor));
+          background-color: val((header, tools, btnActionBgColor));
+        }
+      }
+      &:nth-of-type(n + 2) {
+        @include theme {
+          border-left: 1px solid val((header, tools, vLineColor));
+        }
+      }
+    }
+  }
+  .user-info {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}

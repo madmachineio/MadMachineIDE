@@ -1,0 +1,61 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-console-status {
+  height: 30px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  padding: 0 20px;
+  font-size: 12px;
+  @include theme {
+    border-color: val((console, status, borderColor));
+    color: val((console, status, color));
+    background-color: val((console, status, bgColor));
+  }
+  .status {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    .status-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      margin-right: 6px;
+      @include theme {
+        color: val((console, status, uploadIconColor));
+        background-color: val((console, status, uploadIconBgColor));
+      }
+    }
+    .text {
+      font-weight: bold;
+    }
+    .status-progress {
+      width: 120px;
+      margin-left: 10px;
+    }
+  }
+  .tools {
+    .icon-top {
+      .component-icon {
+        transform: rotateZ(180deg);
+      }
+    }
+    .component-icon {
+      padding: 0 5px;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+      @include theme {
+        color: val((console, status, toolsIconColor));
+      }
+      &:active {
+        @include theme {
+          color: val((console, status, toolsIconActionColor));
+        }
+      }
+    }
+  }
+}

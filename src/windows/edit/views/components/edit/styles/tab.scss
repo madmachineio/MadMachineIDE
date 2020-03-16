@@ -1,0 +1,112 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-edit-tab {
+  user-select: none;
+  display: flex;
+  @include theme {
+    background-color: val((edit, tab, bgColor));
+  }
+  .files-wrap {
+    flex: 1;
+    height: 32px;
+    position: relative;
+    .file-scrollbar {
+      position: relative;
+      display: block;
+      height: 4px;
+      cursor: pointer;
+      border-radius: 4px;
+      bottom: -6px;
+      @include theme {
+        background-color: val((com, scroll, all, thumbBgColor));
+      }
+    }
+    .file-tab-scroller {
+      display: flex;
+      > li {
+        height: 32px;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 18px;
+        position: relative;
+        cursor: pointer;
+        .text {
+          padding: 10px;
+        }
+        .icon {
+          width: 12px;
+          .hover-icon {
+            display: none;
+          }
+        }
+        .normal-icon {
+          @include theme {
+            color: val((edit, tab, normalIconColor));
+          }
+        }
+        &:hover {
+          .normal-icon {
+            display: none;
+          }
+          .hover-icon {
+            display: inline-block;
+          }
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 100%;
+          width: 1px;
+          @include theme {
+            background-color: val((edit, tab, vLineColor));
+          }
+        }
+        &.active {
+          &:after {
+            opacity: 0;
+          }
+          &:before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            @include theme {
+              background-color: val((edit, tab, activeBgColor));
+            }
+          }
+          @include theme {
+            background-color: val((edit, tab, activeBgColor));
+            color: val((edit, tab, activeColor));
+          }
+        }
+        @include theme {
+          font-size: val((edit, tab, fontSize));
+          color: val((edit, tab, color));
+        }
+      }
+    }
+  }
+
+  .edit-more {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    @include theme {
+      color: val((edit, tab, moreIconColor));
+    }
+    &:hover {
+      @include theme {
+        color: val((edit, tab, moreActiveIconColor));
+      }
+    }
+    .edit-more-dialog {
+      position: absolute;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@import "~@windows/assets/styles/variables";
+
+.component-content-menu {
+  position: fixed;
+  z-index: 99;
+  border-radius: 4px;
+  padding: 4px 0;
+  user-select: none;
+  @include theme {
+    background-color: val((com, contentMenu, bgColor));
+    box-shadow: val((com, contentMenu, boxShadow));
+    color: val((com, contentMenu, fontColor));
+  }
+  .menu-list {
+    font-size: 12px;
+    .menu-item {
+      display: flex;
+      padding: 8px 20px 8px 26px;
+      cursor: pointer;
+      &:hover {
+        @include theme {
+          background-color: val((com, contentMenu, hoverBgColor));
+        }
+      }
+      .menu-name {
+        flex: 1;
+      }
+      .menu-key {
+        padding-left: 40px;
+        font-family: sans-serif;
+      }
+    }
+    .menu-line {
+      padding: 0 10px;
+      > div {
+        height: 1px;
+        @include theme {
+          background-color: val((com, contentMenu, lineColor));
+        }
+      }
+    }
+  }
+}

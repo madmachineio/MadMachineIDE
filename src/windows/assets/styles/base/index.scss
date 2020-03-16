@@ -1,0 +1,48 @@
+@mixin theme() {
+  @each $theme-name, $map in $themeVals {
+    [data-theme="#{$theme-name}"] & {
+      $theme-map: () !global;
+      @each $key, $value in $map {
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value
+          )
+        ) !global;
+      }
+
+      @content;
+
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function getMapByKey($map, $keys, $index) {
+  $key: $keys;
+  $len: 0;
+  @if type-of($value: $keys) == list {
+    $key: nth($keys, $index);
+    $len: length($keys) - $index;
+  }
+  $data: map-get(
+    $map: $map,
+    $key: $key
+  );
+  @if type-of($value: $data) == map and $len > 0 {
+    @return getMapByKey($data, $keys, $index + 1);
+  } @else {
+    @return $data;
+  }
+}
+
+@function val($keys) {
+  @return getMapByKey($theme-map, $keys, 1);
+}
+
+@mixin val($keys) {
+  $list: getMapByKey($theme-map, $keys, 1);
+  @each $key, $val in $list {
+    #{$key}: #{$val};
+  }
+}

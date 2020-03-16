@@ -1,0 +1,12 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-header {
+  padding: 6px 0 0 0;
+  text-align: center;
+  line-height: 1;
+  user-select: none;
+
+  @include theme {
+    @include val((header, title));
+  }
+}

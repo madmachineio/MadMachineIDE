@@ -1,0 +1,63 @@
+@import "~@windows/assets/styles/variables";
+
+.layout-edit {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .edit-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    .edit-tip-content {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      .edit-tip-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        min-height: 200px;
+        .tip-content {
+          user-select: none;
+          display: flex;
+          align-items: center;
+          .tip-logo {
+            text-align: center;
+            > img {
+              width: 184px;
+              opacity: 0.28;
+            }
+          }
+          .content-list {
+            margin-left: 50px;
+            font-size: 12px;
+            @include theme {
+              color: val((edit, body, helpColor));
+            }
+            > li {
+              display: flex;
+              align-items: center;
+              margin-top: 20px;
+              > .label {
+                width: 74px;
+                opacity: 0.6;
+              }
+              > .message {
+                flex: 1;
+                padding-left: 12px;
+                font-size: 10px;
+                white-space: nowrap;
+                text-align: left;
+                opacity: 0.3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

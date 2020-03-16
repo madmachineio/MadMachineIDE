@@ -1,0 +1,82 @@
+@import "~@windows/assets/styles/variables";
+
+@font-face {
+  font-family: "RobotoMono";
+  src: url("~@windows/assets/fonts/RobotoMono-Regular.ttf") format("truetype");
+}
+
+.layout-edit-body {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  font-size: 14px;
+  padding: 4px 4px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  .CodeMirror {
+    font-family: RobotoMono;
+    &:hover {
+      .CodeMirror-simplescroll-vertical,
+      .CodeMirror-simplescroll-horizontal {
+        opacity: 1;
+      }
+    }
+    .CodeMirror-simplescroll-vertical,
+    .CodeMirror-simplescroll-horizontal {
+      background: none;
+      width: 5px;
+      border-radius: 4px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      > div {
+        @include theme {
+          background-color: val((com, scroll, all, thumbBgColor));
+          border-color: val((com, scroll, all, thumbBgColor));
+        }
+      }
+    }
+    .CodeMirror-linenumber {
+      font-size: 12px;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+  @include theme {
+    color: val((edit, body, color));
+  }
+  .content {
+    padding: 8px 28px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: none;
+    resize: none;
+    margin: 0;
+    border: 0;
+    color: #fff;
+    &.show {
+      display: block;
+    }
+    &:active,
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+  }
+  .CodeMirror {
+    background: none;
+    .CodeMirror-gutters {
+      background: none;
+    }
+    pre {
+      padding-left: 10px;
+    }
+  }
+}
