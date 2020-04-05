@@ -27,12 +27,15 @@ module.exports = {
     chokidar: 'commonjs chokidar',
     lodash: 'commonjs lodash',
     serialport: 'commonjs serialport',
-    // 'usb-detection': 'commonjs usb-detection',
-    usb: 'commonjs usb',
+    'usb-detection': 'commonjs usb-detection',
     'sudo-prompt': 'commonjs sudo-prompt',
     'node-pty': 'commonjs node-pty',
     'tiny-worker': 'commonjs tiny-worker',
     'strip-ansi': 'commonjs strip-ansi',
+    'drivelist': 'commonjs drivelist',
+    'node-usbspy': 'commonjs node-usbspy',
+    'usb': 'commonjs usb',
+    'stat-mode': 'commonjs stat-mode'
   },
   // externals: [
   //   "express": 'commonjs express',
@@ -124,8 +127,16 @@ module.exports = {
         ignore: ['build/lib/**/*'],
       },
       {
-        from: pathResolve(`/src/public/build/lib/${os.platform() === 'win32' ? 'win' : os.platform() === 'darwin' ? 'mac' : 'linux'}`),
-        to: pathResolve(`/dist/public/build/lib/${os.platform() === 'win32' ? 'win' : os.platform() === 'darwin' ? 'mac' : 'linux'}`),
+        from: pathResolve(`/src/public/build/lib/lib`),
+        to: pathResolve(`/dist/public/build/lib/lib`),
+      },
+      {
+        from: pathResolve(`/src/public/build/lib/hal`),
+        to: pathResolve(`/dist/public/build/lib/hal`),
+      },
+      {
+        from: pathResolve(`/src/public/build/lib/${os.platform() === 'win32' ? 'tools_win' : os.platform() === 'darwin' ? 'tools_mac' : 'tools_linux'}`),
+        to: pathResolve(`/dist/public/build/lib/${os.platform() === 'win32' ? 'tools_win' : os.platform() === 'darwin' ? 'tools_mac' : 'tools_linux'}`),
       },
       {
         from: pathResolve('/resources'),

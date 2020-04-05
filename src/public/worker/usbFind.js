@@ -4,60 +4,85 @@ const iconv = require('iconv-lite')
 const childProcess = require('child_process')
 const os = require('os')
 const fs = require('fs')
+const WinReg = require('winreg')
 
-// const findUsb = function (type) {
-//   return new Promise((resolve) => {
+// 相同的结果只发送一次
+let lastUsbPath = null
+const sendMsg = usbPath => {
+  if (usbPath !== lastUsbPath) {
+    if (usbPath && fs.existsSync(usbPath)) {
+      postMessage({
+        usbPath,
+        exist: true,
+      })
+    } else {
+      postMessage({
+        usbPath,
+        exist: false,
+      })
+    }
+  }
 
-//   })
-// }
+  lastUsbPath = usbPath
+}
 
-// module.exports = function myTask(usbName) {
-//   console.log('===============', arguments)
+const findUsb = (list, vid, pid) => {
+  let usbData = null
+  list.forEach(item => {
+    const productId = (item || {}).product_id || ''
+    const vendorId = (item || {}).vendor_id || ''
+    const items = (item || {})._items || []
+    if (productId.includes(pid) && vendorId.includes(vid)) {
+      usbData = item
+    } else if (items.length) {
+      usbData = findUsb(item._items, vid, pid) || usbData
+    }
+  })
+  return usbData
+}
 
-// }
-
+const getUsbPath = (usbData = {}) => {
+  let usbPath = null
+  if (usbData && usbData.Media && usbData.Media.length) {
+    usbData.Media.forEach(item => {
+      if (item.volumes && item.volumes.length) {
+        const volume = (item.volumes || []).find(m => m.mount_point) || { mount_point: null }
+        usbPath = volume.mount_point
+      }
+    })
+  }
+  return usbPath
+}
 
 onmessage = function (ev) {
   const config = ev.data
   const usbName = config.name
-  let status = false
 
-  const timeId = setInterval(function () {
-    let usbPath = ''
+  const vid = '0x1fc9' // 8137
+  const pid = '0x0093' // 147
+
+  const timeId = setInterval(() => {
     switch (os.platform()) {
       case 'win32':
         {
-          const disks = iconv.decode(childProcess.execSync('powershell.exe -c "Get-WmiObject Win32_logicaldisk | Select-Object deviceid,description,volumeName"'), 'cp936').split('\n')
-          const dir = disks
-            .map((item) => {
-              const data = item.match(/\S+/g) || []
-              return {
-                name: data[2],
-                path: `${data[0]}\\`,
-              }
-            })
-            .filter(m => m.name === usbName)[0] || {}
-          usbPath = dir.path
+          const regKey = new WinReg({
+            hive: WinReg.HKLM,
+            key: '\\SYSTEM\\CurrentControlSet\\Services\\USBSTOR\\Enum'
+          })
+          regKey.values((err, items) => {
+            console.log(items)
+          })
         }
         break
       case 'darwin':
-        usbPath = `/Volumes/${usbName}`
-        break
-      case 'linux':
-        usbPath = `/media/${usbName}`
+        {
+          const result = childProcess.execSync('/usr/sbin/system_profiler -json mini SPUSBDataType')
+          const resObj = JSON.parse(result)
+          const usbData = findUsb(resObj.SPUSBDataType, vid, pid)
+          sendMsg(getUsbPath(usbData))
+        }
         break
       default:
-    }
-
-    statusTmp = fs.existsSync(usbPath)
-
-    if (status !== statusTmp) {
-      postMessage({
-        usbPath,
-        exist: statusTmp,
-      })
-
-      status = statusTmp
     }
   }, 1000)
 }

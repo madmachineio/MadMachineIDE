@@ -1,5 +1,5 @@
 import { app } from 'electron'
-// import childProcess from 'child_process'
+import childProcess from 'child_process'
 import path from 'path'
 import fs from 'fs'
 import sudo from 'sudo-prompt'
@@ -36,10 +36,10 @@ class ConsoleManager {
     this.eventEmitter.emit('status', this.runStatus)
     this.cmdMessage = []
 
-    const isPermssion = await this.checkPermission()
-    if (!isPermssion) {
-      await this.chmodFolder()
-    }
+    // const isPermssion = await this.checkPermission()
+    // if (!isPermssion) {
+    //   await this.chmodFolder()
+    // }
 
     const { fileManager } = this.editWindow
     const buildFolder = path.resolve(fileManager.folderPath, 'build')
@@ -80,6 +80,31 @@ class ConsoleManager {
         } else {
           // eslint-disable-next-line
           resolve((stats.mode & 0o777).toString(8) === '775')
+        }
+      })
+    })
+  }
+
+  execCmd2(cmd, isRoot = false) {
+    if (this.runStatus === 'error') {
+      return false
+    }
+
+    return new Promise((resolve, reject) => {
+      const options = {
+        name: 'MadMachine',
+        // icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
+      }
+
+      const exec = isRoot ? sudo.exec : childProcess.exec
+      exec(cmd, options, (error, stdout) => {
+        if (error) {
+          this.runStatus = 'error'
+          this.eventEmitter.emit('message', error)
+          reject(error)
+        } else {
+          this.eventEmitter.emit('message', stdout)
+          resolve(stdout)
         }
       })
     })
