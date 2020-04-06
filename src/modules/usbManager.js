@@ -86,6 +86,7 @@ class UsbManager {
 
     findUsbWorker.postMessage({
       name: getConfig('USB.NAME'),
+      rootPath: path.resolve(__dirname),
     })
     // const findUsb = () => {
     //   findUsbWorker.call(getConfig('USB.NAME'), type).then((data) => {
@@ -130,7 +131,7 @@ class UsbManager {
   copyFile() {
     const { fileManager } = this.editWindow
     const fileName = 'swiftio.bin'
-    const filePath = path.resolve(fileManager.folderPath, 'build', fileName)
+    const filePath = path.resolve(fileManager.folderPath, '.build', fileName)
     const targetPath = path.resolve(this.path, fileName)
 
     if (!fs.existsSync(this.path)) {

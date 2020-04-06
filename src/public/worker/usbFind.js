@@ -1,10 +1,11 @@
 /* eslint-disable */
 
-const iconv = require('iconv-lite')
 const childProcess = require('child_process')
 const os = require('os')
 const fs = require('fs')
-const WinReg = require('winreg')
+const path = require('path')
+const iconv = require('iconv-lite');
+const drivelist = require('drivelist')
 
 // 相同的结果只发送一次
 let lastUsbPath = null
@@ -57,21 +58,27 @@ const getUsbPath = (usbData = {}) => {
 onmessage = function (ev) {
   const config = ev.data
   const usbName = config.name
+  const rootPath = config.rootPath
 
   const vid = '0x1fc9' // 8137
   const pid = '0x0093' // 147
+  const deviceId = '0123456789ABCDEF'
 
-  const timeId = setInterval(() => {
+
+  const timeId = setInterval(async () => {
     switch (os.platform()) {
       case 'win32':
         {
-          const regKey = new WinReg({
-            hive: WinReg.HKLM,
-            key: '\\SYSTEM\\CurrentControlSet\\Services\\USBSTOR\\Enum'
+          const drives = await drivelist.list();
+          const drivePath = drives.map(({ mountpoints }) => {
+            const mountPoint = mountpoints[0] || {}
+            return mountPoint.path
+          }).find(usbPath => {
+            const result = iconv.decode(childProcess.execSync(`${path.resolve(rootPath, 'public/usb/usb.exe')} ${usbPath.replace('\\', '')}`), 'cp936')
+            return result && result.includes(deviceId)
           })
-          regKey.values((err, items) => {
-            console.log(items)
-          })
+          
+          sendMsg(drivePath)
         }
         break
       case 'darwin':

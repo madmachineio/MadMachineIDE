@@ -35,7 +35,8 @@ module.exports = {
     'drivelist': 'commonjs drivelist',
     'node-usbspy': 'commonjs node-usbspy',
     'usb': 'commonjs usb',
-    'stat-mode': 'commonjs stat-mode'
+    'stat-mode': 'commonjs stat-mode',
+    'drivelist': 'commonjs drivelist'
   },
   // externals: [
   //   "express": 'commonjs express',

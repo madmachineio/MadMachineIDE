@@ -8,6 +8,7 @@ import * as pty from 'node-pty'
 // import stripAnsi from 'strip-ansi'
 import buildScript from '../public/build/main'
 import { mkdirsSync } from '../utils/path'
+// import iconv from 'iconv-lite'
 
 const resolvePath = (dir = '') => path.resolve(__dirname, './public/build', dir)
 
