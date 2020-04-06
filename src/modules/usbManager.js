@@ -1,14 +1,11 @@
 import os from 'os'
 import fs from 'fs'
 // import { app } from 'electron'
-import USB from 'usb'
 import childProcess from 'child_process'
 import path from 'path'
 import * as pty from 'node-pty'
 import Worker from 'tiny-worker'
 
-
-// import usbDetect from '../../node_modules/usb-detection'
 import { getConfig } from '../config'
 
 class UsbManager {
@@ -16,7 +13,6 @@ class UsbManager {
     this.eventEmitter = eventEmitter
     this.editWindow = editWindow
 
-    this.usb = null
     this.events = {}
     this.timeId = 0
     this.isMount = false
@@ -27,16 +23,40 @@ class UsbManager {
   }
 
   init() {
-    this.initUsb()
     this.initEvent()
   }
 
-  initUsb() {
-    this.usb = USB
-    // this.usb.startMonitoring()
-  }
-
   initEvent() {
+    // usbspy.on('change', (device) => {
+    //   console.log(device)
+    // })
+
+    // const usbList = []
+    // usbDetect.on('add:8137:147', (device) => {
+    //   console.log('add', device)
+    //   const poll = setInterval(() => {
+    //     drivelist.list().then((drives) => {
+    //       console.log(JSON.stringify(drives))
+    //       drives.forEach((drive) => {
+    //         if (drive.isUSB) {
+    //           if (drive.mountpoints && drive.mountpoints.length > 0) {
+    //             const mountPath = drive.mountpoints[0].path
+    //             if (!usbList.includes(mountPath)) {
+    //               console.log(mountPath) // op
+    //               usbList.push(mountPath)
+    //               clearInterval(poll)
+    //             }
+    //           }
+    //         }
+    //       })
+    //     })
+    //   }, 2000)
+    // })
+    // usbDetect.on('add', (device) => {
+    //   setInterval(() => {
+    //     usbDetect.find(8137, 147, (err, devices) => { console.log('find', devices, err) })
+    //   }, 1000)
+    // })
     // this.usb.on('attach', () => {
     //   this.findDevice('add')
     // })
@@ -49,7 +69,9 @@ class UsbManager {
   }
 
   findDevice() {
-    const findUsbWorker = new Worker(path.resolve(__dirname, 'public/worker/usbFind.js'))
+    const findUsbWorker = new Worker(
+      path.resolve(__dirname, 'public/worker/usbFind.js'),
+    )
     findUsbWorker.onmessage = ({ data }) => {
       this.path = data.usbPath
 
@@ -95,7 +117,10 @@ class UsbManager {
 
   check() {
     if (!fs.existsSync(this.path)) {
-      this.editWindow.consoleManager.sendMessage('stderr', 'USB device not found \r\n')
+      this.editWindow.consoleManager.sendMessage(
+        'stderr',
+        'USB device not found \r\n',
+      )
       return false
     }
 
@@ -109,27 +134,38 @@ class UsbManager {
     const targetPath = path.resolve(this.path, fileName)
 
     if (!fs.existsSync(this.path)) {
-      this.editWindow.consoleManager.sendMessage('stderr', 'USB device not found \r\n')
+      this.editWindow.consoleManager.sendMessage(
+        'stderr',
+        'USB device not found \r\n',
+      )
       return false
     }
 
     if (!fs.existsSync(filePath)) {
-      this.editWindow.consoleManager.sendMessage('stderr', 'File not found \r\n')
+      this.editWindow.consoleManager.sendMessage(
+        'stderr',
+        'File not found \r\n',
+      )
       return false
     }
-
 
     try {
       fs.accessSync(filePath, fs.constants.R_OK)
     } catch (ex) {
-      this.editWindow.consoleManager.sendMessage('stderr', `${filePath} not readable \r\n`)
+      this.editWindow.consoleManager.sendMessage(
+        'stderr',
+        `${filePath} not readable \r\n`,
+      )
       return false
     }
 
     try {
       fs.accessSync(this.path, fs.constants.W_OK)
     } catch (ex) {
-      this.editWindow.consoleManager.sendMessage('stderr', `${this.path} not writeable \r\n`)
+      this.editWindow.consoleManager.sendMessage(
+        'stderr',
+        `${this.path} not writeable \r\n`,
+      )
       return false
     }
 
@@ -164,7 +200,10 @@ class UsbManager {
             const enject = () => {
               const cmdOpts = {
                 shell: 'powershell.exe',
-                args: ['-c', `(New-Object -comObject Shell.Application).Namespace(17).ParseName("${this.path}").InvokeVerb("Eject")`],
+                args: [
+                  '-c',
+                  `(New-Object -comObject Shell.Application).Namespace(17).ParseName("${this.path}").InvokeVerb("Eject")`,
+                ],
               }
               const ptyProc = pty.spawn(cmdOpts.shell, cmdOpts.args, {
                 cwd: process.env.HOME,
@@ -192,7 +231,10 @@ class UsbManager {
 
       this.copyProgress = 0
       this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
-      this.editWindow.consoleManager.sendMessage('stdout', 'Download file success \r\n')
+      this.editWindow.consoleManager.sendMessage(
+        'stdout',
+        'Download file success \r\n',
+      )
     })
 
     ws.on('error', () => {
@@ -200,7 +242,10 @@ class UsbManager {
 
       this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
 
-      this.editWindow.consoleManager.sendMessage('stderr', 'Download file error \r\n')
+      this.editWindow.consoleManager.sendMessage(
+        'stderr',
+        'Download file error \r\n',
+      )
     })
 
     return true

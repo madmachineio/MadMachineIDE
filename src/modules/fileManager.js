@@ -3,9 +3,8 @@ import os from 'os'
 import childProcess from 'child_process'
 import { dialog } from 'electron'
 import path from 'path'
-import chokidar from 'chokidar'
 
-import { fromatPath } from '../utils/path'
+import { fromatPath, mkdirsSync } from '../utils/path'
 import { getConfig, setConfig } from '../config'
 
 const EXT_FILES = ['.swift']
@@ -178,8 +177,13 @@ class FileManager {
   }
 
   createProjectFile(filePath) {
-    const fpath = path.resolve(filePath, `${fromatPath(filePath).fileFullName}.mmswift`)
+    const projectName = fromatPath(filePath).fileFullName
+    const fpath = path.resolve(filePath, `${projectName}.mmswift`)
     fs.writeFileSync(fpath, '')
+
+    // 添加Source文件夹，存放代码
+    mkdirsSync(path.resolve(filePath, `Sources/${projectName}`))
+
     return fpath
   }
 
@@ -203,16 +207,22 @@ class FileManager {
 
     const key = pathTmp.split(global.PATH_SPLIT).slice(-1)
     const [name] = key
+
+    const sourcePath = `${pathTmp}/Sources/${name}`
+    mkdirsSync(sourcePath)
+
     this.folderData = {
       name,
-      key,
-      path: pathTmp,
+      key: sourcePath.split(global.PATH_SPLIT).slice(-1),
+      projectPath: pathTmp,
+      path: sourcePath,
       isDirectory: true,
       children: [],
     }
     this.projectName = name
 
-    this.readeFolderSave(pathTmp)
+    // Sources/${projectName} 目录下放代码
+    this.readeFolderSave(sourcePath)
 
     this.openFiles = []
     this.eventEmitter.emit('OPEN_FILES', this.openFiles)
