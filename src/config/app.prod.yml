@@ -1,6 +1,6 @@
 default:
   NAME: MadMachine
-  DEBUG: true
+  DEBUG: false
 
   EDITER:
     FONTSIZE: 14
