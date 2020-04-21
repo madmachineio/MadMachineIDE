@@ -7,23 +7,48 @@
     "browser": true,
     "node": true
   },
-  "extends": ["react-app", "eslint-config-airbnb"],
+  "extends": [
+    "react-app",
+    "eslint-config-airbnb"
+  ],
   "rules": {
     "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,
     "linebreak-style": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "semi": ["error", "never"],
-    "class-methods-use-this": [0],
-    "no-new": [0],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "class-methods-use-this": [
+      0
+    ],
+    "no-new": [
+      0
+    ],
     "no-console": 0,
     "import/no-unresolved": 0,
-    "max-len": [1, 200],
+    "max-len": [
+      1,
+      200
+    ],
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "react/forbid-prop-types": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "jsx-a11y/no-autofocus": 0,
-    "react/jsx-one-expression-per-line": 0
+    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-indent": 0,
+    "indent": 0,
+    "no-control-regex": 0,
+    "arrow-parens": 0
   }
 }

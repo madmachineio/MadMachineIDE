@@ -43,10 +43,10 @@ class ConsoleManager {
     // }
 
     const { fileManager } = this.editWindow
-    const buildFolder = path.resolve(fileManager.folderPath, 'build')
-    if (!fs.existsSync(buildFolder)) {
-      mkdirsSync(buildFolder)
-    }
+    const buildFolder = path.resolve(fileManager.folderPath, '.build')
+    // if (!fs.existsSync(buildFolder)) {
+    //   mkdirsSync(buildFolder)
+    // }
 
     try {
       await buildScript(app.getAppPath(), fileManager.folderPath, fileManager.projectName, fileManager.folderData.children, buildFolder, this.execCmd.bind(this))
@@ -67,7 +67,7 @@ class ConsoleManager {
         // icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
       }
 
-      sudo.exec(`chmod -R 775 ${resolvePath()}`, options, (error, stdout) => {
+      sudo.exec(`chmod -R 777 ${resolvePath()}`, options, (error, stdout) => {
         resolve(stdout)
       })
     })

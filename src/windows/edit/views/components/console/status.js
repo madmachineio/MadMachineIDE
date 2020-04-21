@@ -38,7 +38,7 @@ class ConsoleStatus extends Component {
     } else if (buildStatus === 'error') {
       compileText = 'Compilation error.'
     } else if (buildStatus === 'success') {
-      compileText = 'Done Compiling.'
+      compileText = 'Compiled.'
     }
 
     return (
@@ -48,9 +48,7 @@ class ConsoleStatus extends Component {
             <div className="status-icon">
               <Icon icon="swift" />
             </div>
-          ) : (
-            ''
-          )}
+          ) : ''}
 
           {progress > 0 ? <span className="text">Download...</span> : <span className="text">{compileText}</span>}
           {progress > 0 ? (

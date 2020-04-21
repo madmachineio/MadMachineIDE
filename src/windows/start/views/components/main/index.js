@@ -70,21 +70,25 @@ class Main extends Component {
         </div>
         <div className="recent-history">
           {historyProject && historyProject.length ? (
-            historyProject.map(item => (
-              <div className="project-item" key={item.projectFile} onClick={this.openHistoryProject.bind(this, item)}>
-                <div className="icon">
-                  <img src={blackIcon} className="black" alt="icon" />
-                  <img src={whiteIcon} className="white" alt="icon" />
+            historyProject.map(item => {
+              const MaxNum = Math.max(20, 38 - (item.folderPath.slice(-38).match(/[^\x00-\xff]/g) || []).length * 1)
+              return (
+                <div className="project-item" key={item.projectFile} onClick={this.openHistoryProject.bind(this, item)}>
+                  <div className="icon">
+                    <img src={blackIcon} className="black" alt="icon" />
+                    <img src={whiteIcon} className="white" alt="icon" />
+                  </div>
+                  <div className="project-info" title={item.folderPath}>
+                    <div className="title ellipsis">{item.projectName}</div>
+                    <div className="path">{item.folderPath.length > MaxNum ? `...${item.folderPath.slice(-MaxNum)}` : item.folderPath}</div>
+                    {/* <div className="path">{'如果这里是中文目录不知道能显示下多少个文字如'.length}</div> */}
+                  </div>
                 </div>
-                <div className="project-info" title={item.folderPath}>
-                  <div className="title ellipsis">{item.projectName}</div>
-                  <div className="path">{item.folderPath.length > 40 ? `...${item.folderPath.slice(-40)}` : item.folderPath}</div>
-                </div>
-              </div>
-            ))
+              )
+            })
           ) : (
-            <div className="project-recent-tip">No Recent Project</div>
-          )}
+              <div className="project-recent-tip">No Recent Project</div>
+            )}
         </div>
       </div>
     )

@@ -39,5 +39,5 @@ export default async (appPath, projectFolder, projectName, projectFiles, buildFo
   //   await runExec(`chmod u+x ${runPath}`)
   // }
 
-  await runExec(`${runPath} -n ${projectName} --sdk ${sdkPath} --src ${filesPath}`, projectFolder)
+  await runExec(`"${runPath}" -n ${projectName} --sdk "${sdkPath}" --src "${filesPath}"`, projectFolder)
 }

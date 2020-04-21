@@ -223,7 +223,7 @@ class UsbManager {
           }
           break
         case 'darwin':
-          childProcess.execSync(`diskutil eject ${this.path}`)
+          childProcess.execSync(`diskutil eject "${this.path}"`)
           break
         case 'linux':
           break
@@ -234,7 +234,7 @@ class UsbManager {
       this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
       this.editWindow.consoleManager.sendMessage(
         'stdout',
-        'Download file success \r\n',
+        'Done \r\n',
       )
     })
 
