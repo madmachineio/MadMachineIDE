@@ -1,6 +1,6 @@
 {
   "name": "mad-machine",
-  "version": "0.0.7",
+  "version": "0.0.10",
   "private": true,
   "productName": "MadMachine",
   "description": "MadMachine Application",
@@ -79,7 +79,8 @@
       "perMachine": true,
       "allowElevation": true,
       "createDesktopShortcut": true,
-      "runAfterFinish": true
+      "runAfterFinish": true,
+      "include": "installer.nsh"
     },
     "dmg": {
       "icon": "resources/logo/install.icns",
@@ -112,7 +113,6 @@
     "tiny-worker": "^2.3.0",
     "usb": "^1.6.2",
     "usb-detection": "^4.7.0",
-    "winreg": "^1.2.4",
     "worker-nodes": "^1.6.1"
   },
   "devDependencies": {
@@ -138,7 +138,7 @@
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
-    "electron-builder": "^20.44.4",
+    "electron-builder": "^22.4.1",
     "electron-prebuilt-compile": "4.0.0",
     "electron-rebuild": "1.8.5",
     "eslint": "5.12.0",

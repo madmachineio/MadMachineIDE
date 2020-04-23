@@ -48,10 +48,10 @@ class ExampleManager {
       .filter(m => m.isDirectory)
       .map(item => ({
         ...item,
-        children: (item.children || []).sort((a, b) => {
-          const reg = /^Mission(\d+)/
-          return a.name.match(reg)[1] - b.name.match(reg)[1]
-        }),
+        // children: (item.children || []).sort((a, b) => {
+        //   const reg = /^Mission(\d+)/
+        //   return a.name.match(reg)[1] - b.name.match(reg)[1]
+        // }),
       }))
 
     this.eventEmitter.emit('EXAMPLE_LIST', this.list)

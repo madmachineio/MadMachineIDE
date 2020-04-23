@@ -371,16 +371,18 @@ class EditWindow {
             (folders) => {
               if (folders) {
                 const [folderPath] = folders
-                this.exampleManager.copyExampleTo(`${projectPath}`, folderPath)
-                // const projectFile = this.fileManager.createProjectFile(folderPath)
+                this.exampleManager.copyExampleTo(`${path.resolve(projectPath, '../../')}`, folderPath)
+                // // const projectFile = this.fileManager.createProjectFile(folderPath)
                 files.forEach((filePath) => {
                   this.fileManager.saveFile(path.resolve(folderPath, path.basename(filePath.path)), filePath.fileData)
                 })
 
                 this.isExample = false
-                const projectFile = fs.readdirSync(folderPath).filter(file => /\.mmswift/.test(file))[0]
-                this.fileManager.openProjectFile(path.resolve(folderPath, projectFile))
+                const projectFile = fs.readdirSync(path.resolve(folderPath, `${path.basename(projectPath)}`)).filter(file => /\.mmswift/.test(file))[0]
 
+                this.fileManager.openProjectFile(path.resolve(folderPath, `${path.basename(projectPath)}`, projectFile))
+
+                this.editWindow.webContents.send('PROJECT_EXAMPLE', this.isExample)
                 next()
               }
             },
@@ -398,16 +400,18 @@ class EditWindow {
         (folders) => {
           if (folders) {
             const [folderPath] = folders
-            this.exampleManager.copyExampleTo(`${projectPath}`, folderPath)
-            // const projectFile = this.fileManager.createProjectFile(folderPath)
+            this.exampleManager.copyExampleTo(`${path.resolve(projectPath, '../../')}`, folderPath)
+            // // const projectFile = this.fileManager.createProjectFile(folderPath)
             files.forEach((filePath) => {
               this.fileManager.saveFile(path.resolve(folderPath, path.basename(filePath.path)), filePath.fileData)
             })
 
             this.isExample = false
-            const projectFile = fs.readdirSync(folderPath).filter(file => /\.mmswift/.test(file))[0]
-            this.fileManager.openProjectFile(path.resolve(folderPath, projectFile))
+            const projectFile = fs.readdirSync(path.resolve(folderPath, `${path.basename(projectPath)}`)).filter(file => /\.mmswift/.test(file))[0]
 
+            this.fileManager.openProjectFile(path.resolve(folderPath, `${path.basename(projectPath)}`, projectFile))
+
+            this.editWindow.webContents.send('PROJECT_EXAMPLE', this.isExample)
             next()
           }
         },

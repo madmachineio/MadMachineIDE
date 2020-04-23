@@ -42,14 +42,14 @@ class New extends Component {
 
   iptChangeHandle({ target: { value } }) {
     const { configStore } = this.props
-    configStore.setCreatePath(value)
+    configStore.setCreatePath(value.replace(' ', '_'))
   }
 
   nameChangeHandle({ target: { value } }) {
     const { configStore } = this.props
     const { createPath, sysType } = configStore
     const splitStr = sysType === 'win32' ? '\\' : '/'
-    configStore.setCreatePath(`${createPath.slice(0, createPath.lastIndexOf(splitStr))}${splitStr}${value}`)
+    configStore.setCreatePath(`${createPath.slice(0, createPath.lastIndexOf(splitStr))}${splitStr}${value}`.replace(' ', '_'))
   }
 
   createHandle() {

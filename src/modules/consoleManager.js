@@ -8,6 +8,7 @@ import * as pty from 'node-pty'
 // import stripAnsi from 'strip-ansi'
 import buildScript from '../public/build/main'
 import { mkdirsSync } from '../utils/path'
+// import iconv from 'iconv-lite'
 
 const resolvePath = (dir = '') => path.resolve(__dirname, './public/build', dir)
 
@@ -42,10 +43,10 @@ class ConsoleManager {
     // }
 
     const { fileManager } = this.editWindow
-    const buildFolder = path.resolve(fileManager.folderPath, 'build')
-    if (!fs.existsSync(buildFolder)) {
-      mkdirsSync(buildFolder)
-    }
+    const buildFolder = path.resolve(fileManager.folderPath, '.build')
+    // if (!fs.existsSync(buildFolder)) {
+    //   mkdirsSync(buildFolder)
+    // }
 
     try {
       await buildScript(app.getAppPath(), fileManager.folderPath, fileManager.projectName, fileManager.folderData.children, buildFolder, this.execCmd.bind(this))
@@ -66,7 +67,7 @@ class ConsoleManager {
         // icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
       }
 
-      sudo.exec(`chmod -R 775 ${resolvePath()}`, options, (error, stdout) => {
+      sudo.exec(`chmod -R 777 ${resolvePath()}`, options, (error, stdout) => {
         resolve(stdout)
       })
     })
