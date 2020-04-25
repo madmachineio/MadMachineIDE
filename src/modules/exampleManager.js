@@ -3,6 +3,7 @@ import fs from 'fs'
 import os from 'os'
 import childProcess from 'child_process'
 import { app } from 'electron'
+import { mkdirsSync } from '../utils/path'
 
 const resolvePath = (dir = '') => path.resolve(__dirname, './public/example', dir)
 
@@ -65,7 +66,7 @@ class ExampleManager {
     const homeDir = app.getPath('home')
     const userConfigDir = path.resolve(homeDir, './MadMachine/projects') // `${homeDir}/MadMachine/projects`
     const projectName = file.path.split(global.PATH_SPLIT).slice(-1)[0]
-    const targetPath = `${userConfigDir}/${projectName}`
+    const targetPath = path.resolve(userConfigDir, projectName)
 
     if (!fs.existsSync(userConfigDir)) {
       fs.mkdirSync(userConfigDir)
@@ -92,7 +93,13 @@ class ExampleManager {
     return targetPath
   }
 
-  copyExampleTo(filePath, targetPath) {
+  copyExampleTo(filePath, otargetPath) {
+    const targetPath = path.resolve(otargetPath, path.basename(filePath))
+    
+    if(!fs.existsSync(targetPath)) {
+      mkdirsSync(targetPath)
+    }
+
     switch (os.platform()) {
       case 'win32':
         childProcess.execSync(`xcopy "${filePath}" "${targetPath}" /e /y /q`)
