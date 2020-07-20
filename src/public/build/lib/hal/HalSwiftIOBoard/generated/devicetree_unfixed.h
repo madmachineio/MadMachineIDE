@@ -32,64 +32,65 @@
  *   21  /soc/gpt@401ec000
  *   22  /soc/gpt@401f0000
  *   23  /soc/ccm@400fc000
- *   24  /soc/i2c@403f0000
- *   25  /soc/i2c@403f4000
- *   26  /soc/i2c@403f8000
- *   27  /soc/i2c@403fc000
- *   28  /soc/iomuxc@401f8000
- *   29  /soc/random@400cc000
- *   30  /soc/semc0@402f0000
- *   31  /soc/spi@402a4000
- *   32  /soc/spi@40394000
- *   33  /soc/spi@40398000
- *   34  /soc/spi@4039c000
- *   35  /soc/spi@403a0000
- *   36  /soc/timer@e000e010
- *   37  /soc/uart@40184000
- *   38  /soc/uart@40188000
- *   39  /soc/uart@4018c000
- *   40  /soc/uart@40190000
- *   41  /soc/uart@40194000
- *   42  /soc/uart@40198000
- *   43  /soc/uart@4019c000
- *   44  /soc/uart@401a0000
- *   45  /system-clock
- *   46  /soc/usbd@402e0000
- *   47  /soc/usbd@402e0200
- *   48  /soc/gpio@401bc000
- *   49  /soc/usdhc@402c0000
- *   50  /soc/usdhc@402c4000
- *   51  /soc/display-controller@402b8000
- *   52  /soc/display-controller@402b8000/port
- *   53  /soc/display-controller@402b8000/port/endpoint
- *   54  /soc/ethernet@402d8000
- *   55  /soc/ethernet@402d8000/ptp
- *   56  /soc/flexpwm@403dc000
- *   57  /soc/flexpwm@403dc000/pwm0
- *   58  /soc/flexpwm@403dc000/pwm1
- *   59  /soc/flexpwm@403dc000/pwm2
- *   60  /soc/flexpwm@403dc000/pwm3
- *   61  /soc/flexpwm@403e0000
- *   62  /soc/flexpwm@403e0000/pwm0
- *   63  /soc/flexpwm@403e0000/pwm1
- *   64  /soc/flexpwm@403e0000/pwm2
- *   65  /soc/flexpwm@403e0000/pwm3
- *   66  /soc/flexpwm@403e4000
- *   67  /soc/flexpwm@403e4000/pwm0
- *   68  /soc/flexpwm@403e4000/pwm1
- *   69  /soc/flexpwm@403e4000/pwm2
- *   70  /soc/flexpwm@403e4000/pwm3
- *   71  /soc/flexpwm@403e8000
- *   72  /soc/flexpwm@403e8000/pwm0
- *   73  /soc/flexpwm@403e8000/pwm1
- *   74  /soc/flexpwm@403e8000/pwm2
- *   75  /soc/flexpwm@403e8000/pwm3
- *   76  /soc/flexram@400b0000
- *   77  /soc/flexram@400b0000/dtcm@20000000
- *   78  /soc/flexram@400b0000/itcm@0
- *   79  /soc/flexram@400b0000/ocram@20200000
- *   80  /soc/spi@402a8000
- *   81  /soc/spi@402a8000/is25wp064@0
+ *   24  /soc/i2c@403f4000
+ *   25  /soc/i2c@403f8000
+ *   26  /soc/i2c@403fc000
+ *   27  /soc/iomuxc@401f8000
+ *   28  /soc/random@400cc000
+ *   29  /soc/semc0@402f0000
+ *   30  /soc/spi@402a4000
+ *   31  /soc/spi@40394000
+ *   32  /soc/spi@40398000
+ *   33  /soc/spi@4039c000
+ *   34  /soc/spi@403a0000
+ *   35  /soc/timer@e000e010
+ *   36  /soc/uart@40184000
+ *   37  /soc/uart@40188000
+ *   38  /soc/uart@4018c000
+ *   39  /soc/uart@40190000
+ *   40  /soc/uart@40194000
+ *   41  /soc/uart@40198000
+ *   42  /soc/uart@4019c000
+ *   43  /soc/uart@401a0000
+ *   44  /system-clock
+ *   45  /soc/usbd@402e0000
+ *   46  /soc/usbd@402e0200
+ *   47  /soc/gpio@401bc000
+ *   48  /soc/usdhc@402c0000
+ *   49  /soc/usdhc@402c4000
+ *   50  /soc/display-controller@402b8000
+ *   51  /soc/display-controller@402b8000/port
+ *   52  /soc/display-controller@402b8000/port/endpoint
+ *   53  /soc/ethernet@402d8000
+ *   54  /soc/ethernet@402d8000/ptp
+ *   55  /soc/flexpwm@403dc000
+ *   56  /soc/flexpwm@403dc000/pwm0
+ *   57  /soc/flexpwm@403dc000/pwm1
+ *   58  /soc/flexpwm@403dc000/pwm2
+ *   59  /soc/flexpwm@403dc000/pwm3
+ *   60  /soc/flexpwm@403e0000
+ *   61  /soc/flexpwm@403e0000/pwm0
+ *   62  /soc/flexpwm@403e0000/pwm1
+ *   63  /soc/flexpwm@403e0000/pwm2
+ *   64  /soc/flexpwm@403e0000/pwm3
+ *   65  /soc/flexpwm@403e4000
+ *   66  /soc/flexpwm@403e4000/pwm0
+ *   67  /soc/flexpwm@403e4000/pwm1
+ *   68  /soc/flexpwm@403e4000/pwm2
+ *   69  /soc/flexpwm@403e4000/pwm3
+ *   70  /soc/flexpwm@403e8000
+ *   71  /soc/flexpwm@403e8000/pwm0
+ *   72  /soc/flexpwm@403e8000/pwm1
+ *   73  /soc/flexpwm@403e8000/pwm2
+ *   74  /soc/flexpwm@403e8000/pwm3
+ *   75  /soc/flexram@400b0000
+ *   76  /soc/flexram@400b0000/dtcm@20000000
+ *   77  /soc/flexram@400b0000/itcm@0
+ *   78  /soc/flexram@400b0000/ocram@20200000
+ *   79  /soc/i2c@403f0000
+ *   80  /soc/i2c@403f0000/gt9x@14
+ *   81  /soc/spi@402a8000
+ *   82  /soc/spi@402a8000/is25wp064@0
  *
  * Definitions derived from these nodes in dependency order are next,
  * followed by tree-wide information (active compatibles, chosen nodes,
@@ -112,7 +113,7 @@
  *   3   /memory@80000000
  *   14  /panel
  *   8   /soc
- *   45  /system-clock
+ *   44  /system-clock
  */
 
 /*
@@ -257,47 +258,47 @@
  * Supports:
  *   23  /soc/ccm@400fc000
  *   17  /soc/csi@402bc000
- *   51  /soc/display-controller@402b8000
- *   54  /soc/ethernet@402d8000
- *   56  /soc/flexpwm@403dc000
- *   61  /soc/flexpwm@403e0000
- *   66  /soc/flexpwm@403e4000
- *   71  /soc/flexpwm@403e8000
- *   76  /soc/flexram@400b0000
+ *   50  /soc/display-controller@402b8000
+ *   53  /soc/ethernet@402d8000
+ *   55  /soc/flexpwm@403dc000
+ *   60  /soc/flexpwm@403e0000
+ *   65  /soc/flexpwm@403e4000
+ *   70  /soc/flexpwm@403e8000
+ *   75  /soc/flexram@400b0000
  *   18  /soc/gpio@400c0000
  *   10  /soc/gpio@401b8000
- *   48  /soc/gpio@401bc000
+ *   47  /soc/gpio@401bc000
  *   19  /soc/gpio@401c0000
  *   20  /soc/gpio@401c4000
  *   21  /soc/gpt@401ec000
  *   22  /soc/gpt@401f0000
- *   24  /soc/i2c@403f0000
- *   25  /soc/i2c@403f4000
- *   26  /soc/i2c@403f8000
- *   27  /soc/i2c@403fc000
+ *   79  /soc/i2c@403f0000
+ *   24  /soc/i2c@403f4000
+ *   25  /soc/i2c@403f8000
+ *   26  /soc/i2c@403fc000
  *   9   /soc/interrupt-controller@e000e100
- *   28  /soc/iomuxc@401f8000
- *   29  /soc/random@400cc000
- *   30  /soc/semc0@402f0000
- *   31  /soc/spi@402a4000
- *   80  /soc/spi@402a8000
- *   32  /soc/spi@40394000
- *   33  /soc/spi@40398000
- *   34  /soc/spi@4039c000
- *   35  /soc/spi@403a0000
- *   36  /soc/timer@e000e010
- *   37  /soc/uart@40184000
- *   38  /soc/uart@40188000
- *   39  /soc/uart@4018c000
- *   40  /soc/uart@40190000
- *   41  /soc/uart@40194000
- *   42  /soc/uart@40198000
- *   43  /soc/uart@4019c000
- *   44  /soc/uart@401a0000
- *   46  /soc/usbd@402e0000
- *   47  /soc/usbd@402e0200
- *   49  /soc/usdhc@402c0000
- *   50  /soc/usdhc@402c4000
+ *   27  /soc/iomuxc@401f8000
+ *   28  /soc/random@400cc000
+ *   29  /soc/semc0@402f0000
+ *   30  /soc/spi@402a4000
+ *   81  /soc/spi@402a8000
+ *   31  /soc/spi@40394000
+ *   32  /soc/spi@40398000
+ *   33  /soc/spi@4039c000
+ *   34  /soc/spi@403a0000
+ *   35  /soc/timer@e000e010
+ *   36  /soc/uart@40184000
+ *   37  /soc/uart@40188000
+ *   38  /soc/uart@4018c000
+ *   39  /soc/uart@40190000
+ *   40  /soc/uart@40194000
+ *   41  /soc/uart@40198000
+ *   42  /soc/uart@4019c000
+ *   43  /soc/uart@401a0000
+ *   45  /soc/usbd@402e0000
+ *   46  /soc/usbd@402e0200
+ *   48  /soc/usdhc@402c0000
+ *   49  /soc/usdhc@402c4000
  */
 
 /*
@@ -314,61 +315,61 @@
  *
  * Supports:
  *   17  /soc/csi@402bc000
- *   51  /soc/display-controller@402b8000
- *   54  /soc/ethernet@402d8000
- *   56  /soc/flexpwm@403dc000
- *   61  /soc/flexpwm@403e0000
- *   66  /soc/flexpwm@403e4000
- *   71  /soc/flexpwm@403e8000
- *   76  /soc/flexram@400b0000
+ *   50  /soc/display-controller@402b8000
+ *   53  /soc/ethernet@402d8000
+ *   55  /soc/flexpwm@403dc000
+ *   60  /soc/flexpwm@403e0000
+ *   65  /soc/flexpwm@403e4000
+ *   70  /soc/flexpwm@403e8000
+ *   75  /soc/flexram@400b0000
  *   18  /soc/gpio@400c0000
  *   10  /soc/gpio@401b8000
- *   48  /soc/gpio@401bc000
+ *   47  /soc/gpio@401bc000
  *   19  /soc/gpio@401c0000
  *   20  /soc/gpio@401c4000
  *   21  /soc/gpt@401ec000
  *   22  /soc/gpt@401f0000
- *   24  /soc/i2c@403f0000
- *   25  /soc/i2c@403f4000
- *   26  /soc/i2c@403f8000
- *   27  /soc/i2c@403fc000
- *   29  /soc/random@400cc000
- *   30  /soc/semc0@402f0000
- *   31  /soc/spi@402a4000
- *   80  /soc/spi@402a8000
- *   32  /soc/spi@40394000
- *   33  /soc/spi@40398000
- *   34  /soc/spi@4039c000
- *   35  /soc/spi@403a0000
- *   37  /soc/uart@40184000
- *   38  /soc/uart@40188000
- *   39  /soc/uart@4018c000
- *   40  /soc/uart@40190000
- *   41  /soc/uart@40194000
- *   42  /soc/uart@40198000
- *   43  /soc/uart@4019c000
- *   44  /soc/uart@401a0000
- *   46  /soc/usbd@402e0000
- *   47  /soc/usbd@402e0200
- *   49  /soc/usdhc@402c0000
- *   50  /soc/usdhc@402c4000
- *   55  /soc/ethernet@402d8000/ptp
- *   57  /soc/flexpwm@403dc000/pwm0
- *   58  /soc/flexpwm@403dc000/pwm1
- *   59  /soc/flexpwm@403dc000/pwm2
- *   60  /soc/flexpwm@403dc000/pwm3
- *   62  /soc/flexpwm@403e0000/pwm0
- *   63  /soc/flexpwm@403e0000/pwm1
- *   64  /soc/flexpwm@403e0000/pwm2
- *   65  /soc/flexpwm@403e0000/pwm3
- *   67  /soc/flexpwm@403e4000/pwm0
- *   68  /soc/flexpwm@403e4000/pwm1
- *   69  /soc/flexpwm@403e4000/pwm2
- *   70  /soc/flexpwm@403e4000/pwm3
- *   72  /soc/flexpwm@403e8000/pwm0
- *   73  /soc/flexpwm@403e8000/pwm1
- *   74  /soc/flexpwm@403e8000/pwm2
- *   75  /soc/flexpwm@403e8000/pwm3
+ *   79  /soc/i2c@403f0000
+ *   24  /soc/i2c@403f4000
+ *   25  /soc/i2c@403f8000
+ *   26  /soc/i2c@403fc000
+ *   28  /soc/random@400cc000
+ *   29  /soc/semc0@402f0000
+ *   30  /soc/spi@402a4000
+ *   81  /soc/spi@402a8000
+ *   31  /soc/spi@40394000
+ *   32  /soc/spi@40398000
+ *   33  /soc/spi@4039c000
+ *   34  /soc/spi@403a0000
+ *   36  /soc/uart@40184000
+ *   37  /soc/uart@40188000
+ *   38  /soc/uart@4018c000
+ *   39  /soc/uart@40190000
+ *   40  /soc/uart@40194000
+ *   41  /soc/uart@40198000
+ *   42  /soc/uart@4019c000
+ *   43  /soc/uart@401a0000
+ *   45  /soc/usbd@402e0000
+ *   46  /soc/usbd@402e0200
+ *   48  /soc/usdhc@402c0000
+ *   49  /soc/usdhc@402c4000
+ *   54  /soc/ethernet@402d8000/ptp
+ *   56  /soc/flexpwm@403dc000/pwm0
+ *   57  /soc/flexpwm@403dc000/pwm1
+ *   58  /soc/flexpwm@403dc000/pwm2
+ *   59  /soc/flexpwm@403dc000/pwm3
+ *   61  /soc/flexpwm@403e0000/pwm0
+ *   62  /soc/flexpwm@403e0000/pwm1
+ *   63  /soc/flexpwm@403e0000/pwm2
+ *   64  /soc/flexpwm@403e0000/pwm3
+ *   66  /soc/flexpwm@403e4000/pwm0
+ *   67  /soc/flexpwm@403e4000/pwm1
+ *   68  /soc/flexpwm@403e4000/pwm2
+ *   69  /soc/flexpwm@403e4000/pwm3
+ *   71  /soc/flexpwm@403e8000/pwm0
+ *   72  /soc/flexpwm@403e8000/pwm1
+ *   73  /soc/flexpwm@403e8000/pwm2
+ *   74  /soc/flexpwm@403e8000/pwm3
  *
  * Description:
  *   ARMv7-M NVIC (Nested Vectored Interrupt Controller)
@@ -399,6 +400,7 @@
  *   11  /leds/led_0
  *   12  /leds/led_1
  *   13  /leds/led_2
+ *   80  /soc/i2c@403f0000/gt9x@14
  *
  * Description:
  *   i.MX GPIO node
@@ -563,22 +565,22 @@
 #define DT_LCD_RGB_INTERFACE_PANEL_HEIGHT           480
 #define DT_INST_0_LCD_RGB_INTERFACE_HEIGHT          DT_LCD_RGB_INTERFACE_PANEL_HEIGHT
 /* HSYNC pulse width */
-#define DT_LCD_RGB_INTERFACE_PANEL_HSW              1
+#define DT_LCD_RGB_INTERFACE_PANEL_HSW              48
 #define DT_INST_0_LCD_RGB_INTERFACE_HSW             DT_LCD_RGB_INTERFACE_PANEL_HSW
 /* HSD front porch */
-#define DT_LCD_RGB_INTERFACE_PANEL_HFP              22
+#define DT_LCD_RGB_INTERFACE_PANEL_HFP              40
 #define DT_INST_0_LCD_RGB_INTERFACE_HFP             DT_LCD_RGB_INTERFACE_PANEL_HFP
 /* HSD back porch */
-#define DT_LCD_RGB_INTERFACE_PANEL_HBP              46
+#define DT_LCD_RGB_INTERFACE_PANEL_HBP              88
 #define DT_INST_0_LCD_RGB_INTERFACE_HBP             DT_LCD_RGB_INTERFACE_PANEL_HBP
 /* VSYNC pulse width */
-#define DT_LCD_RGB_INTERFACE_PANEL_VSW              1
+#define DT_LCD_RGB_INTERFACE_PANEL_VSW              3
 #define DT_INST_0_LCD_RGB_INTERFACE_VSW             DT_LCD_RGB_INTERFACE_PANEL_VSW
 /* VSD front porch */
-#define DT_LCD_RGB_INTERFACE_PANEL_VFP              22
+#define DT_LCD_RGB_INTERFACE_PANEL_VFP              13
 #define DT_INST_0_LCD_RGB_INTERFACE_VFP             DT_LCD_RGB_INTERFACE_PANEL_VFP
 /* VSD back porch */
-#define DT_LCD_RGB_INTERFACE_PANEL_VBP              23
+#define DT_LCD_RGB_INTERFACE_PANEL_VBP              32
 #define DT_INST_0_LCD_RGB_INTERFACE_VBP             DT_LCD_RGB_INTERFACE_PANEL_VBP
 /* frame rate */
 #define DT_LCD_RGB_INTERFACE_PANEL_FRAME_PER_SEC    60
@@ -878,24 +880,24 @@
  *   8   /soc
  *
  * Supports:
- *   24  /soc/i2c@403f0000
- *   25  /soc/i2c@403f4000
- *   26  /soc/i2c@403f8000
- *   27  /soc/i2c@403fc000
- *   32  /soc/spi@40394000
- *   33  /soc/spi@40398000
- *   34  /soc/spi@4039c000
- *   35  /soc/spi@403a0000
- *   37  /soc/uart@40184000
- *   38  /soc/uart@40188000
- *   39  /soc/uart@4018c000
- *   40  /soc/uart@40190000
- *   41  /soc/uart@40194000
- *   42  /soc/uart@40198000
- *   43  /soc/uart@4019c000
- *   44  /soc/uart@401a0000
- *   49  /soc/usdhc@402c0000
- *   50  /soc/usdhc@402c4000
+ *   79  /soc/i2c@403f0000
+ *   24  /soc/i2c@403f4000
+ *   25  /soc/i2c@403f8000
+ *   26  /soc/i2c@403fc000
+ *   31  /soc/spi@40394000
+ *   32  /soc/spi@40398000
+ *   33  /soc/spi@4039c000
+ *   34  /soc/spi@403a0000
+ *   36  /soc/uart@40184000
+ *   37  /soc/uart@40188000
+ *   38  /soc/uart@4018c000
+ *   39  /soc/uart@40190000
+ *   40  /soc/uart@40194000
+ *   41  /soc/uart@40198000
+ *   42  /soc/uart@4019c000
+ *   43  /soc/uart@401a0000
+ *   48  /soc/usdhc@402c0000
+ *   49  /soc/usdhc@402c4000
  *
  * Description:
  *   i.MX CCM (Clock Controller Module) IP node
@@ -911,85 +913,12 @@
 
 /*
  * Devicetree node:
- *   /soc/i2c@403f0000
- *
- * Binding (compatible = nxp,imx-lpi2c):
- *   $ZEPHYR_BASE/dts/bindings/i2c/nxp,imx-lpi2c.yaml
- *
- * Dependency Ordinal: 24
- *
- * Requires:
- *   8   /soc
- *   23  /soc/ccm@400fc000
- *   9   /soc/interrupt-controller@e000e100
- *
- * Description:
- *   NXP i.MX LPI2C controller
- */
-#define DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS      0x403f0000
-#define DT_ALIAS_I2C_1_BASE_ADDRESS                 DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS
-#define DT_NXP_IMX_LPI2C_I2C_1_BASE_ADDRESS         DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS
-#define DT_INST_0_NXP_IMX_LPI2C_BASE_ADDRESS        DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS
-#define DT_NXP_IMX_LPI2C_403F0000_SIZE              16384
-#define DT_ALIAS_I2C_1_SIZE                         DT_NXP_IMX_LPI2C_403F0000_SIZE
-#define DT_NXP_IMX_LPI2C_I2C_1_SIZE                 DT_NXP_IMX_LPI2C_403F0000_SIZE
-#define DT_INST_0_NXP_IMX_LPI2C_SIZE                DT_NXP_IMX_LPI2C_403F0000_SIZE
-#define DT_NXP_IMX_LPI2C_403F0000_IRQ_0             28
-#define DT_ALIAS_I2C_1_IRQ_0                        DT_NXP_IMX_LPI2C_403F0000_IRQ_0
-#define DT_NXP_IMX_LPI2C_I2C_1_IRQ_0                DT_NXP_IMX_LPI2C_403F0000_IRQ_0
-#define DT_INST_0_NXP_IMX_LPI2C_IRQ_0               DT_NXP_IMX_LPI2C_403F0000_IRQ_0
-#define DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY    0
-#define DT_ALIAS_I2C_1_IRQ_0_PRIORITY               DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY
-#define DT_NXP_IMX_LPI2C_I2C_1_IRQ_0_PRIORITY       DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY
-#define DT_INST_0_NXP_IMX_LPI2C_IRQ_0_PRIORITY      DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY
-/* Initial clock frequency in Hz */
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY   100000
-#define DT_ALIAS_I2C_1_CLOCK_FREQUENCY              DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_FREQUENCY      DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_FREQUENCY     DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY
-/* Human readable string describing the device (used by Zephyr for API name) */
-#define DT_NXP_IMX_LPI2C_403F0000_LABEL             "I2C_1"
-#define DT_ALIAS_I2C_1_LABEL                        DT_NXP_IMX_LPI2C_403F0000_LABEL
-#define DT_NXP_IMX_LPI2C_I2C_1_LABEL                DT_NXP_IMX_LPI2C_403F0000_LABEL
-#define DT_INST_0_NXP_IMX_LPI2C_LABEL               DT_NXP_IMX_LPI2C_403F0000_LABEL
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER  "CCM"
-#define DT_ALIAS_I2C_1_CLOCK_CONTROLLER             DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_CONTROLLER     DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_CONTROLLER    DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0      4
-#define DT_ALIAS_I2C_1_CLOCK_NAME_0                 DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_NAME_0         DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_NAME_0        DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME        DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
-#define DT_ALIAS_I2C_1_CLOCK_NAME                   DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_NAME           DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_NAME          DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0    112
-#define DT_ALIAS_I2C_1_CLOCK_OFFSET_0               DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_OFFSET_0       DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_OFFSET_0      DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET      DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
-#define DT_ALIAS_I2C_1_CLOCK_OFFSET                 DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_OFFSET         DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_OFFSET        DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0      6
-#define DT_ALIAS_I2C_1_CLOCK_BITS_0                 DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_BITS_0         DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_BITS_0        DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
-#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS        DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
-#define DT_ALIAS_I2C_1_CLOCK_BITS                   DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
-#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_BITS           DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
-#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_BITS          DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
-#define DT_INST_0_NXP_IMX_LPI2C                     1
-
-/*
- * Devicetree node:
  *   /soc/i2c@403f4000
  *
  * Binding (compatible = nxp,imx-lpi2c):
  *   $ZEPHYR_BASE/dts/bindings/i2c/nxp,imx-lpi2c.yaml
  *
- * Dependency Ordinal: 25
+ * Dependency Ordinal: 24
  *
  * Requires:
  *   8   /soc
@@ -1009,7 +938,7 @@
  * Binding (compatible = nxp,imx-lpi2c):
  *   $ZEPHYR_BASE/dts/bindings/i2c/nxp,imx-lpi2c.yaml
  *
- * Dependency Ordinal: 26
+ * Dependency Ordinal: 25
  *
  * Requires:
  *   8   /soc
@@ -1082,7 +1011,7 @@
  * Binding (compatible = nxp,imx-lpi2c):
  *   $ZEPHYR_BASE/dts/bindings/i2c/nxp,imx-lpi2c.yaml
  *
- * Dependency Ordinal: 27
+ * Dependency Ordinal: 26
  *
  * Requires:
  *   8   /soc
@@ -1101,7 +1030,7 @@
  *
  * No matching binding.
  *
- * Dependency Ordinal: 28
+ * Dependency Ordinal: 27
  *
  * Requires:
  *   8   /soc
@@ -1114,7 +1043,7 @@
  * Binding (compatible = nxp,kinetis-trng):
  *   $ZEPHYR_BASE/dts/bindings/rng/nxp,kinetis-trng.yaml
  *
- * Dependency Ordinal: 29
+ * Dependency Ordinal: 28
  *
  * Requires:
  *   8   /soc
@@ -1143,7 +1072,7 @@
  * Binding (compatible = nxp,imx-semc):
  *   $ZEPHYR_BASE/dts/bindings/memory-controllers/nxp,imx-semc.yaml
  *
- * Dependency Ordinal: 30
+ * Dependency Ordinal: 29
  *
  * Requires:
  *   8   /soc
@@ -1172,7 +1101,7 @@
  * Binding (compatible = nxp,imx-flexspi):
  *   $ZEPHYR_BASE/dts/bindings/spi/nxp,imx-flexspi.yaml
  *
- * Dependency Ordinal: 31
+ * Dependency Ordinal: 30
  *
  * Requires:
  *   8   /soc
@@ -1201,7 +1130,7 @@
  * Binding (compatible = nxp,imx-lpspi):
  *   $ZEPHYR_BASE/dts/bindings/spi/nxp,imx-lpspi.yaml
  *
- * Dependency Ordinal: 32
+ * Dependency Ordinal: 31
  *
  * Requires:
  *   8   /soc
@@ -1221,7 +1150,7 @@
  * Binding (compatible = nxp,imx-lpspi):
  *   $ZEPHYR_BASE/dts/bindings/spi/nxp,imx-lpspi.yaml
  *
- * Dependency Ordinal: 33
+ * Dependency Ordinal: 32
  *
  * Requires:
  *   8   /soc
@@ -1241,7 +1170,7 @@
  * Binding (compatible = nxp,imx-lpspi):
  *   $ZEPHYR_BASE/dts/bindings/spi/nxp,imx-lpspi.yaml
  *
- * Dependency Ordinal: 34
+ * Dependency Ordinal: 33
  *
  * Requires:
  *   8   /soc
@@ -1309,7 +1238,7 @@
  * Binding (compatible = nxp,imx-lpspi):
  *   $ZEPHYR_BASE/dts/bindings/spi/nxp,imx-lpspi.yaml
  *
- * Dependency Ordinal: 35
+ * Dependency Ordinal: 34
  *
  * Requires:
  *   8   /soc
@@ -1376,7 +1305,7 @@
  *
  * No matching binding.
  *
- * Dependency Ordinal: 36
+ * Dependency Ordinal: 35
  *
  * Requires:
  *   8   /soc
@@ -1391,7 +1320,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 37
+ * Dependency Ordinal: 36
  *
  * Requires:
  *   8   /soc
@@ -1469,7 +1398,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 38
+ * Dependency Ordinal: 37
  *
  * Requires:
  *   8   /soc
@@ -1547,7 +1476,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 39
+ * Dependency Ordinal: 38
  *
  * Requires:
  *   8   /soc
@@ -1567,7 +1496,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 40
+ * Dependency Ordinal: 39
  *
  * Requires:
  *   8   /soc
@@ -1645,7 +1574,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 41
+ * Dependency Ordinal: 40
  *
  * Requires:
  *   8   /soc
@@ -1665,7 +1594,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 42
+ * Dependency Ordinal: 41
  *
  * Requires:
  *   8   /soc
@@ -1743,7 +1672,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 43
+ * Dependency Ordinal: 42
  *
  * Requires:
  *   8   /soc
@@ -1763,7 +1692,7 @@
  * Binding (compatible = nxp,kinetis-lpuart):
  *   $ZEPHYR_BASE/dts/bindings/serial/nxp,kinetis-lpuart.yaml
  *
- * Dependency Ordinal: 44
+ * Dependency Ordinal: 43
  *
  * Requires:
  *   8   /soc
@@ -1841,13 +1770,13 @@
  * Binding (compatible = fixed-clock):
  *   $ZEPHYR_BASE/dts/bindings/clock/fixed-clock.yaml
  *
- * Dependency Ordinal: 45
+ * Dependency Ordinal: 44
  *
  * Requires:
  *   0   /
  *
  * Supports:
- *   46  /soc/usbd@402e0000
+ *   45  /soc/usbd@402e0000
  *
  * Description:
  *   Generic fixed-rate clock provider
@@ -1864,11 +1793,11 @@
  * Binding (compatible = nxp,kinetis-usbd):
  *   $ZEPHYR_BASE/dts/bindings/usb/nxp,kinetis-usbd.yaml
  *
- * Dependency Ordinal: 46
+ * Dependency Ordinal: 45
  *
  * Requires:
  *   8   /soc
- *   45  /system-clock
+ *   44  /system-clock
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -1935,7 +1864,7 @@
  * Binding (compatible = nxp,kinetis-usbd):
  *   $ZEPHYR_BASE/dts/bindings/usb/nxp,kinetis-usbd.yaml
  *
- * Dependency Ordinal: 47
+ * Dependency Ordinal: 46
  *
  * Requires:
  *   8   /soc
@@ -1954,14 +1883,14 @@
  * Binding (compatible = nxp,imx-gpio):
  *   $ZEPHYR_BASE/dts/bindings/gpio/nxp,imx-gpio.yaml
  *
- * Dependency Ordinal: 48
+ * Dependency Ordinal: 47
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   49  /soc/usdhc@402c0000
+ *   48  /soc/usdhc@402c0000
  *
  * Description:
  *   i.MX GPIO node
@@ -2009,12 +1938,12 @@
  * Binding (compatible = nxp,imx-usdhc):
  *   $ZEPHYR_BASE/dts/bindings/mmc/nxp,imx-usdhc.yaml
  *
- * Dependency Ordinal: 49
+ * Dependency Ordinal: 48
  *
  * Requires:
  *   8   /soc
  *   23  /soc/ccm@400fc000
- *   48  /soc/gpio@401bc000
+ *   47  /soc/gpio@401bc000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2063,7 +1992,7 @@
  * Binding (compatible = nxp,imx-usdhc):
  *   $ZEPHYR_BASE/dts/bindings/mmc/nxp,imx-usdhc.yaml
  *
- * Dependency Ordinal: 50
+ * Dependency Ordinal: 49
  *
  * Requires:
  *   8   /soc
@@ -2083,14 +2012,14 @@
  * Binding (compatible = fsl,imx6sx-lcdif):
  *   $ZEPHYR_BASE/dts/bindings/display/fsl,imx6sx-lcdif.yaml
  *
- * Dependency Ordinal: 51
+ * Dependency Ordinal: 50
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   52  /soc/display-controller@402b8000/port
+ *   51  /soc/display-controller@402b8000/port
  *
  * Description:
  *   NXP i.MX eLCDIF (Enhanced LCD Interface) controller
@@ -2114,13 +2043,13 @@
  *
  * No matching binding.
  *
- * Dependency Ordinal: 52
+ * Dependency Ordinal: 51
  *
  * Requires:
- *   51  /soc/display-controller@402b8000
+ *   50  /soc/display-controller@402b8000
  *
  * Supports:
- *   53  /soc/display-controller@402b8000/port/endpoint
+ *   52  /soc/display-controller@402b8000/port/endpoint
  */
 
 /*
@@ -2129,10 +2058,10 @@
  *
  * No matching binding.
  *
- * Dependency Ordinal: 53
+ * Dependency Ordinal: 52
  *
  * Requires:
- *   52  /soc/display-controller@402b8000/port
+ *   51  /soc/display-controller@402b8000/port
  */
 
 /*
@@ -2142,14 +2071,14 @@
  * Binding (compatible = nxp,kinetis-ethernet):
  *   $ZEPHYR_BASE/dts/bindings/ethernet/nxp,kinetis-ethernet.yaml
  *
- * Dependency Ordinal: 54
+ * Dependency Ordinal: 53
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   55  /soc/ethernet@402d8000/ptp
+ *   54  /soc/ethernet@402d8000/ptp
  *
  * Description:
  *   NXP Kinetis Ethernet
@@ -2164,10 +2093,10 @@
  * Binding (compatible = nxp,kinetis-ptp):
  *   $ZEPHYR_BASE/dts/bindings/ethernet/nxp,kinetis-ptp.yaml
  *
- * Dependency Ordinal: 55
+ * Dependency Ordinal: 54
  *
  * Requires:
- *   54  /soc/ethernet@402d8000
+ *   53  /soc/ethernet@402d8000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2183,17 +2112,17 @@
  * Binding (compatible = nxp,flexpwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,flexpwm.yaml
  *
- * Dependency Ordinal: 56
+ * Dependency Ordinal: 55
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   57  /soc/flexpwm@403dc000/pwm0
- *   58  /soc/flexpwm@403dc000/pwm1
- *   59  /soc/flexpwm@403dc000/pwm2
- *   60  /soc/flexpwm@403dc000/pwm3
+ *   56  /soc/flexpwm@403dc000/pwm0
+ *   57  /soc/flexpwm@403dc000/pwm1
+ *   58  /soc/flexpwm@403dc000/pwm2
+ *   59  /soc/flexpwm@403dc000/pwm3
  *
  * Description:
  *   NXP eFLEX PWM module with mcux-pwm submodules
@@ -2215,10 +2144,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 57
+ * Dependency Ordinal: 56
  *
  * Requires:
- *   56  /soc/flexpwm@403dc000
+ *   55  /soc/flexpwm@403dc000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2243,10 +2172,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 58
+ * Dependency Ordinal: 57
  *
  * Requires:
- *   56  /soc/flexpwm@403dc000
+ *   55  /soc/flexpwm@403dc000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2271,10 +2200,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 59
+ * Dependency Ordinal: 58
  *
  * Requires:
- *   56  /soc/flexpwm@403dc000
+ *   55  /soc/flexpwm@403dc000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2299,10 +2228,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 60
+ * Dependency Ordinal: 59
  *
  * Requires:
- *   56  /soc/flexpwm@403dc000
+ *   55  /soc/flexpwm@403dc000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2327,17 +2256,17 @@
  * Binding (compatible = nxp,flexpwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,flexpwm.yaml
  *
- * Dependency Ordinal: 61
+ * Dependency Ordinal: 60
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   62  /soc/flexpwm@403e0000/pwm0
- *   63  /soc/flexpwm@403e0000/pwm1
- *   64  /soc/flexpwm@403e0000/pwm2
- *   65  /soc/flexpwm@403e0000/pwm3
+ *   61  /soc/flexpwm@403e0000/pwm0
+ *   62  /soc/flexpwm@403e0000/pwm1
+ *   63  /soc/flexpwm@403e0000/pwm2
+ *   64  /soc/flexpwm@403e0000/pwm3
  *
  * Description:
  *   NXP eFLEX PWM module with mcux-pwm submodules
@@ -2359,10 +2288,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 62
+ * Dependency Ordinal: 61
  *
  * Requires:
- *   61  /soc/flexpwm@403e0000
+ *   60  /soc/flexpwm@403e0000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2387,10 +2316,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 63
+ * Dependency Ordinal: 62
  *
  * Requires:
- *   61  /soc/flexpwm@403e0000
+ *   60  /soc/flexpwm@403e0000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2415,10 +2344,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 64
+ * Dependency Ordinal: 63
  *
  * Requires:
- *   61  /soc/flexpwm@403e0000
+ *   60  /soc/flexpwm@403e0000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2443,10 +2372,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 65
+ * Dependency Ordinal: 64
  *
  * Requires:
- *   61  /soc/flexpwm@403e0000
+ *   60  /soc/flexpwm@403e0000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2471,17 +2400,17 @@
  * Binding (compatible = nxp,flexpwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,flexpwm.yaml
  *
- * Dependency Ordinal: 66
+ * Dependency Ordinal: 65
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   67  /soc/flexpwm@403e4000/pwm0
- *   68  /soc/flexpwm@403e4000/pwm1
- *   69  /soc/flexpwm@403e4000/pwm2
- *   70  /soc/flexpwm@403e4000/pwm3
+ *   66  /soc/flexpwm@403e4000/pwm0
+ *   67  /soc/flexpwm@403e4000/pwm1
+ *   68  /soc/flexpwm@403e4000/pwm2
+ *   69  /soc/flexpwm@403e4000/pwm3
  *
  * Description:
  *   NXP eFLEX PWM module with mcux-pwm submodules
@@ -2503,10 +2432,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 67
+ * Dependency Ordinal: 66
  *
  * Requires:
- *   66  /soc/flexpwm@403e4000
+ *   65  /soc/flexpwm@403e4000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2531,10 +2460,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 68
+ * Dependency Ordinal: 67
  *
  * Requires:
- *   66  /soc/flexpwm@403e4000
+ *   65  /soc/flexpwm@403e4000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2559,10 +2488,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 69
+ * Dependency Ordinal: 68
  *
  * Requires:
- *   66  /soc/flexpwm@403e4000
+ *   65  /soc/flexpwm@403e4000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2587,10 +2516,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 70
+ * Dependency Ordinal: 69
  *
  * Requires:
- *   66  /soc/flexpwm@403e4000
+ *   65  /soc/flexpwm@403e4000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2615,17 +2544,17 @@
  * Binding (compatible = nxp,flexpwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,flexpwm.yaml
  *
- * Dependency Ordinal: 71
+ * Dependency Ordinal: 70
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   72  /soc/flexpwm@403e8000/pwm0
- *   73  /soc/flexpwm@403e8000/pwm1
- *   74  /soc/flexpwm@403e8000/pwm2
- *   75  /soc/flexpwm@403e8000/pwm3
+ *   71  /soc/flexpwm@403e8000/pwm0
+ *   72  /soc/flexpwm@403e8000/pwm1
+ *   73  /soc/flexpwm@403e8000/pwm2
+ *   74  /soc/flexpwm@403e8000/pwm3
  *
  * Description:
  *   NXP eFLEX PWM module with mcux-pwm submodules
@@ -2647,10 +2576,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 72
+ * Dependency Ordinal: 71
  *
  * Requires:
- *   71  /soc/flexpwm@403e8000
+ *   70  /soc/flexpwm@403e8000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2675,10 +2604,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 73
+ * Dependency Ordinal: 72
  *
  * Requires:
- *   71  /soc/flexpwm@403e8000
+ *   70  /soc/flexpwm@403e8000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2703,10 +2632,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 74
+ * Dependency Ordinal: 73
  *
  * Requires:
- *   71  /soc/flexpwm@403e8000
+ *   70  /soc/flexpwm@403e8000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2731,10 +2660,10 @@
  * Binding (compatible = nxp,imx-pwm):
  *   $ZEPHYR_BASE/dts/bindings/pwm/nxp,imx-pwm.yaml
  *
- * Dependency Ordinal: 75
+ * Dependency Ordinal: 74
  *
  * Requires:
- *   71  /soc/flexpwm@403e8000
+ *   70  /soc/flexpwm@403e8000
  *   9   /soc/interrupt-controller@e000e100
  *
  * Description:
@@ -2758,16 +2687,16 @@
  *
  * No matching binding.
  *
- * Dependency Ordinal: 76
+ * Dependency Ordinal: 75
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   77  /soc/flexram@400b0000/dtcm@20000000
- *   78  /soc/flexram@400b0000/itcm@0
- *   79  /soc/flexram@400b0000/ocram@20200000
+ *   76  /soc/flexram@400b0000/dtcm@20000000
+ *   77  /soc/flexram@400b0000/itcm@0
+ *   78  /soc/flexram@400b0000/ocram@20200000
  */
 
 /*
@@ -2777,10 +2706,10 @@
  * Binding (compatible = nxp,imx-dtcm):
  *   $ZEPHYR_BASE/dts/bindings/arm/nxp,imx-dtcm.yaml
  *
- * Dependency Ordinal: 77
+ * Dependency Ordinal: 76
  *
  * Requires:
- *   76  /soc/flexram@400b0000
+ *   75  /soc/flexram@400b0000
  *
  * Description:
  *   i.MX DTCM (Data Tightly Coupled Memory)
@@ -2798,10 +2727,10 @@
  * Binding (compatible = nxp,imx-itcm):
  *   $ZEPHYR_BASE/dts/bindings/arm/nxp,imx-itcm.yaml
  *
- * Dependency Ordinal: 78
+ * Dependency Ordinal: 77
  *
  * Requires:
- *   76  /soc/flexram@400b0000
+ *   75  /soc/flexram@400b0000
  *
  * Description:
  *   i.MX ITCM (Instruction Tightly Coupled Memory)
@@ -2819,10 +2748,10 @@
  * Binding (compatible = mmio-sram):
  *   $ZEPHYR_BASE/dts/bindings/sram/mmio-sram.yaml
  *
- * Dependency Ordinal: 79
+ * Dependency Ordinal: 78
  *
  * Requires:
- *   76  /soc/flexram@400b0000
+ *   75  /soc/flexram@400b0000
  *
  * Description:
  *   Generic on-chip SRAM description
@@ -2835,19 +2764,143 @@
 
 /*
  * Devicetree node:
+ *   /soc/i2c@403f0000
+ *
+ * Binding (compatible = nxp,imx-lpi2c):
+ *   $ZEPHYR_BASE/dts/bindings/i2c/nxp,imx-lpi2c.yaml
+ *
+ * Dependency Ordinal: 79
+ *
+ * Requires:
+ *   8   /soc
+ *   23  /soc/ccm@400fc000
+ *   9   /soc/interrupt-controller@e000e100
+ *
+ * Supports:
+ *   80  /soc/i2c@403f0000/gt9x@14
+ *
+ * Description:
+ *   NXP i.MX LPI2C controller
+ */
+#define DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS      0x403f0000
+#define DT_ALIAS_I2C_1_BASE_ADDRESS                 DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS
+#define DT_NXP_IMX_LPI2C_I2C_1_BASE_ADDRESS         DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS
+#define DT_INST_0_NXP_IMX_LPI2C_BASE_ADDRESS        DT_NXP_IMX_LPI2C_403F0000_BASE_ADDRESS
+#define DT_NXP_IMX_LPI2C_403F0000_SIZE              16384
+#define DT_ALIAS_I2C_1_SIZE                         DT_NXP_IMX_LPI2C_403F0000_SIZE
+#define DT_NXP_IMX_LPI2C_I2C_1_SIZE                 DT_NXP_IMX_LPI2C_403F0000_SIZE
+#define DT_INST_0_NXP_IMX_LPI2C_SIZE                DT_NXP_IMX_LPI2C_403F0000_SIZE
+#define DT_NXP_IMX_LPI2C_403F0000_IRQ_0             28
+#define DT_ALIAS_I2C_1_IRQ_0                        DT_NXP_IMX_LPI2C_403F0000_IRQ_0
+#define DT_NXP_IMX_LPI2C_I2C_1_IRQ_0                DT_NXP_IMX_LPI2C_403F0000_IRQ_0
+#define DT_INST_0_NXP_IMX_LPI2C_IRQ_0               DT_NXP_IMX_LPI2C_403F0000_IRQ_0
+#define DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY    0
+#define DT_ALIAS_I2C_1_IRQ_0_PRIORITY               DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY
+#define DT_NXP_IMX_LPI2C_I2C_1_IRQ_0_PRIORITY       DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY
+#define DT_INST_0_NXP_IMX_LPI2C_IRQ_0_PRIORITY      DT_NXP_IMX_LPI2C_403F0000_IRQ_0_PRIORITY
+/* Initial clock frequency in Hz */
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY   100000
+#define DT_ALIAS_I2C_1_CLOCK_FREQUENCY              DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_FREQUENCY      DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_FREQUENCY     DT_NXP_IMX_LPI2C_403F0000_CLOCK_FREQUENCY
+/* Human readable string describing the device (used by Zephyr for API name) */
+#define DT_NXP_IMX_LPI2C_403F0000_LABEL             "I2C_1"
+#define DT_ALIAS_I2C_1_LABEL                        DT_NXP_IMX_LPI2C_403F0000_LABEL
+#define DT_NXP_IMX_LPI2C_I2C_1_LABEL                DT_NXP_IMX_LPI2C_403F0000_LABEL
+#define DT_INST_0_NXP_IMX_LPI2C_LABEL               DT_NXP_IMX_LPI2C_403F0000_LABEL
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER  "CCM"
+#define DT_ALIAS_I2C_1_CLOCK_CONTROLLER             DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_CONTROLLER     DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_CONTROLLER    DT_NXP_IMX_LPI2C_403F0000_CLOCK_CONTROLLER
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0      4
+#define DT_ALIAS_I2C_1_CLOCK_NAME_0                 DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_NAME_0         DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_NAME_0        DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME        DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
+#define DT_ALIAS_I2C_1_CLOCK_NAME                   DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_NAME           DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_NAME          DT_NXP_IMX_LPI2C_403F0000_CLOCK_NAME_0
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0    112
+#define DT_ALIAS_I2C_1_CLOCK_OFFSET_0               DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_OFFSET_0       DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_OFFSET_0      DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET      DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
+#define DT_ALIAS_I2C_1_CLOCK_OFFSET                 DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_OFFSET         DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_OFFSET        DT_NXP_IMX_LPI2C_403F0000_CLOCK_OFFSET_0
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0      6
+#define DT_ALIAS_I2C_1_CLOCK_BITS_0                 DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_BITS_0         DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_BITS_0        DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
+#define DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS        DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
+#define DT_ALIAS_I2C_1_CLOCK_BITS                   DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
+#define DT_NXP_IMX_LPI2C_I2C_1_CLOCK_BITS           DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
+#define DT_INST_0_NXP_IMX_LPI2C_CLOCK_BITS          DT_NXP_IMX_LPI2C_403F0000_CLOCK_BITS_0
+#define DT_INST_0_NXP_IMX_LPI2C                     1
+
+/*
+ * Devicetree node:
+ *   /soc/i2c@403f0000/gt9x@14
+ *
+ * Binding (compatible = coodix,gt9x):
+ *   $ZEPHYR_BASE/dts/bindings/kscan/coodix,gt9x.yaml
+ *
+ * Dependency Ordinal: 80
+ *
+ * Requires:
+ *   10  /soc/gpio@401b8000
+ *   79  /soc/i2c@403f0000
+ *
+ * Description:
+ *   GT9x capacitive touch panel
+ */
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_BASE_ADDRESS 0x14
+#define DT_INST_0_COODIX_GT9X_BASE_ADDRESS          DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_BASE_ADDRESS
+/* touch panel width */
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_WIDTH 480
+#define DT_INST_0_COODIX_GT9X_WIDTH                 DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_WIDTH
+/* touch panel height */
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_HEIGHT 320
+#define DT_INST_0_COODIX_GT9X_HEIGHT                DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_HEIGHT
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS_CONTROLLER "GPIO_1"
+#define DT_INST_0_COODIX_GT9X_INT_GPIOS_CONTROLLER  DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS_CONTROLLER
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS_PIN 19
+#define DT_INST_0_COODIX_GT9X_INT_GPIOS_PIN         DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS_PIN
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS_FLAGS 0
+#define DT_INST_0_COODIX_GT9X_INT_GPIOS_FLAGS       DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS_FLAGS
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS {"GPIO_1", 19, 0}
+#define DT_INST_0_COODIX_GT9X_INT_GPIOS             DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_INT_GPIOS
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS_CONTROLLER "GPIO_1"
+#define DT_INST_0_COODIX_GT9X_RESET_GPIOS_CONTROLLER DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS_CONTROLLER
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS_PIN 2
+#define DT_INST_0_COODIX_GT9X_RESET_GPIOS_PIN       DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS_PIN
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS_FLAGS 0
+#define DT_INST_0_COODIX_GT9X_RESET_GPIOS_FLAGS     DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS_FLAGS
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS {"GPIO_1", 2, 0}
+#define DT_INST_0_COODIX_GT9X_RESET_GPIOS           DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_RESET_GPIOS
+/* Human readable string describing the device (used by Zephyr for API name) */
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_LABEL "GT9X"
+#define DT_INST_0_COODIX_GT9X_LABEL                 DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_LABEL
+#define DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_BUS_NAME "I2C_1"
+#define DT_INST_0_COODIX_GT9X_BUS_NAME              DT_NXP_IMX_LPI2C_403F0000_COODIX_GT9X_14_BUS_NAME
+#define DT_COODIX_GT9X_BUS_I2C                      1
+#define DT_INST_0_COODIX_GT9X                       1
+
+/*
+ * Devicetree node:
  *   /soc/spi@402a8000
  *
  * Binding (compatible = nxp,imx-flexspi):
  *   $ZEPHYR_BASE/dts/bindings/spi/nxp,imx-flexspi.yaml
  *
- * Dependency Ordinal: 80
+ * Dependency Ordinal: 81
  *
  * Requires:
  *   8   /soc
  *   9   /soc/interrupt-controller@e000e100
  *
  * Supports:
- *   81  /soc/spi@402a8000/is25wp064@0
+ *   82  /soc/spi@402a8000/is25wp064@0
  *
  * Description:
  *   NXP FlexSPI controller
@@ -2876,10 +2929,10 @@
  * Binding (compatible = jedec,spi-nor):
  *   $ZEPHYR_BASE/dts/bindings/mtd/jedec,spi-nor.yaml
  *
- * Dependency Ordinal: 81
+ * Dependency Ordinal: 82
  *
  * Requires:
- *   80  /soc/spi@402a8000
+ *   81  /soc/spi@402a8000
  *
  * Description:
  *   Properties supporting Zephyr spi-nor flash driver (over the Zephyr SPI
@@ -2945,6 +2998,7 @@
 #define DT_COMPAT_ARM_ARMV7M_MPU                    1
 #define DT_COMPAT_ARM_CORTEX_M7                     1
 #define DT_COMPAT_ARM_V7M_NVIC                      1
+#define DT_COMPAT_COODIX_GT9X                       1
 #define DT_COMPAT_FIXED_CLOCK                       1
 #define DT_COMPAT_FSL_IMX6SX_LCDIF                  1
 #define DT_COMPAT_GPIO_LEDS                         1

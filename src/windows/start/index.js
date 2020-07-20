@@ -114,7 +114,7 @@ class Start {
   }
 
   getDefaultPath() {
-    return getNewProjectPath(path.resolve(app.getPath('documents'), 'MadMachine', 'untitled'))
+    return getNewProjectPath(path.resolve(app.getPath('documents'), 'MadMachine', 'projects', 'untitled'))
   }
 
   selectDir(next) {
