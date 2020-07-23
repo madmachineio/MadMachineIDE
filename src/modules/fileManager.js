@@ -7,7 +7,7 @@ import path from 'path'
 import { fromatPath, mkdirsSync } from '../utils/path'
 import { getConfig, setConfig } from '../config'
 
-const EXT_FILES = ['.swift']
+const EXT_FILES = ['.swift', '.mmswift']
 
 const sortFiles = (data) => {
   const newData = data
@@ -208,7 +208,7 @@ class FileManager {
     const key = pathTmp.split(global.PATH_SPLIT).slice(-1)
     const [name] = key
 
-    const sourcePath = `${pathTmp}/Sources/${name}`
+    const sourcePath = path.resolve(pathTmp, 'Sources', name) // `${pathTmp}/Sources/${name}`
     mkdirsSync(sourcePath)
 
     this.folderData = {
@@ -217,7 +217,16 @@ class FileManager {
       projectPath: pathTmp,
       path: sourcePath,
       isDirectory: true,
-      children: [],
+      children: [
+        {
+          fixed: true,
+          name: `${name}.mmswift`,
+          key: sourcePath.split(global.PATH_SPLIT).slice(-1).concat(`${name}.mmswift`),
+          path: this.projectFile,
+          isDirectory: false,
+          children: [],
+        }
+      ],
     }
     this.projectName = name
 
@@ -255,22 +264,22 @@ class FileManager {
           }
           return fileData
         })
-        .filter(m => !m.isDirectory && EXT_FILES.includes(fromatPath(m.name).ext))
+        .filter(m => m.isDirectory || EXT_FILES.includes(fromatPath(m.name).ext))
 
-      const hasMainSwift = children.findIndex(m => m.name === 'main.swift')
-      if (hasMainSwift < 0) {
-        const filePath = path.resolve(folderData.path, 'main.swift') // `${folderData.path}/main.swift`
-        fs.writeFileSync(filePath, '')
-        children.push({
-          name: 'main.swift',
-          key: folderData.key.concat('main.swift'),
-          path: filePath,
-          isDirectory: false,
-          children: [],
-        })
-      }
-
-      folderData.children = sortFiles(children)
+      // const hasMainSwift = children.findIndex(m => m.name === 'main.swift')
+      // if (hasMainSwift < 0) {
+      //   const filePath = path.resolve(folderData.path, 'main.swift') // `${folderData.path}/main.swift`
+      //   fs.writeFileSync(filePath, '')
+      //   children.push({
+      //     name: 'main.swift',
+      //     key: folderData.key.concat('main.swift'),
+      //     path: filePath,
+      //     isDirectory: false,
+      //     children: [],
+      //   })
+      // }
+  
+      folderData.children = folderData.children.filter(m => m.fixed).concat(sortFiles(children))
     }
 
     this.eventEmitter.emit('OPEN_FOLDERS', this.folderData)
@@ -295,13 +304,13 @@ class FileManager {
 
   // 新建文件
   createFolderFile(pathTmp) {
-    if (this.isNewStatus || this.editWindow.isExample) {
+    if (this.editWindow.isExample) {
       return
     }
 
     const folderData = this.findFolderByPah(this.folderData, pathTmp)
     if (folderData && folderData.children) {
-      const firstFileIndex = folderData.children.findIndex(m => m.isDirectory === false)
+      const firstFileIndex = Math.max(0, folderData.children.findIndex(m => m.isDirectory === false))
       folderData.children.splice(firstFileIndex, 0, {
         name: formatFileName(path.resolve(folderData.path, 'Untitled.swift'))
           .split(global.PATH_SPLIT)
@@ -319,7 +328,7 @@ class FileManager {
 
   // 新建文件夹
   createFolderFolder(pathTmp) {
-    if (this.isNewStatus || this.editWindow.isExample) {
+    if (this.editWindow.isExample) {
       return
     }
 

@@ -11,6 +11,7 @@ import StartWindow from './windows/start'
 import { fromatPath, exsitProjectFile } from './utils/path'
 
 import UpdateManager from './modules/updateManager'
+import InitManager from "./modules/initManager";
 
 if (os.platform() === 'win32') {
   global.PATH_SPLIT = '\\'
@@ -32,6 +33,7 @@ class Main {
     this.openFilePath = ''
 
     this.updater = null
+    this.init = null
 
     this.setAppUserModelId()
     this.initAppEvent()
@@ -167,6 +169,13 @@ class Main {
 
     this.updater = new UpdateManager()
   }
+  initManager() {
+    if (this.init) {
+      return
+    }
+    
+    this.init = new InitManager()
+  }
 
   setAppUserModelId() {
     app.setAppUserModelId('com.madmachine.app')
@@ -210,6 +219,7 @@ class Main {
       }
 
       this.updateManager()
+      this.initManager()
     })
 
 

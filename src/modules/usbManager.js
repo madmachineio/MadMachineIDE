@@ -232,10 +232,10 @@ class UsbManager {
 
       this.copyProgress = 0
       this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
-      this.editWindow.consoleManager.sendMessage(
-        'stdout',
-        'Done \r\n',
-      )
+      // this.editWindow.consoleManager.sendMessage(
+      //   'stdout',
+      //   'Done \r\n',
+      // )
     })
 
     ws.on('error', () => {

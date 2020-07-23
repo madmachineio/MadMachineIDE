@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx'
+import { cloneDeep } from 'lodash'
 
 const { clipboard, remote } = require('electron')
 
@@ -204,7 +205,7 @@ class FileStore {
    * 文件管理
    */
   @action setFoldersData(folders) {
-    this.folders = folders
+    this.folders = cloneDeep(folders)
 
     const mianFile = folders.children.find(m => m.name === 'main.swift')
     if (mianFile) {

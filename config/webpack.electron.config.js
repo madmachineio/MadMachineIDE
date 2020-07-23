@@ -143,6 +143,10 @@ module.exports = {
         from: pathResolve('/resources'),
         to: pathResolve('/dist/resources'),
       },
+      {
+        from: pathResolve('/resources/build'),
+        to: pathResolve('/dist/build'),
+      },
     ]),
   ],
 
