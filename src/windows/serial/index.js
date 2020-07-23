@@ -96,8 +96,6 @@ class SerialWindow {
   }
 
   domReady() {
-    this.serialWindow.show()
-
     this.serialManager.initSerialList()
 
     if (getConfig('DEBUG')) {
@@ -105,6 +103,10 @@ class SerialWindow {
     }
 
     this.setTheme()
+    
+    setTimeout(() => {
+      this.serialWindow.show()
+    }, 500)
   }
 
   setTheme(themeName) {

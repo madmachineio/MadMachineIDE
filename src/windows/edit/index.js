@@ -235,7 +235,7 @@ class EditWindow {
 
     setTimeout(() => {
       this.editWindow.show()
-    })
+    },500)
   }
 
   setTheme(themeName) {
@@ -299,7 +299,7 @@ class EditWindow {
 
   openExample(filePath) {
     const projectFile = fs.readdirSync(filePath).filter(file => /\.mmswift/.test(file))[0]
-    this.app.createEditWindow(path.resolve(filePath, projectFile), true)
+    this.app.createEditWindow(path.resolve(filePath, projectFile), false)
   }
 
   saveFile(projectPath, filePath, content) {

@@ -6,7 +6,7 @@ import sudo from 'sudo-prompt'
 import * as os from 'os'
 import * as pty from 'node-pty'
 // import stripAnsi from 'strip-ansi'
-import buildScript from '../public/build/main'
+import {build as  buildScript, init } from '../public/build/main'
 import { mkdirsSync } from '../utils/path'
 // import iconv from 'iconv-lite'
 
@@ -58,6 +58,14 @@ class ConsoleManager {
     this.eventEmitter.emit('status', this.runStatus)
 
     return this.sendMessage
+  }
+  
+  async initProject(folderPath) {
+    try {
+      await init(folderPath, this.execCmd.bind(this))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   async chmodFolder() {

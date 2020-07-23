@@ -4,10 +4,12 @@ import {
 import path from 'path'
 import fs from 'fs'
 import os from 'os'
+import { EventEmitter } from 'events'
 
 import { format as formatUrl } from 'url'
 import { getConfig } from '../../config'
 import { mkdirsSync, exsitProject } from '../../utils/path'
+import ConsoleManager from "../../modules/consoleManager";
 
 const getNewProjectPath = (opath, index = 0) => {
   let realPath = opath
@@ -25,6 +27,9 @@ class Start {
     this.window = null
     this.parent = parent
     this.opts = opts
+  
+    this.eventEmitter = new EventEmitter()
+    this.consoleManager = new ConsoleManager(this.eventEmitter, this)
 
     this.createWindow()
     this.loadPage()
@@ -88,8 +93,6 @@ class Start {
   }
 
   domReady() {
-    this.window.show()
-
     if (getConfig('DEBUG')) {
       this.window.webContents.openDevTools()
     }
@@ -99,6 +102,10 @@ class Start {
     this.setCreate()
 
     this.window.webContents.send('SYSTEM_TYPE', os.platform())
+  
+    setTimeout(() => {
+      this.window.show()
+    }, 500)
   }
 
   setCreate() {
@@ -130,12 +137,14 @@ class Start {
     )
   }
 
-  createProject(createPath) {
+  async createProject(createPath) {
     mkdirsSync(createPath)
 
     const projectName = createPath.split(global.PATH_SPLIT).slice(-1)[0]
     const openPath = path.resolve(createPath, `${projectName}.mmswift`)
-    fs.writeFileSync(openPath, '')
+    // fs.writeFileSync(openPath, '')
+    await this.consoleManager.initProject(createPath)
+    
 
     const result = this.parent.createEditWindow(openPath)
     if (result) {

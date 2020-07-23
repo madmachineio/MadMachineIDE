@@ -2,6 +2,8 @@ import { app } from 'electron'
 import fs from 'fs'
 import { get as getPathVal, merge } from 'lodash'
 import path from 'path'
+import os from "os";
+import childProcess from "child_process";
 
 // 初始化 基本数据
 let baseConfigData = null
@@ -12,17 +14,36 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // 初始化 本地配置文件
-const homeDir = app.getPath('home')
+const homeDir = app.getPath('appData')
 const userConfigDir = path.resolve(homeDir, 'MadMachine')
 const userConfigPath = path.resolve(userConfigDir, 'config.json') // `${userConfigDir}/config.json`
 if (!fs.existsSync(userConfigDir)) {
   fs.mkdirSync(userConfigDir)
 }
+console.log(homeDir)
 if (!fs.existsSync(path.resolve(userConfigDir, 'projects'))) {
   fs.mkdirSync(path.resolve(userConfigDir, 'projects'))
 }
 if (!fs.existsSync(userConfigPath)) {
-  fs.writeFileSync(userConfigPath, '{}')
+  // 处理旧配置文件移动
+  const oldConfigPath = path.resolve(app.getPath('home'), 'MadMachine', 'config.json')
+  if (fs.existsSync(oldConfigPath)) {
+    switch (os.platform()) {
+      case 'win32':
+        childProcess.execSync(`xcopy "${oldConfigPath}" "${userConfigPath}" /e /y /q`)
+        break
+      case 'darwin':
+        childProcess.execSync(`cp -R "${oldConfigPath}" "${userConfigPath}"`)
+        break
+      case 'linux':
+        childProcess.execSync(`cp -R "${oldConfigPath}" "${userConfigPath}"`)
+        break
+      default:
+        break
+    }
+  } else {
+    fs.writeFileSync(userConfigPath, '{}')
+  }
 }
 
 const userConfigData = JSON.parse(fs.readFileSync(userConfigPath, 'utf-8'))

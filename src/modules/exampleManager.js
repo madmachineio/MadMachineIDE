@@ -19,8 +19,8 @@ class ExampleManager {
   }
 
   readExampleList() {
-    const formatFile = (rpath, file, addProjectFile) => {
-      const filePath = `${rpath}/${file}`
+    const formatFile = (rpath, file, dir = '') => {
+      const filePath = path.resolve(rpath, file, dir) // `${rpath}/${file}`
       const stat = fs.statSync(filePath)
       const fileData = {
         name: file,
@@ -35,25 +35,67 @@ class ExampleManager {
       return fileData
     }
 
-    const exampleDir = resolvePath('')
-    this.list = fs
-      .readdirSync(exampleDir)
-      .map((file) => {
-        const fileData = formatFile(exampleDir, file)
-        fileData.children = fs
-          .readdirSync(fileData.path)
-          .map(cFile => formatFile(fileData.path, cFile))
-          .filter(m => m.isDirectory)
-        return fileData
-      })
-      .filter(m => m.isDirectory)
-      .map(item => ({
-        ...item,
-        // children: (item.children || []).sort((a, b) => {
-        //   const reg = /^Mission(\d+)/
-        //   return a.name.match(reg)[1] - b.name.match(reg)[1]
-        // }),
-      }))
+    try {
+      const exampleDir = path.resolve(app.getPath('documents'), 'MadMachine', 'Examples')
+      const exampleList = fs
+        .readdirSync(exampleDir)
+        .filter(m => !/^\./g.test(m))
+        .map((file) => {
+          const fileData = formatFile(exampleDir, file)
+          if (fileData.isDirectory && fs.existsSync(fileData.path)) {
+            fileData.children = fs
+              .readdirSync(fileData.path)
+              .map(cFile => formatFile(fileData.path, cFile))
+              .filter(m => m.isDirectory)
+          }
+          return fileData
+        })
+        .filter(m => m.isDirectory)
+        .map(item => ({
+          ...item,
+          // children: (item.children || []).sort((a, b) => {
+          //   const reg = /^Mission(\d+)/
+          //   return a.name.match(reg)[1] - b.name.match(reg)[1]
+          // }),
+        }))
+  
+      const libraryDir = path.resolve(app.getPath('documents'), 'MadMachine', 'Library')
+      const LibraryExampleList = fs
+        .readdirSync(libraryDir)
+        .filter(m => !/^\./g.test(m))
+        .map(file => {
+          const fileData = formatFile(libraryDir, file, 'Examples')
+          if (fileData.isDirectory && fs.existsSync(fileData.path)) {
+            fileData.children = fs
+              .readdirSync(fileData.path)
+              .map(cFile => formatFile(fileData.path, cFile))
+              .filter(m => m.isDirectory)
+          }
+          return fileData
+        }).filter(m => m.isDirectory)
+        .map(item => ({
+          ...item,
+          // children: (item.children || []).sort((a, b) => {
+          //   const reg = /^Mission(\d+)/
+          //   return a.name.match(reg)[1] - b.name.match(reg)[1]
+          // }),
+        }))
+  
+      this.list = [
+        {
+          type: 'Examples',
+          list: exampleList
+        },
+        {
+          type: 'Library',
+          list: LibraryExampleList
+        }
+      ]
+    } catch (e) {
+      console.log(e)
+    }
+    
+    console.log(this.list)
 
     this.eventEmitter.emit('EXAMPLE_LIST', this.list)
   }

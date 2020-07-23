@@ -89,13 +89,15 @@ class SettingWindow {
   }
 
   domReady() {
-    this.settingWindow.show()
-
     if (getConfig('DEBUG')) {
       this.settingWindow.webContents.openDevTools()
     }
 
     this.setTheme()
+    
+    setTimeout(() => {
+      this.settingWindow.show()
+    }, 500)
   }
 
   setTheme(themeName) {
