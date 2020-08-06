@@ -9,7 +9,8 @@ import ContentMenu from '@windows/components/contentMenu'
 import './styles/manager.scss'
 
 const calcDeepPadding = deep => 14 + 20 * deep
-const MODIFY_TYPES = ['newFolder', 'newFile', 'rename']
+const MODIFY_TYPES = ['newFile', 'rename']
+const FOLDER_MODIFY_TYPES = ['newFolder']
 
 const abortSwiftFile = name => `${name.slice(0, Math.min(name.lastIndexOf('.'), 50))}.swift`
 
@@ -271,6 +272,9 @@ class FileFolder extends Component {
   }
 
   genFolder(fileData) {
+    const {
+      fileStore: { activeFile },
+    } = this.props
     const { showMap } = this.state
     const key = fileData.key.join(',')
     const { children = [] } = fileData
@@ -280,9 +284,18 @@ class FileFolder extends Component {
 
     return (
       <div className={classnames({ 'folder-wrap': true, actived: true })} key={key}>
-        <div className="block-file" style={fileStyle} data-path={fileData.path} data-key={key} onClick={this.toggleFileHandle.bind(this, fileData)}>
-          <Icon icon={fileData.key.length === 1 ? 'appstore' : 'gh_cdcf_'} size="14" />
-          {MODIFY_TYPES.includes(fileData.type) ? this.modifyFile(fileData, fileData.type) : <span className="text">{fileData.name}</span>}
+        <div
+          className={classnames({ 'block-file': true, actived: activeFile.path === fileData.path })}
+          style={fileStyle}
+          data-path={fileData.path}
+          data-key={key}
+          onClick={this.toggleFileHandle.bind(this, fileData)}
+        >
+          <Icon
+            icon={fileData.key.length === 1 ? 'appstore' : (showMap[key] ? 'folder' : 'gh_cdcf_')}
+            size="14"
+          />
+          {FOLDER_MODIFY_TYPES.includes(fileData.type) ? this.modifyFile(fileData, fileData.type) : <span className="text">{fileData.name}</span>}
         </div>
 
         {showMap[key] ? children.map(item => (item.isDirectory ? this.genFolder(item) : this.genFile(item))) : null}
@@ -324,7 +337,7 @@ class FileFolder extends Component {
     return (
       <div className="file-manager-folder" onContextMenu={this.contentMenuHandle.bind(this)}>
         <Scrollbars autoHide renderThumbHorizontal={() => <div className="h-scrollbar" />} renderThumbVertical={() => <div className="v-scrollbar" />}>
-         <div>{folders.key && this.genFolder(folders)}</div>
+          <div>{folders.key && this.genFolder(folders)}</div>
         </Scrollbars>
 
         {showContentMenu ? <ContentMenu list={menuList} left={menuPos.left} top={menuPos.top} /> : null}

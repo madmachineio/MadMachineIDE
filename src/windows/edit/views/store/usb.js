@@ -49,7 +49,7 @@ class UsbStore {
 
       if (isHave) {
         this.rootStore.consoleStore.setConsoleRun('compiling')
-        await this.rootStore.editWindow.consoleManager.run(this.rootStore.consoleStore.cols, this.rootStore.consoleStore.rows)
+        await this.rootStore.editWindow.consoleManager.run(this.rootStore.consoleStore.cols, this.rootStore.consoleStore.rows, false)
         this.rootStore.editWindow.usbManager.copyFile()
       } else {
         clearInterval(this.timeId)

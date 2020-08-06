@@ -178,13 +178,15 @@ class UsbManager {
     let readSize = 0
 
     rs.on('data', (data) => {
-      readSize += data.length
-      this.copyProgress = readSize / totalSize
-      this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
-
       rs.pause()
       ws.write(data, () => {
-        rs.resume()
+        readSize += data.length
+        this.copyProgress = readSize / totalSize
+        this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
+
+        setTimeout(() => {
+            rs.resume()
+        }, 100)
       })
     })
 
@@ -239,14 +241,14 @@ class UsbManager {
     })
 
     ws.on('error', () => {
-      this.copyProgress = 0
+      this.copyProgress = -1
 
       this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
 
-      this.editWindow.consoleManager.sendMessage(
-        'stderr',
-        'Download file error \r\n',
-      )
+      // this.editWindow.consoleManager.sendMessage(
+      //   'stderr',
+      //   'Download file error \r\n',
+      // )
     })
 
     return true
