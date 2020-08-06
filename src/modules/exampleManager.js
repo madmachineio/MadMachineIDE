@@ -5,7 +5,7 @@ import childProcess from 'child_process'
 import { app } from 'electron'
 import { mkdirsSync } from '../utils/path'
 
-const resolvePath = (dir = '') => path.resolve(__dirname, './public/example', dir)
+// const resolvePath = (dir = '') => path.resolve(__dirname, './public/example', dir)
 
 class ExampleManager {
   constructor(eventEmitter, editWindow) {
@@ -21,6 +21,9 @@ class ExampleManager {
   readExampleList() {
     const formatFile = (rpath, file, dir = '') => {
       const filePath = path.resolve(rpath, file, dir) // `${rpath}/${file}`
+      if (!fs.existsSync(filePath)) {
+        return {}
+      }
       const stat = fs.statSync(filePath)
       const fileData = {
         name: file,
@@ -42,7 +45,7 @@ class ExampleManager {
         .filter(m => !/^\./g.test(m))
         .map((file) => {
           const fileData = formatFile(exampleDir, file)
-          if (fileData.isDirectory && fs.existsSync(fileData.path)) {
+          if (fileData && fileData.isDirectory && fs.existsSync(fileData.path)) {
             fileData.children = fs
               .readdirSync(fileData.path)
               .map(cFile => formatFile(fileData.path, cFile))
@@ -58,14 +61,14 @@ class ExampleManager {
           //   return a.name.match(reg)[1] - b.name.match(reg)[1]
           // }),
         }))
-  
+
       const libraryDir = path.resolve(app.getPath('documents'), 'MadMachine', 'Library')
       const LibraryExampleList = fs
         .readdirSync(libraryDir)
         .filter(m => !/^\./g.test(m))
         .map(file => {
           const fileData = formatFile(libraryDir, file, 'Examples')
-          if (fileData.isDirectory && fs.existsSync(fileData.path)) {
+          if (fileData && fileData.isDirectory && fs.existsSync(fileData.path)) {
             fileData.children = fs
               .readdirSync(fileData.path)
               .map(cFile => formatFile(fileData.path, cFile))
@@ -80,21 +83,21 @@ class ExampleManager {
           //   return a.name.match(reg)[1] - b.name.match(reg)[1]
           // }),
         }))
-  
+
       this.list = [
         {
           type: 'Examples',
-          list: exampleList
+          list: exampleList,
         },
         {
           type: 'Library',
-          list: LibraryExampleList
-        }
+          list: LibraryExampleList,
+        },
       ]
     } catch (e) {
       console.log(e)
     }
-    
+
     console.log(this.list)
 
     this.eventEmitter.emit('EXAMPLE_LIST', this.list)
@@ -137,8 +140,8 @@ class ExampleManager {
 
   copyExampleTo(filePath, otargetPath) {
     const targetPath = path.resolve(otargetPath, path.basename(filePath))
-    
-    if(!fs.existsSync(targetPath)) {
+
+    if (!fs.existsSync(targetPath)) {
       mkdirsSync(targetPath)
     }
 

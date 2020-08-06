@@ -14,6 +14,10 @@ class UserStore {
   @action showUser() {
     this.rootStore.editWindow.app.showUserView()
   }
+
+  @action openCommunity() {
+    this.rootStore.editWindow.app.openCommunity()
+  }
 }
 
 export default UserStore

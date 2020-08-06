@@ -1,5 +1,7 @@
 /* eslint-disable import/no-webpack-loader-syntax */
-import { app, Menu, dialog } from 'electron'
+import {
+ app, Menu, dialog, shell,
+} from 'electron'
 import os from 'os'
 
 import EditWindow from './windows/edit'
@@ -11,7 +13,7 @@ import StartWindow from './windows/start'
 import { fromatPath, exsitProjectFile } from './utils/path'
 
 import UpdateManager from './modules/updateManager'
-import InitManager from "./modules/initManager";
+import InitManager from './modules/initManager'
 
 if (os.platform() === 'win32') {
   global.PATH_SPLIT = '\\'
@@ -97,6 +99,10 @@ class Main {
     }
   }
 
+  openCommunity() {
+    shell.openExternal('https://discord.gg/zZ9bFHK')
+  }
+
   removeUserView() {
     this.userWindow = null
   }
@@ -169,11 +175,12 @@ class Main {
 
     this.updater = new UpdateManager()
   }
+
   initManager() {
     if (this.init) {
       return
     }
-    
+
     this.init = new InitManager()
   }
 

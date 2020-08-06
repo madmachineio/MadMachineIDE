@@ -9,14 +9,22 @@
   @include theme {
     border-color: val((borderColor));
   }
+  .block {
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    &.show {
+      display: flex;
+    }
+  }
   .title {
     height: 32px;
-    display: flex;
     align-items: center;
     padding: 0 15px 0 30px;
     user-select: none;
     border-bottom-width: 1px;
     border-bottom-style: solid;
+    display: flex;
     @include theme {
       border-color: val((borderColor));
     }

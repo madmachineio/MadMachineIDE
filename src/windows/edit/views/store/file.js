@@ -208,12 +208,14 @@ class FileStore {
     this.folders = cloneDeep(folders)
 
     const mianFile = folders.children.find(m => m.name === 'main.swift')
-    if (mianFile) {
+    if (mianFile && !this.activeFile) {
       this.openFile(mianFile)
     }
   }
 
   @action openFolderData(folder) {
+    this.setActiveFile(folder)
+
     this.rootStore.editWindow.fileManager.readeFolderSave(folder.path)
   }
 

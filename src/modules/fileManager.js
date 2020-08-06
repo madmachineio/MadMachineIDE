@@ -16,7 +16,7 @@ const sortFiles = (data) => {
     newData.children = sortFiles(children)
   }
   // return newData.sort((a, b) => (a.name || '').localeCompare(b.name || ''))
-  return newData.sort((a, b) => b.ctimeMs - a.ctimeMs)
+  return newData.sort((a, b) => b.ctimeMs - a.ctimeMs).sort((a, b) => b.isDirectory - a.isDirectory)
 }
 
 const deleteFile = (filePath) => {
@@ -339,7 +339,7 @@ class FileManager {
         key: folderData.key.concat('--newFolder--'),
         path: path.resolve(folderData.path, '--newFolder--'), // `${folderData.path}/--newFolder--`,
         type: 'newFolder',
-        isDirectory: false,
+        isDirectory: true,
         children: [],
       })
       this.isNewStatus = true
