@@ -17,6 +17,7 @@
     align-items: center;
     cursor: pointer;
     user-select: none;
+    position: relative;
     .component-icon {
       width: 18px;
     }
@@ -37,6 +38,14 @@
       &:active,
       &:focus {
         outline: none;
+      }
+    }
+    .arrow {
+      //transition: all .3s ease-in-out;
+      position: absolute;
+      margin-left: -18px;
+      &.arrow-down {
+        transform: rotateZ(90deg) translate3d(4px, 4px, 0);
       }
     }
     &:hover,

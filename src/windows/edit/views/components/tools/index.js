@@ -137,7 +137,7 @@ class Tools extends Component {
           </div>
 
           <div className="group">
-            <span onClick={this.runBuildHandle.bind(this)} title="Verify" className={classnames({ disabled: isExample })}>
+            <span onClick={this.runBuildHandle.bind(this)} title="Build" className={classnames({ disabled: isExample })}>
               <Icon icon="Path" size="18" />
             </span>
             <span onClick={this.copyFileHandle.bind(this)} title="Download" className={classnames({ disabled: isExample })}>

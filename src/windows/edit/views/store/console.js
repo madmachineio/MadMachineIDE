@@ -18,6 +18,8 @@ class ConsoleStore {
 
   // 编译
   @action runBuild() {
+    this.rootStore.usbStore.setCopyProgress(0)
+
     this.runStatus = 'compiling'
 
     emitter.emit('CONSOLE_CLEAR')

@@ -144,7 +144,6 @@ class Start {
     const openPath = path.resolve(createPath, `${projectName}.mmswift`)
     // fs.writeFileSync(openPath, '')
     await this.consoleManager.initProject(createPath)
-    
 
     const result = this.parent.createEditWindow(openPath)
     if (result) {
@@ -167,8 +166,6 @@ class Start {
       (files) => {
         if (files) {
           this.parent.createEditWindow(files[0])
-
-          this.window.close()
         }
       },
     )
