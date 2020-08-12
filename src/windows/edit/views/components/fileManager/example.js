@@ -49,7 +49,7 @@ class Example extends Component {
             <Icon icon="arrow-left" size="12" />
           </div>
           <div className="folder">
-            <Icon icon="folder" size="12" />
+            <Icon icon={unfoldMap[item.path] ? 'folder' : 'gh_cdcf_'} size="12" />
           </div>
           <span className="name">{item.name}</span>
         </div>

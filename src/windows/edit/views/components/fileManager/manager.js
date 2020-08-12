@@ -291,6 +291,9 @@ class FileFolder extends Component {
           data-key={key}
           onClick={this.toggleFileHandle.bind(this, fileData)}
         >
+          <div className={classnames(['arrow', showMap[key] ? 'arrow-down' : ''])}>
+            <Icon icon="arrow-left" size="12" />
+          </div>
           <Icon
             icon={fileData.key.length === 1 ? 'appstore' : (showMap[key] ? 'folder' : 'gh_cdcf_')}
             size="14"

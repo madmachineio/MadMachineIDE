@@ -50,11 +50,8 @@ class EditBody extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.initEditor()
-
-      this.setActivityEditor()
-    })
+    this.initEditor()
+    this.setActivityEditor()
 
     this.undoHandle = () => {
       this.undoEditHandle()

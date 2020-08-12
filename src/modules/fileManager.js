@@ -16,7 +16,10 @@ const sortFiles = (data) => {
     newData.children = sortFiles(children)
   }
   // return newData.sort((a, b) => (a.name || '').localeCompare(b.name || ''))
-  return newData.sort((a, b) => b.ctimeMs - a.ctimeMs).sort((a, b) => b.isDirectory - a.isDirectory)
+  // .sort((a, b) => b.ctimeMs - a.ctimeMs)
+  const folderList = newData.filter(m => m.isDirectory).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+  const fileList = newData.filter(m => !m.isDirectory).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+  return folderList.concat(fileList)
 }
 
 const deleteFile = (filePath) => {
@@ -225,7 +228,7 @@ class FileManager {
           path: this.projectFile,
           isDirectory: false,
           children: [],
-        }
+        },
       ],
     }
     this.projectName = name
@@ -278,7 +281,7 @@ class FileManager {
       //     children: [],
       //   })
       // }
-  
+
       folderData.children = folderData.children.filter(m => m.fixed).concat(sortFiles(children))
     }
 

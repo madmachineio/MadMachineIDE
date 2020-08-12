@@ -7,10 +7,10 @@ import Progress from '@windows/components/progresss'
 
 import './styles/status.scss'
 
-@inject(({ configStore, usbStore }) => ({
+@inject(({ configStore, usbStore, consoleStore }) => ({
   configStore,
   usbStore,
-  // consoleStore,
+  consoleStore,
 }))
 @observer
 class ConsoleStatus extends Component {
@@ -29,16 +29,17 @@ class ConsoleStatus extends Component {
     const {
       usbStore: { isMount, progress },
       configStore: { consoleHeight },
+      consoleStore: { runStatus: buildStatus },
     } = this.props
 
-    // let compileText = ''
-    // if (buildStatus === 'compiling') {
-    //   compileText = 'Building...'
-    // } else if (buildStatus === 'error') {
-    //   compileText = 'Error'
-    // } else if (buildStatus === 'success') {
-    //   compileText = 'Done'
-    // }
+    let compileText = ''
+    if (buildStatus === 'compiling') {
+      compileText = 'Building...'
+    } else if (buildStatus === 'error') {
+      compileText = 'Error'
+    } else if (buildStatus === 'success') {
+      compileText = 'Done'
+    }
 
     return (
       <div className="layout-console-status">
@@ -49,8 +50,8 @@ class ConsoleStatus extends Component {
             </div>
           ) : ''}
 
-          {progress > 0 ? <span className="text">Downloading...</span> : progress === 0 ? <span className="text">Done</span> : <span className="text">Error</span>}
-          {progress > 0 ? (
+          {progress > 0 ? progress === 101 ? <span className="text">Done</span> : <span className="text">Downloading...</span> : progress === -1 ? <span className="text">Error</span> : <span className="text">{compileText}</span>}
+          {progress > 0 && progress < 100 ? (
             <div className="status-progress">
               <Progress progress={progress * 100} />
             </div>
@@ -72,13 +73,13 @@ class ConsoleStatus extends Component {
 ConsoleStatus.propTypes = {
   configStore: PropTypes.object,
   usbStore: PropTypes.object,
-  // consoleStore: PropTypes.object,
+  consoleStore: PropTypes.object,
 }
 
 ConsoleStatus.defaultProps = {
   configStore: {},
   usbStore: {},
-  // consoleStore: {},
+  consoleStore: {},
 }
 
 export default ConsoleStatus
