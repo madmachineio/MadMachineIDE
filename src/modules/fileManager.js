@@ -7,7 +7,7 @@ import path from 'path'
 import { fromatPath, mkdirsSync } from '../utils/path'
 import { getConfig, setConfig } from '../config'
 
-const EXT_FILES = ['.swift', '.mmswift']
+const EXT_FILES = ['.swift', '.mmp']
 
 const sortFiles = (data) => {
   const newData = data
@@ -181,7 +181,7 @@ class FileManager {
 
   createProjectFile(filePath) {
     const projectName = fromatPath(filePath).fileFullName
-    const fpath = path.resolve(filePath, `${projectName}.mmswift`)
+    const fpath = path.resolve(filePath, `${projectName}.mmp`)
     fs.writeFileSync(fpath, '')
 
     // 添加Source文件夹，存放代码
@@ -223,8 +223,8 @@ class FileManager {
       children: [
         {
           fixed: true,
-          name: `${name}.mmswift`,
-          key: sourcePath.split(global.PATH_SPLIT).slice(-1).concat(`${name}.mmswift`),
+          name: `${name}.mmp`,
+          key: sourcePath.split(global.PATH_SPLIT).slice(-1).concat(`${name}.mmp`),
           path: this.projectFile,
           isDirectory: false,
           children: [],

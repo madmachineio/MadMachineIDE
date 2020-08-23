@@ -120,7 +120,7 @@ class MenuManager {
             click: () => {
               dialog.showOpenDialog(
                 {
-                  filters: [{ name: 'MadMachine', extensions: ['mmswift'] }],
+                  filters: [{ name: 'MadMachine', extensions: ['mmp'] }],
                   properties: ['openFile', 'createDirectory'],
                 },
                 (files) => {
@@ -283,7 +283,7 @@ class MenuManager {
             click: () => {
               dialog.showOpenDialog(
                 {
-                  filters: [{ name: 'MadMachine', extensions: ['mmswift'] }],
+                  filters: [{ name: 'MadMachine', extensions: ['mmp'] }],
                   properties: ['openFile', 'createDirectory'],
                 },
                 (files) => {
