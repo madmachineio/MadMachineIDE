@@ -1,6 +1,6 @@
 /* eslint-disable import/no-webpack-loader-syntax */
 import {
- app, Menu, dialog, shell,
+  app, Menu, dialog, shell,
 } from 'electron'
 import os from 'os'
 
@@ -191,13 +191,13 @@ class Main {
   initAppEvent() {
     if (os.platform() !== 'darwin') {
       const file = process.argv[1] || ''
-      this.openFilePath = /\.mmswift$/.test(file) ? file : ''
+      this.openFilePath = /\.mmp$/.test(file) ? file : ''
     }
 
     app.on('open-file', (event, path) => {
       event.preventDefault()
 
-      if (fromatPath(path).ext === '.mmswift') {
+      if (fromatPath(path).ext === '.mmp') {
         this.openFilePath = path
       }
 

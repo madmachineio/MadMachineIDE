@@ -105,7 +105,7 @@ class FileFolder extends Component {
         name: 'Copy',
         // key: 'Ctrl+C',
         isShow(fileData) {
-          return fileData.name !== 'main.swift' && !/\.mmswift$/gi.test(fileData.name)
+          return fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
           const { fileStore } = this.props
@@ -144,7 +144,7 @@ class FileFolder extends Component {
         name: 'Rename',
         // key: '↩',
         isShow(fileData) {
-          return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmswift$/gi.test(fileData.name)
+          return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
           const { fileStore } = this.props
@@ -154,7 +154,7 @@ class FileFolder extends Component {
       {
         name: 'Delete',
         isShow(fileData) {
-          return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmswift$/gi.test(fileData.name)
+          return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
           const { fileStore } = this.props

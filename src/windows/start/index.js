@@ -27,7 +27,7 @@ class Start {
     this.window = null
     this.parent = parent
     this.opts = opts
-  
+
     this.eventEmitter = new EventEmitter()
     this.consoleManager = new ConsoleManager(this.eventEmitter, this)
 
@@ -102,7 +102,7 @@ class Start {
     this.setCreate()
 
     this.window.webContents.send('SYSTEM_TYPE', os.platform())
-  
+
     setTimeout(() => {
       this.window.show()
     }, 500)
@@ -141,7 +141,7 @@ class Start {
     mkdirsSync(createPath)
 
     const projectName = createPath.split(global.PATH_SPLIT).slice(-1)[0]
-    const openPath = path.resolve(createPath, `${projectName}.mmswift`)
+    const openPath = path.resolve(createPath, `${projectName}.mmp`)
     // fs.writeFileSync(openPath, '')
     await this.consoleManager.initProject(createPath)
 
@@ -160,7 +160,7 @@ class Start {
   openExistProject() {
     dialog.showOpenDialog(
       {
-        filters: [{ name: 'MadMachine', extensions: ['mmswift'] }],
+        filters: [{ name: 'MadMachine', extensions: ['mmp'] }],
         properties: ['openFile', 'createDirectory'],
       },
       (files) => {

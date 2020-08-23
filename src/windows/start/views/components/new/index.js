@@ -72,7 +72,7 @@ class New extends Component {
           </div>
           <div className="title-info">
             <div className="big-title">New Project</div>
-            <div className="small-title">You are creating a new mmswift project. You may want to name this project and select a directory to store its preferences and files.</div>
+            <div className="small-title">You are creating a new mmp project. You may want to name this project and select a directory to store its preferences and files.</div>
           </div>
         </div>
         <div className="new-location">
