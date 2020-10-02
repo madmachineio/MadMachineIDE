@@ -18,22 +18,27 @@
 //   })
 //   ptyProc.on('exit', (code) => {
 
-
 //     ptyProc.destroy()
 //   })
 
+// const childProcess = require('child_process')
+// const iconv = require('iconv-lite')
 
-const childProcess = require('child_process')
-const iconv = require('iconv-lite')
+// const disks = iconv.decode(childProcess.execSync('powershell.exe -c "Get-WmiObject Win32_logicaldisk | Select-Object deviceid,description,volumeName"'), 'cp936').split('\n')
+// const dir = disks
+//   .map((item) => {
+//     const data = item.match(/\S+/g) || []
+//     return {
+//       name: data[2],
+//       path: `${data[0]}\\`,
+//     }
+//   })
 
-const disks = iconv.decode(childProcess.execSync('powershell.exe -c "Get-WmiObject Win32_logicaldisk | Select-Object deviceid,description,volumeName"'), 'cp936').split('\n')
-const dir = disks
-  .map((item) => {
-    const data = item.match(/\S+/g) || []
-    return {
-      name: data[2],
-      path: `${data[0]}\\`,
-    }
-  })
+// console.log(disks, dir)
+function sum(a, b) {
+  return a + b;
+}
 
-console.log(disks, dir)
+test("adds 1 + 2 to equal 3", () => {
+  expect(sum(1, 2)).toBe(3);
+});
