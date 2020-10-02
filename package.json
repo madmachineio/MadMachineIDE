@@ -21,7 +21,7 @@
     "app:publish:linux": "npm run web:build && npm run app:build && cross-env ENV=prod electron-builder --linux",
     "web:start": "cross-env ENV=dev node ./config/scripts/start.js",
     "web:build": "cross-env ENV=prod node ./config/scripts/build.js",
-    "web:test": "jest --collectCoverage",
+    "web:test": "node ./config/scripts/test.js",
     "config:build": "node ./config/scripts/build.config.js",
     "test": "jest --collectCoverage"
   },
