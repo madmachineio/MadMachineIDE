@@ -22,7 +22,8 @@
     "web:start": "cross-env ENV=dev node ./config/scripts/start.js",
     "web:build": "cross-env ENV=prod node ./config/scripts/build.js",
     "web:test": "node ./config/scripts/test.js",
-    "config:build": "node ./config/scripts/build.config.js"
+    "config:build": "node ./config/scripts/build.config.js",
+    "test": "jest --collectCoverage"
   },
   "build": {
     "asar": false,
@@ -131,6 +132,7 @@
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
+    "codecov": "^3.7.2",
     "codemirror": "^5.45.0",
     "concurrently": "^4.1.0",
     "copy-webpack-plugin": "^5.0.3",

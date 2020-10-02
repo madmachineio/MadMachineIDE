@@ -27,3 +27,4 @@ yarn-error.log*
 /src/public/build/lib/linux
 /src/public/build/lib/mac
 /src/public/build/lib/win
+/test/coverage
