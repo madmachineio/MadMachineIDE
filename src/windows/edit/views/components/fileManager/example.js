@@ -39,20 +39,17 @@ class Example extends Component {
     })
   }
 
-  renderGroup() {
-    const {
-      exampleStore: { exampleList },
-    } = this.props
+  renderGroup(data) {
     const { unfoldMap } = this.state
 
-    return exampleList.map(item => (
+    return data.map(item => (
       <div className={`example-group ${unfoldMap[item.path] ? 'actived' : ''}`} key={item.path}>
         <div className="example-item" onClick={this.unfoldHandle.bind(this, item.path)}>
           <div className="arrow">
             <Icon icon="arrow-left" size="12" />
           </div>
           <div className="folder">
-            <Icon icon="folder" size="12" />
+            <Icon icon={unfoldMap[item.path] ? 'folder' : 'gh_cdcf_'} size="12" />
           </div>
           <span className="name">{item.name}</span>
         </div>
@@ -80,10 +77,20 @@ class Example extends Component {
   }
 
   render() {
+    const {
+      exampleStore: { exampleList },
+    } = this.props
+
     return (
       <div className="file-example">
         <Scrollbars autoHide renderThumbHorizontal={() => <div className="h-scrollbar" />} renderThumbVertical={() => <div className="v-scrollbar" />}>
-          {this.renderGroup()}
+          {exampleList.map(item => (
+              <div className="type-list">
+                <div className="type-name">{item.type}</div>
+                {this.renderGroup(item.list)}
+              </div>
+          ))}
+
         </Scrollbars>
       </div>
     )

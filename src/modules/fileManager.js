@@ -7,7 +7,7 @@ import path from 'path'
 import { fromatPath, mkdirsSync } from '../utils/path'
 import { getConfig, setConfig } from '../config'
 
-const EXT_FILES = ['.swift']
+const EXT_FILES = ['.swift', '.mmp']
 
 const sortFiles = (data) => {
   const newData = data
@@ -16,7 +16,10 @@ const sortFiles = (data) => {
     newData.children = sortFiles(children)
   }
   // return newData.sort((a, b) => (a.name || '').localeCompare(b.name || ''))
-  return newData.sort((a, b) => b.ctimeMs - a.ctimeMs)
+  // .sort((a, b) => b.ctimeMs - a.ctimeMs)
+  const folderList = newData.filter(m => m.isDirectory).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+  const fileList = newData.filter(m => !m.isDirectory).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+  return folderList.concat(fileList)
 }
 
 const deleteFile = (filePath) => {
@@ -178,7 +181,7 @@ class FileManager {
 
   createProjectFile(filePath) {
     const projectName = fromatPath(filePath).fileFullName
-    const fpath = path.resolve(filePath, `${projectName}.mmswift`)
+    const fpath = path.resolve(filePath, `${projectName}.mmp`)
     fs.writeFileSync(fpath, '')
 
     // 添加Source文件夹，存放代码
@@ -208,7 +211,7 @@ class FileManager {
     const key = pathTmp.split(global.PATH_SPLIT).slice(-1)
     const [name] = key
 
-    const sourcePath = `${pathTmp}/Sources/${name}`
+    const sourcePath = path.resolve(pathTmp, 'Sources', name) // `${pathTmp}/Sources/${name}`
     mkdirsSync(sourcePath)
 
     this.folderData = {
@@ -217,7 +220,16 @@ class FileManager {
       projectPath: pathTmp,
       path: sourcePath,
       isDirectory: true,
-      children: [],
+      children: [
+        {
+          fixed: true,
+          name: `${name}.mmp`,
+          key: sourcePath.split(global.PATH_SPLIT).slice(-1).concat(`${name}.mmp`),
+          path: this.projectFile,
+          isDirectory: false,
+          children: [],
+        },
+      ],
     }
     this.projectName = name
 
@@ -255,22 +267,22 @@ class FileManager {
           }
           return fileData
         })
-        .filter(m => !m.isDirectory && EXT_FILES.includes(fromatPath(m.name).ext))
+        .filter(m => m.isDirectory || EXT_FILES.includes(fromatPath(m.name).ext))
 
-      const hasMainSwift = children.findIndex(m => m.name === 'main.swift')
-      if (hasMainSwift < 0) {
-        const filePath = path.resolve(folderData.path, 'main.swift') // `${folderData.path}/main.swift`
-        fs.writeFileSync(filePath, '')
-        children.push({
-          name: 'main.swift',
-          key: folderData.key.concat('main.swift'),
-          path: filePath,
-          isDirectory: false,
-          children: [],
-        })
-      }
+      // const hasMainSwift = children.findIndex(m => m.name === 'main.swift')
+      // if (hasMainSwift < 0) {
+      //   const filePath = path.resolve(folderData.path, 'main.swift') // `${folderData.path}/main.swift`
+      //   fs.writeFileSync(filePath, '')
+      //   children.push({
+      //     name: 'main.swift',
+      //     key: folderData.key.concat('main.swift'),
+      //     path: filePath,
+      //     isDirectory: false,
+      //     children: [],
+      //   })
+      // }
 
-      folderData.children = sortFiles(children)
+      folderData.children = folderData.children.filter(m => m.fixed).concat(sortFiles(children))
     }
 
     this.eventEmitter.emit('OPEN_FOLDERS', this.folderData)
@@ -295,13 +307,13 @@ class FileManager {
 
   // 新建文件
   createFolderFile(pathTmp) {
-    if (this.isNewStatus || this.editWindow.isExample) {
+    if (this.editWindow.isExample) {
       return
     }
 
     const folderData = this.findFolderByPah(this.folderData, pathTmp)
     if (folderData && folderData.children) {
-      const firstFileIndex = folderData.children.findIndex(m => m.isDirectory === false)
+      const firstFileIndex = Math.max(0, folderData.children.findIndex(m => m.isDirectory === false))
       folderData.children.splice(firstFileIndex, 0, {
         name: formatFileName(path.resolve(folderData.path, 'Untitled.swift'))
           .split(global.PATH_SPLIT)
@@ -319,7 +331,7 @@ class FileManager {
 
   // 新建文件夹
   createFolderFolder(pathTmp) {
-    if (this.isNewStatus || this.editWindow.isExample) {
+    if (this.editWindow.isExample) {
       return
     }
 
@@ -330,7 +342,7 @@ class FileManager {
         key: folderData.key.concat('--newFolder--'),
         path: path.resolve(folderData.path, '--newFolder--'), // `${folderData.path}/--newFolder--`,
         type: 'newFolder',
-        isDirectory: false,
+        isDirectory: true,
         children: [],
       })
       this.isNewStatus = true

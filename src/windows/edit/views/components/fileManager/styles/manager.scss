@@ -7,6 +7,9 @@
   top: 0;
   right: 0;
   bottom: 0;
+  .folder-wrap {
+
+  }
   .block-file {
     padding: 0 10px;
     height: 28px;
@@ -14,8 +17,12 @@
     align-items: center;
     cursor: pointer;
     user-select: none;
+    position: relative;
+    .component-icon {
+      width: 18px;
+    }
     .text {
-      padding-left: 10px;
+      padding-left: 4px;
       padding-right: 10px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -31,6 +38,14 @@
       &:active,
       &:focus {
         outline: none;
+      }
+    }
+    .arrow {
+      //transition: all .3s ease-in-out;
+      position: absolute;
+      margin-left: -18px;
+      &.arrow-down {
+        transform: rotateZ(90deg) translate3d(4px, 4px, 0);
       }
     }
     &:hover,

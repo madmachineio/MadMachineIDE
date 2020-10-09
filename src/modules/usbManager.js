@@ -122,6 +122,7 @@ class UsbManager {
         'stderr',
         'USB device not found \r\n',
       )
+
       return false
     }
 
@@ -129,18 +130,22 @@ class UsbManager {
   }
 
   copyFile() {
-    const { fileManager } = this.editWindow
-    const fileName = 'swiftio.bin'
-    const filePath = path.resolve(fileManager.folderPath, '.build', fileName)
-    const targetPath = path.resolve(this.path, fileName)
-
     if (!fs.existsSync(this.path)) {
       this.editWindow.consoleManager.sendMessage(
         'stderr',
         'USB device not found \r\n',
       )
+
+      this.copyProgress = -1
+      this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
+
       return false
     }
+
+    const { fileManager } = this.editWindow
+    const fileName = 'swiftio.bin'
+    const filePath = path.resolve(fileManager.folderPath, '.build', fileName)
+    const targetPath = path.resolve(this.path, fileName)
 
     if (!fs.existsSync(filePath)) {
       this.editWindow.consoleManager.sendMessage(
@@ -178,14 +183,23 @@ class UsbManager {
     let readSize = 0
 
     rs.on('data', (data) => {
-      readSize += data.length
-      this.copyProgress = readSize / totalSize
-      this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
-
       rs.pause()
-      ws.write(data, () => {
-        rs.resume()
-      })
+      if (fs.existsSync(this.path)) {
+        ws.write(data, () => {
+          readSize += data.length
+          this.copyProgress = readSize / totalSize
+          this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
+
+          setTimeout(() => {
+              rs.resume()
+          }, 100)
+        })
+      } else {
+        this.copyProgress = -1
+        this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
+
+        rs.close()
+      }
     })
 
     rs.on('end', () => {
@@ -194,9 +208,10 @@ class UsbManager {
     })
 
     ws.on('finish', () => {
-      // 卸载u盘
-      switch (os.platform()) {
-        case 'win32':
+      setTimeout(() => {
+        // 卸载u盘
+        switch (os.platform()) {
+          case 'win32':
           {
             const enject = () => {
               const cmdOpts = {
@@ -221,32 +236,32 @@ class UsbManager {
 
             enject()
           }
-          break
-        case 'darwin':
-          childProcess.execSync(`diskutil eject "${this.path}"`)
-          break
-        case 'linux':
-          break
-        default:
-      }
+            break
+          case 'darwin':
+            childProcess.execSync(`diskutil eject "${this.path}"`)
+            break
+          case 'linux':
+            break
+          default:
+        }
 
-      this.copyProgress = 0
-      this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
-      this.editWindow.consoleManager.sendMessage(
-        'stdout',
-        'Done \r\n',
-      )
+        this.copyProgress = 101
+        this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
+      }, 500)
+      // this.editWindow.consoleManager.sendMessage(
+      //   'stdout',
+      //   'Done \r\n',
+      // )
     })
 
     ws.on('error', () => {
-      this.copyProgress = 0
-
+      this.copyProgress = -1
       this.eventEmitter.emit('COPY_PROGRESS', this.copyProgress)
 
-      this.editWindow.consoleManager.sendMessage(
-        'stderr',
-        'Download file error \r\n',
-      )
+      // this.editWindow.consoleManager.sendMessage(
+      //   'stderr',
+      //   'Download file error \r\n',
+      // )
     })
 
     return true

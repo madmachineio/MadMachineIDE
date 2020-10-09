@@ -9,7 +9,8 @@ import ContentMenu from '@windows/components/contentMenu'
 import './styles/manager.scss'
 
 const calcDeepPadding = deep => 14 + 20 * deep
-const MODIFY_TYPES = ['newFolder', 'newFile', 'rename']
+const MODIFY_TYPES = ['newFile', 'rename']
+const FOLDER_MODIFY_TYPES = ['newFolder']
 
 const abortSwiftFile = name => `${name.slice(0, Math.min(name.lastIndexOf('.'), 50))}.swift`
 
@@ -42,16 +43,36 @@ class FileFolder extends Component {
         click: () => {
           const { fileStore } = this.props
           fileStore.createFile()
+
+          const { managerContentFile } = fileStore
+          const key = managerContentFile.key.join(',')
+          this.setState(pState => ({
+            showMap: {
+              ...pState.showMap,
+              [key]: true,
+            },
+          }))
         },
       },
-      // {
-      //   name: 'New Folder',
-      //   isDirectory: true,
-      //   click: () => {
-      //     const { fileStore } = this.props
-      //     fileStore.createFolder()
-      //   },
-      // },
+      {
+        name: 'New Folder',
+        isShow() {
+          return true
+        },
+        click: () => {
+          const { fileStore } = this.props
+          fileStore.createFolder()
+
+          const { managerContentFile } = fileStore
+          const key = managerContentFile.key.join(',')
+          this.setState(pState => ({
+            showMap: {
+              ...pState.showMap,
+              [key]: true,
+            },
+          }))
+        },
+      },
       {
         name: 'Reveal in Explorer',
         // key: 'Shift+Alt+R',
@@ -72,8 +93,8 @@ class FileFolder extends Component {
       {
         name: 'Cut',
         // key: 'Ctrl+X',
-        isShow(fileData) {
-          return fileData.isDirectory === true
+        isShow() {
+          return false // fileData.isDirectory === true
         },
         click: () => {
           const { fileStore } = this.props
@@ -84,7 +105,7 @@ class FileFolder extends Component {
         name: 'Copy',
         // key: 'Ctrl+C',
         isShow(fileData) {
-          return fileData.name !== 'main.swift'
+          return fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
           const { fileStore } = this.props
@@ -123,7 +144,7 @@ class FileFolder extends Component {
         name: 'Rename',
         // key: '↩',
         isShow(fileData) {
-          return fileData.isDirectory === false && fileData.name !== 'main.swift'
+          return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
           const { fileStore } = this.props
@@ -133,7 +154,7 @@ class FileFolder extends Component {
       {
         name: 'Delete',
         isShow(fileData) {
-          return fileData.isDirectory === false && fileData.name !== 'main.swift'
+          return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
           const { fileStore } = this.props
@@ -251,6 +272,10 @@ class FileFolder extends Component {
   }
 
   genFolder(fileData) {
+    const {
+      fileStore: { activeFile },
+    } = this.props
+    const { showMap } = this.state
     const key = fileData.key.join(',')
     const { children = [] } = fileData
     const fileStyle = {
@@ -259,12 +284,24 @@ class FileFolder extends Component {
 
     return (
       <div className={classnames({ 'folder-wrap': true, actived: true })} key={key}>
-        <div className="block-file" style={fileStyle} data-path={fileData.path} data-key={key} onClick={this.toggleFileHandle.bind(this, fileData)}>
-          <Icon icon={fileData.key.length === 1 ? 'appstore' : 'gh_cdcf_'} size="14" />
-          {MODIFY_TYPES.includes(fileData.type) ? this.modifyFile(fileData, fileData.type) : <span className="text">{fileData.name}</span>}
+        <div
+          className={classnames({ 'block-file': true, actived: activeFile.path === fileData.path })}
+          style={fileStyle}
+          data-path={fileData.path}
+          data-key={key}
+          onClick={this.toggleFileHandle.bind(this, fileData)}
+        >
+          <div className={classnames(['arrow', showMap[key] ? 'arrow-down' : ''])}>
+            <Icon icon="arrow-left" size="12" />
+          </div>
+          <Icon
+            icon={fileData.key.length === 1 ? 'appstore' : (showMap[key] ? 'folder' : 'gh_cdcf_')}
+            size="14"
+          />
+          {FOLDER_MODIFY_TYPES.includes(fileData.type) ? this.modifyFile(fileData, fileData.type) : <span className="text">{fileData.name}</span>}
         </div>
 
-        {children.map(item => (item.isDirectory ? this.genFolder(item) : this.genFile(item)))}
+        {showMap[key] ? children.map(item => (item.isDirectory ? this.genFolder(item) : this.genFile(item))) : null}
       </div>
     )
   }
@@ -292,27 +329,18 @@ class FileFolder extends Component {
 
   render() {
     const {
-      fileStore: { folders = {}, projectName },
+      fileStore: { folders = {} },
     } = this.props
     const { showContentMenu, menuList, menuPos } = this.state
 
-    const fileStyle = {
-      paddingLeft: `${calcDeepPadding(folders.key.length)}px`,
-    }
+    // const fileStyle = {
+    //   paddingLeft: `${calcDeepPadding(folders.key.length)}px`,
+    // }
 
     return (
       <div className="file-manager-folder" onContextMenu={this.contentMenuHandle.bind(this)}>
         <Scrollbars autoHide renderThumbHorizontal={() => <div className="h-scrollbar" />} renderThumbVertical={() => <div className="v-scrollbar" />}>
-          {/* <div>{folders.key && this.genFolder(folders)}</div> */}
-
-          <div className={classnames({ 'folder-wrap': true, actived: true })}>
-            <div className="block-file" style={fileStyle} data-path={folders.path} data-key={folders.key.join(',')}>
-              <Icon icon="appstore" size="14" />
-              <span className="text">{projectName}</span>
-            </div>
-
-            {(folders.children || []).map(item => this.genFile(item))}
-          </div>
+          <div>{folders.key && this.genFolder(folders)}</div>
         </Scrollbars>
 
         {showContentMenu ? <ContentMenu list={menuList} left={menuPos.left} top={menuPos.top} /> : null}

@@ -1,6 +1,6 @@
 {
   "name": "mad-machine",
-  "version": "0.0.10",
+  "version": "0.1.1",
   "private": true,
   "productName": "MadMachine",
   "description": "MadMachine Application",
@@ -90,6 +90,19 @@
         "width": 574,
         "height": 313
       }
+    },
+    "pkg": {
+      "scripts": "../resources/build/pkg-scripts",
+      "installLocation": "/Applications",
+      "background": {
+        "alignment": "bottomleft"
+      },
+      "allowAnywhere": true,
+      "allowCurrentUserHome": true,
+      "allowRootDirectory": true,
+      "isVersionChecked": true,
+      "isRelocatable": false,
+      "overwriteAction": "upgrade"
     },
     "linux": {
       "icon": "resources/logo/icon.icns",

@@ -235,7 +235,7 @@ class EditWindow {
 
     setTimeout(() => {
       this.editWindow.show()
-    })
+    }, 500)
   }
 
   setTheme(themeName) {
@@ -298,8 +298,8 @@ class EditWindow {
   }
 
   openExample(filePath) {
-    const projectFile = fs.readdirSync(filePath).filter(file => /\.mmswift/.test(file))[0]
-    this.app.createEditWindow(path.resolve(filePath, projectFile), true)
+    const projectFile = fs.readdirSync(filePath).filter(file => /\.mmp/.test(file))[0]
+    this.app.createEditWindow(path.resolve(filePath, projectFile), false)
   }
 
   saveFile(projectPath, filePath, content) {
@@ -332,7 +332,7 @@ class EditWindow {
               this.fileManager.saveFile(path.resolve(folderPath, path.basename(filePath)), content)
 
               this.isExample = false
-              const projectFile = fs.readdirSync(folderPath).filter(file => /\.mmswift/.test(file))[0]
+              const projectFile = fs.readdirSync(folderPath).filter(file => /\.mmp/.test(file))[0]
               this.fileManager.openProjectFile(path.resolve(folderPath, projectFile))
             }
           },
@@ -378,7 +378,7 @@ class EditWindow {
                 })
 
                 this.isExample = false
-                const projectFile = fs.readdirSync(path.resolve(folderPath, `${path.basename(projectPath)}`)).filter(file => /\.mmswift/.test(file))[0]
+                const projectFile = fs.readdirSync(path.resolve(folderPath, `${path.basename(projectPath)}`)).filter(file => /\.mmp/.test(file))[0]
 
                 this.fileManager.openProjectFile(path.resolve(folderPath, `${path.basename(projectPath)}`, projectFile))
 
@@ -407,7 +407,7 @@ class EditWindow {
             })
 
             this.isExample = false
-            const projectFile = fs.readdirSync(path.resolve(folderPath, `${path.basename(projectPath)}`)).filter(file => /\.mmswift/.test(file))[0]
+            const projectFile = fs.readdirSync(path.resolve(folderPath, `${path.basename(projectPath)}`)).filter(file => /\.mmp/.test(file))[0]
 
             this.fileManager.openProjectFile(path.resolve(folderPath, `${path.basename(projectPath)}`, projectFile))
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/resources/project/Examples" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/resources/project/Library/SwiftIO" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/public/build/lib/Examples" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/public/build/lib/Library/SwiftIO" vcs="Git" />
+  </component>
+</project>

@@ -6,7 +6,7 @@ import sudo from 'sudo-prompt'
 import * as os from 'os'
 import * as pty from 'node-pty'
 // import stripAnsi from 'strip-ansi'
-import buildScript from '../public/build/main'
+import { build as buildScript, init } from '../public/build/main'
 import { mkdirsSync } from '../utils/path'
 // import iconv from 'iconv-lite'
 
@@ -24,7 +24,7 @@ class ConsoleManager {
     this.events = {}
   }
 
-  async run(cols, rows) {
+  async run(cols, rows, showDone = true) {
     if (this.runStatus === 'compiling') {
       return null
     }
@@ -54,10 +54,18 @@ class ConsoleManager {
       console.log(ex)
     }
 
-    this.runStatus = this.runStatus !== 'error' ? 'success' : 'error'
+    this.runStatus = this.runStatus !== 'error' ? (showDone ? 'success' : '') : 'error'
     this.eventEmitter.emit('status', this.runStatus)
 
     return this.sendMessage
+  }
+
+  async initProject(folderPath) {
+    try {
+      await init(folderPath, this.execCmd.bind(this))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   async chmodFolder() {

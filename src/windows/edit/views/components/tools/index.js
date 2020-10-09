@@ -10,6 +10,14 @@ import CopyFile from './copyFileTip'
 
 const { remote } = require('electron')
 
+const MODIFY_TYPES = ['newFolder', 'newFile', 'rename']
+const findModifyTypes = (folder) => {
+  if (MODIFY_TYPES.includes(folder)) {
+    return true
+  }
+    return (folder.children || []).reduce((result, item) => result || findModifyTypes(item), false)
+}
+
 @inject(({
   fileStore, consoleStore, configStore, usbStore, userStore,
 }) => ({
@@ -25,7 +33,11 @@ class Tools extends Component {
     const { fileStore } = this.props
     const {
       activeFile: { path = '' },
+      folders,
     } = fileStore
+    if (findModifyTypes(folders)) {
+      return
+    }
 
     const splitTag = remote.getCurrentWindow().editWindow.getPlatform() === 'win32' ? '\\' : '/'
 
@@ -96,15 +108,15 @@ class Tools extends Component {
 
   showUserHandle() {
     const { userStore } = this.props
-    userStore.showUser()
+    userStore.openCommunity()
   }
 
   render() {
     const {
       configStore: { fileManagerShow, consoleHeight },
-      userStore: {
-        userInfo: { userName = 'Login' },
-      },
+      // userStore: {
+      //   userInfo: { userName = 'Login' },
+      // },
       fileStore: {
         isExample,
       },
@@ -125,7 +137,7 @@ class Tools extends Component {
           </div>
 
           <div className="group">
-            <span onClick={this.runBuildHandle.bind(this)} title="Verify" className={classnames({ disabled: isExample })}>
+            <span onClick={this.runBuildHandle.bind(this)} title="Build" className={classnames({ disabled: isExample })}>
               <Icon icon="Path" size="18" />
             </span>
             <span onClick={this.copyFileHandle.bind(this)} title="Download" className={classnames({ disabled: isExample })}>
@@ -149,7 +161,7 @@ class Tools extends Component {
           </div>
           <div className="user-info" onClick={this.showUserHandle.bind(this)} title="Log in to your MadMachine Account">
             <Icon icon="user" size="18" />
-            <span>{userName}</span>
+            <span>Community</span>
           </div>
         </div>
         <CopyFile />

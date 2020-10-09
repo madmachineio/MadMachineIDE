@@ -5,7 +5,7 @@ MEMORY
         ITCM (wx) : ORIGIN = 0x0, LENGTH = 131072
      }
  OUTPUT_FORMAT("elf32-littlearm")
-_region_min_align = 4;
+_region_min_align = 32;
 MEMORY
     {
     FLASH (rx) : ORIGIN = (0x60000000 + 0x0), LENGTH = (8192*1K - 0x0)
@@ -174,14 +174,13 @@ KEEP(*(".openocd_dbg.*"))
  {
  *(.gcc_except_table .gcc_except_table.*)
  } > SRAM
-
-
-    .got :
+  
+     .got :
     {
         . = ALIGN(4);
         *(.got.plt)
         *(.igot.plt)
-        *(.got*)
+        *(.got)
         *(.igot)
     } > SRAM
 
@@ -237,45 +236,27 @@ KEEP(*(".openocd_dbg.*"))
         *(swift5_protocol_conformances*)
         __stop_swift5_protocol_conformances = .;
 
-        . = ALIGN(4);
     } > SRAM
-
-
+ 
  _image_rodata_end = .;
- . = ALIGN(_region_min_align);
+ . = ALIGN(_region_min_align); . = ALIGN( 1 << LOG2CEIL(_image_rodata_end -_image_rom_start));
  _image_rom_end = .;
+   
    
  . = 0x80000000;
  . = ALIGN(_region_min_align);
  _image_ram_start = .;
 .ramfunc :
 {
- . = ALIGN(_region_min_align);
+ . = ALIGN(_region_min_align); . = ALIGN( 1 << LOG2CEIL(_ramfunc_ram_size));
  _ramfunc_ram_start = .;
  *(.ramfunc)
  *(".ramfunc.*")
- . = ALIGN(_region_min_align);
+ . = ALIGN(_region_min_align); . = ALIGN( 1 << LOG2CEIL(_ramfunc_ram_size));
  _ramfunc_ram_end = .;
 } > SRAM
 _ramfunc_ram_size = _ramfunc_ram_end - _ramfunc_ram_start;
 _ramfunc_rom_start = LOADADDR(.ramfunc);
-    bss (NOLOAD) :
- {
-        . = ALIGN(4);
- __bss_start = .;
- __kernel_ram_start = .;
- *(.bss)
- *(".bss.*")
- *(COMMON)
- *(".kernel_bss.*")
- __bss_end = ALIGN(4);
- } > SRAM
-    noinit (NOLOAD) :
-        {
-        *(.noinit)
-        *(".noinit.*")
- *(".kernel_noinit.*")
-        } > SRAM
     datas :
  {
  __data_ram_start = .;
@@ -409,6 +390,23 @@ _ramfunc_rom_start = LOADADDR(.ramfunc);
  *(.gcc_except_table .gcc_except_table.*)
  } > SRAM
     __data_ram_end = .;
+   bss (NOLOAD) :
+ {
+        . = ALIGN(4);
+ __bss_start = .;
+ __kernel_ram_start = .;
+ *(.bss)
+ *(".bss.*")
+ *(COMMON)
+ *(".kernel_bss.*")
+ __bss_end = ALIGN(4);
+ } > SRAM
+    noinit (NOLOAD) :
+        {
+        *(.noinit)
+        *(".noinit.*")
+ *(".kernel_noinit.*")
+        } > SRAM
     _image_ram_end = .;
     _end = .;
     __kernel_ram_end = 0x80000000 + (32768 * 1K - 16 * 1K);
@@ -457,4 +455,5 @@ _ramfunc_rom_start = LOADADDR(.ramfunc);
 {
 } > SRAM
 _flash_used = LOADADDR(.last_section) - _image_rom_start;
-    }
+
+}

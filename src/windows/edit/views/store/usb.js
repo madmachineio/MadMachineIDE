@@ -48,8 +48,12 @@ class UsbStore {
       const isHave = await this.rootStore.editWindow.usbManager.check()
 
       if (isHave) {
+        this.setCopyProgress(0)
+
         this.rootStore.consoleStore.setConsoleRun('compiling')
-        await this.rootStore.editWindow.consoleManager.run(this.rootStore.consoleStore.cols, this.rootStore.consoleStore.rows)
+        console.log('===== run')
+        await this.rootStore.editWindow.consoleManager.run(this.rootStore.consoleStore.cols, this.rootStore.consoleStore.rows, false)
+        console.log('===== copy')
         this.rootStore.editWindow.usbManager.copyFile()
       } else {
         clearInterval(this.timeId)
@@ -68,7 +72,6 @@ class UsbStore {
   }
 
   @action setCopyProgress = (progress) => {
-    console.log(progress)
     this.progress = progress
   }
 

@@ -27,7 +27,7 @@ export const exsitProject = (projectPath) => {
 
   let result = false
   fs.readdirSync(projectPath).forEach((file) => {
-    if (/.+\.mmswift/.test(file)) {
+    if (/.+\.mmp/.test(file)) {
       if (fs.existsSync(path.resolve(projectPath, file))) {
         result = true
       }

@@ -1,5 +1,7 @@
 /* eslint-disable import/no-webpack-loader-syntax */
-import { app, Menu, dialog } from 'electron'
+import {
+  app, Menu, dialog, shell,
+} from 'electron'
 import os from 'os'
 
 import EditWindow from './windows/edit'
@@ -11,6 +13,7 @@ import StartWindow from './windows/start'
 import { fromatPath, exsitProjectFile } from './utils/path'
 
 import UpdateManager from './modules/updateManager'
+import InitManager from './modules/initManager'
 
 if (os.platform() === 'win32') {
   global.PATH_SPLIT = '\\'
@@ -32,6 +35,7 @@ class Main {
     this.openFilePath = ''
 
     this.updater = null
+    this.init = null
 
     this.setAppUserModelId()
     this.initAppEvent()
@@ -93,6 +97,10 @@ class Main {
     if (!this.userWindow) {
       this.userWindow = new UserWindow(this)
     }
+  }
+
+  openCommunity() {
+    shell.openExternal('https://discord.gg/zZ9bFHK')
   }
 
   removeUserView() {
@@ -168,6 +176,14 @@ class Main {
     this.updater = new UpdateManager()
   }
 
+  initManager() {
+    if (this.init) {
+      return
+    }
+
+    this.init = new InitManager()
+  }
+
   setAppUserModelId() {
     app.setAppUserModelId('com.madmachine.app')
   }
@@ -175,13 +191,13 @@ class Main {
   initAppEvent() {
     if (os.platform() !== 'darwin') {
       const file = process.argv[1] || ''
-      this.openFilePath = /\.mmswift$/.test(file) ? file : ''
+      this.openFilePath = /\.mmp$/.test(file) ? file : ''
     }
 
     app.on('open-file', (event, path) => {
       event.preventDefault()
 
-      if (fromatPath(path).ext === '.mmswift') {
+      if (fromatPath(path).ext === '.mmp') {
         this.openFilePath = path
       }
 
@@ -210,6 +226,7 @@ class Main {
       }
 
       this.updateManager()
+      this.initManager()
     })
 
 

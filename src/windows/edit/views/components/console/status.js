@@ -34,11 +34,11 @@ class ConsoleStatus extends Component {
 
     let compileText = ''
     if (buildStatus === 'compiling') {
-      compileText = 'Compiling'
+      compileText = 'Building...'
     } else if (buildStatus === 'error') {
-      compileText = 'Compilation error.'
+      compileText = 'Error'
     } else if (buildStatus === 'success') {
-      compileText = 'Compiled.'
+      compileText = 'Done'
     }
 
     return (
@@ -50,8 +50,8 @@ class ConsoleStatus extends Component {
             </div>
           ) : ''}
 
-          {progress > 0 ? <span className="text">Download...</span> : <span className="text">{compileText}</span>}
-          {progress > 0 ? (
+          {progress > 0 ? progress === 101 ? <span className="text">Done</span> : <span className="text">Downloading...</span> : progress === -1 ? <span className="text">Error</span> : <span className="text">{compileText}</span>}
+          {progress > 0 && progress < 100 ? (
             <div className="status-progress">
               <Progress progress={progress * 100} />
             </div>
