@@ -1,29 +1,50 @@
-# MadMachine
+<h1 align="center">
+  <br>
+  <a href="https://www.madmachine.io/">
+    <img src="https://github.com/madmachineio/MadMachineIDE/blob/master/resources/logo/MadMachine.ico" alt="Markdownify" width="200"></a>
+  <br>
+  MadMachineIDE
+  <br>
+</h1>
 
-## Install
+<h4 align="center">MadMachine IDE is the premier integrated development environment for SwiftIO, which makes it easy to write Swift code and download it to the board.</h4>
 
-执行 `cnpm i` 安装所有依赖
+Refer to the [Getting Started](https://resources.madmachine.io/getting_started) page for Installation instructions and basic operation.
 
-## Available Scripts
+## Project structure
 
-In the project directory, you can run:
+Electron + React
 
-### 1. 启动项目
+Main framework: Electron, use electron-builder for packaging
 
-`npm run start`
+Page framework: React + Mobx
 
-### 2. 打包所有项目
+Editor framework: CodeMirror
 
-`npm run app:publish`
+## Contributing
 
-### 3. 编译配置文件
+1. Fork it (<https://github.com/madmachineio/MadMachineIDE>)
+2. Create your branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
 
-`npm run config:build`
+To run the app on the local machine install dependencies:
 
-## DOC
+```sh
+npm install
+```
 
-- doc/install.md: 安装说明
-- doc/config.md:  配置文件说明
-- doc/example.md: 示例项目说明
-- doc/builder.md: 编译 swift 说明
-  
+Run the app:
+
+```sh
+npm run start
+```
+
+## Contact
+
+Andy Liu - [@madmachineio](https://twitter.com/madmachineio)
+
+Join us at [Discord](http://discord.gg/zZ9bFHK)
+
+Project Link: [https://github.com/madmachineio/MadMachineIDE](https://github.com/madmachineio/MadMachineIDE)
