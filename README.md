@@ -35,6 +35,12 @@ To run the app on the local machine install dependencies:
 npm install
 ```
 
+Rebuild native dependencies. [How to install native modules](https://www.electronjs.org/docs/tutorial/using-native-node-modules)
+
+```sh
+./node_modules/.bin/electron-rebuild
+```
+
 Run the app:
 
 ```sh
