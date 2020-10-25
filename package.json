@@ -113,7 +113,7 @@
   "dependencies": {
     "chokidar": "^2.1.5",
     "drivelist": "^8.0.10",
-    "electron": "4.0.0",
+    "electron": "7.2.4",
     "electron-compile": "^6.4.4",
     "electron-progressbar": "^1.2.0",
     "electron-squirrel-startup": "^1.0.0",
