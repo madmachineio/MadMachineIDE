@@ -49,6 +49,30 @@ Run the app:
 npm run start
 ```
 
+Build the executable binaries (Optionally):
+
+```sh
+# build for all platforms at once
+npm run app:publish
+# or specified platform only
+npm run app:publish:win
+npm run app:publish:mac
+npm run app:publish:linux
+```
+
+Generate the configuration files (Optionally):
+
+```sh
+npm run config:build
+```
+
+Other references:
+
+- [Installation](doc/install.md)
+- [Configurations](doc/config.md)
+- [Build-in Examples](doc/example.md)
+- [SwiftIO Compiler Integration](doc/builder.md)
+
 ## Contact
 
 Andy Liu - [@madmachineio](https://twitter.com/madmachineio)

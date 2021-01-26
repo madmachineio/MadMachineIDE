@@ -1,63 +1,58 @@
-## 配置说明
+## Configurations
 
-### 配置文件说明
+### Souce configurations
 
 ```
 - src/config
-  - app.yml           // 默认配置文件
-  - app.dev.yml       // 开发环境配置文件，会覆盖默认配置文件中相同配置
-  - app.prod.yml      // 正式环境配置文件，会覆盖默认配置文件中相同配置
+  - app.yml           // Default configurations
+  - app.dev.yml       // Dev configurations, which has higher priority than app.yml
+  - app.prod.yml      // Production configurations, which has higher priority than app.dev.yml
 ```
 
-### 配置文件编译
+### Compile souce configurations
 
-使用 yaml 文件配置，更加简明，灵活，注释等，减少打包提及。把配置文件编译提前到开发中。
+Use `yaml` file here
 
-运行
+Run npm scripts:
 
-```
+```sh
 npm run config:build
 ```
 
-编译配置文件到 **src/config/dist**文件夹中
+to generate configuration files to **src/config/dist**
 
-### 配置项说明
+### Options
 
 ```yaml
-# 项目名字
+# Project Name
 NAME: MadMachine
 
-# 是否开启调试窗口
+# Open DevTools by default
 DEBUG: true
 
-# 主窗口第一次打开默认大小
+# Main window size at the first place
 EDIT_WINDOW:
   WIDTH: 1200
   HEIGHT: 800
-  # 加载的页面地址
+  # Target index page
   URL: views/edit.html
 
-  # 设置窗口
   SETTING_WINDOW:
     URL: views/setting.html
 
-  # 串口通讯窗口
   SERIAL_WINDOW:
     URL: views/serial.html
 
-  # 用户登录窗口
   USER_WINDOW:
     URL: views/user.html
 
-  # 关于窗口
   ABOUT_WINDOW:
     URL: views/about.html
 
-# 主题
 THEME:
-  # 主题类型， black 黑色， white 白色
+  # Theme mode: black | white
   NAME: black
-  # 主题窗口样式  BG_COLOR 背景色
+  # Theme color: BG_COLOR background-color
   STYLE:
     BLACK:
       BG_COLOR: '"#45475f"'

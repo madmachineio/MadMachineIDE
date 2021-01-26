@@ -1,22 +1,22 @@
-## 编译 swift
+## Compile SwiftIO Project
 
-### 目录
+### Source
 
 ```
 src/public/build
 ```
 
-### 使用方法
+### Usage
 
 src/public/build/main.js:
 
 ```js
 /**
- * 返回一个函数
+ * Return a function
  * params:
- * projectName: 项目名称
- * projectFiles: 当前项目所有文件
- * runExce: 执行命令，添加「await」关键字，可同步执行，返回命令执行的结果。可多次执行命令
+ * projectName: Project name
+ * projectFiles: All files included in the project
+ * runExce: Run commands, `await` if needed
  */
 export default async (projectName, projectFiles, runExec) => {
   console.log(projectName, projectFiles);
@@ -26,6 +26,6 @@ export default async (projectName, projectFiles, runExec) => {
 };
 ```
 
-### 第三方的脚本
+### 3rd Scripts
 
-第三方的脚本可放置在 **src/public/build** 下， **src/public** 下的所有文件都会添加到程序中打包。
+Other 3rd scripts can be put into **src/public/build**, all files at **src/public** will be rolled up to the final application binary.

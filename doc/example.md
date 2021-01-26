@@ -1,31 +1,31 @@
-## 示例项目
+## Build-in Example Projects
 
-### 路径
+### Source
 
 ```
 /src/public/example
 ```
 
-### 目录介绍
+### Structure
 
 ```
-  - example	           // 示例文件夹
+  - example	           // Build-in projects
 
-    - base             // 示例项目类型
+    - base             // Project type
 
-      - test1          // 示例项目 test1
-        - main.swift   // 项目文件 ...
+      - test1          // Demo project test1
+        - main.swift   // Demo files ...
         - main1.swift
 
-      - test2          // 示例项目 test2
-        - test.swift   // 项目文件
+      - test2          // Demo project test2
+        - test.swift   // Demo files
 
-    - high             // 示例项目类型
+    - high             // Project type
 
-      - test1          // 示例项目 test1
-        - main.swift   // 项目文件 ...
+      - test1          // Demo project test1
+        - main.swift   // Demo files ...
         - main1.swift
 
-      - test2          // 示例项目 test2
-        - test.swift   // 项目文件
+      - test2          // Demo project test2
+        - test.swift   // Demo files
 ```
