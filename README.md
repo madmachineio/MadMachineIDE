@@ -29,7 +29,9 @@ Editor framework: CodeMirror
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
 
-To run the app on the local machine install dependencies:
+You want to use node v12. 
+
+Install dependencies:
 
 ```sh
 npm install
