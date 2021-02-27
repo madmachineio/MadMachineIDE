@@ -20,9 +20,9 @@ class Main extends Component {
     configStore.setIsCreate(true)
   }
 
-  openExistProject() {
+  openExistingProject() {
     const { configStore } = this.props
-    configStore.openExistProject()
+    configStore.openExistingProject()
   }
 
   openHistoryProject(item) {
@@ -56,7 +56,7 @@ class Main extends Component {
                   <div className="tip">Explore new ideas with your kit.</div>
                 </div>
               </div>
-              <div className="tools-group" onClick={this.openExistProject.bind(this)}>
+              <div className="tools-group" onClick={this.openExistingProject.bind(this)}>
                 <div className="icon">
                   <Icon icon="Shape2" size="20" />
                 </div>

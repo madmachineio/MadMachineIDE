@@ -37,8 +37,8 @@ class Config {
     this.rootStore.window.createProject(this.createPath)
   }
 
-  @action openExistProject() {
-    this.rootStore.window.openExistProject()
+  @action openExistingProject() {
+    this.rootStore.window.openExistingProject()
   }
 
   @action setHistoryPorject(historyProject) {

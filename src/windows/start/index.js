@@ -157,7 +157,7 @@ class Start {
     }
   }
 
-  openExistProject() {
+  openExistingProject() {
     dialog.showOpenDialog(
       {
         filters: [{ name: 'MadMachine', extensions: ['mmp'] }],
