@@ -127,10 +127,10 @@ module.exports = {
         to: pathResolve('/dist/public'),
         ignore: ['build/lib/**/*'],
       },
-      {
-        from: pathResolve(`/src/public/build/lib/lib`),
-        to: pathResolve(`/dist/public/build/lib/lib`),
-      },
+      // {
+      //   from: pathResolve(`/src/public/build/lib/lib`),
+      //   to: pathResolve(`/dist/public/build/lib/lib`),
+      // },
       {
         from: pathResolve(`/src/public/build/lib/hal`),
         to: pathResolve(`/dist/public/build/lib/hal`),
