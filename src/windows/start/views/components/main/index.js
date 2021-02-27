@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -10,22 +11,31 @@ import logoPng from '@windows/assets/images/logo.png'
 import blackIcon from '@windows/assets/images/file-icon-black.png'
 import whiteIcon from '@windows/assets/images/file-icon-white.png'
 
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'StartWindow')
+
 @inject(({ configStore }) => ({
   configStore,
 }))
 @observer
 class Main extends Component {
+  componentDidMount() {
+    trackEvent('Open')
+  }
+
   createProject() {
+    trackEvent('CreateProject')
     const { configStore } = this.props
     configStore.setIsCreate(true)
   }
 
   openExistingProject() {
+    trackEvent('OpenExistingProject')
     const { configStore } = this.props
     configStore.openExistingProject()
   }
 
   openHistoryProject(item) {
+    trackEvent('OpenHistoryProject')
     const { configStore } = this.props
     configStore.openProject(item.projectFile)
   }
