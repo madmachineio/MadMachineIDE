@@ -4,6 +4,7 @@ import {
 } from 'electron'
 import os from 'os'
 
+import { trackEvent } from './utils/ga'
 import EditWindow from './windows/edit'
 import SettingWindow from './windows/setting'
 import UserWindow from './windows/user'
@@ -22,6 +23,8 @@ if (os.platform() === 'win32') {
   global.PATH_SPLIT = '/'
   global.PATH_SPLIT_REG = '/'
 }
+// Share with renderer process
+global.trackEvent = trackEvent;
 
 class Main {
   constructor() {
@@ -211,6 +214,8 @@ class Main {
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
     app.on('ready', () => {
+      trackEvent('App', 'Startup')
+
       if (os.platform() === 'darwin') {
         const menu = new MenuManager(this)
         Menu.setApplicationMenu(Menu.buildFromTemplate(menu.initMacMenu()))
@@ -237,6 +242,8 @@ class Main {
   }
 
   appAllClosed() {
+    trackEvent('App', 'Exit')
+
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
