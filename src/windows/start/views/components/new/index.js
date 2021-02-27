@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -7,6 +8,8 @@ import Icon from '@windows/components/icon'
 import logoPng from '@windows/assets/images/logo.png'
 
 import './index.scss'
+
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'NewProject')
 
 @inject(({ configStore }) => ({
   configStore,
@@ -20,6 +23,7 @@ class New extends Component {
   }
 
   componentDidMount() {
+    trackEvent('Open')
     const { configStore } = this.props
     configStore.initDefaultPath()
 
@@ -31,11 +35,13 @@ class New extends Component {
   }
 
   cancelCreate() {
+    trackEvent('CancelCreate')
     const { configStore } = this.props
     configStore.setIsCreate(false)
   }
 
   selectDirHandle() {
+    trackEvent('SelectDirectory')
     const { configStore } = this.props
     configStore.selectPath()
   }
@@ -53,6 +59,7 @@ class New extends Component {
   }
 
   createHandle() {
+    trackEvent('CreateProject')
     const { configStore } = this.props
     configStore.createProject()
   }
