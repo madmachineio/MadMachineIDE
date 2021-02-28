@@ -13,12 +13,17 @@ import imgThemeBlack from '@windows/assets/images/theme-black.png'
 
 const trackEvent = remote.getGlobal('trackEvent').bind(null, 'SettingWindow')
 const pv = remote.getGlobal('pv')
+const enableTrack = remote.getGlobal('enableTrack')
 
 @inject(({ settingStore }) => ({
   settingStore,
 }))
 @observer
 class App extends Component {
+  state = {
+    track: enableTrack(),
+  }
+
   componentDidMount() {
     pv('/setting', 'Setting')
   }
@@ -35,10 +40,20 @@ class App extends Component {
     settingStore.setTheme(themeName)
   }
 
+  enableTelemetry(e) {
+    const { checked } = e.target
+    if (!checked) {
+      trackEvent('DisableTrack')
+    }
+    enableTrack(checked)
+    this.setState({ track: checked })
+  }
+
   render() {
     const {
       settingStore: { themeName },
     } = this.props
+    const { track } = this.state
 
     return (
       <div className="layout-setting">
@@ -84,6 +99,13 @@ class App extends Component {
             <span className="icon icon-right" onClick={this.setFontSize.bind(this, -1)}>
               <Icon icon="t" size="9" />
             </span>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="label">Telemetry:</div>
+          <div className="body">
+            <input type="checkbox" defaultChecked={track} onChange={this.enableTelemetry.bind(this)} />
           </div>
         </div>
       </div>

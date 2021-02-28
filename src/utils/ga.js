@@ -27,13 +27,15 @@ export function trackEvent(category, action, label, value) {
   if (!category || !action) {
     throw new Error('Category and Action params are required')
   }
-  ga
-    .event(Object.assign({
-      ec: category,
-      ea: action,
-    }, label ? { el: label } : {}, value ? { ev: Number(value) } : {}))
-    .send()
-  // console.log('ga.send', [category, action, label, value])
+  if (enableTrack()) {
+    ga
+      .event(Object.assign({
+        ec: category,
+        ea: action,
+      }, label ? { el: label } : {}, value ? { ev: Number(value) } : {}))
+      .send()
+    // console.log('ga.send', [category, action, label, value])
+  }
 }
 
 /**
@@ -43,8 +45,23 @@ export function trackEvent(category, action, label, value) {
  * @param {*} dh document hostname
  */
 export function pv(dp = '', dt = '', dh = '') {
-  ga
-    .pageview({ dp, dt, dh })
-    .send()
-  // ga('send', 'pageview', [page], [fieldsObject]);
+  if (enableTrack()) {
+    ga
+      .pageview({ dp, dt, dh })
+      .send()
+    // ga('send', 'pageview', [page], [fieldsObject]);
+  }
+}
+
+/**
+ * 开启埋点
+ * @param {*} enable 开启与否
+ */
+export function enableTrack(enable) {
+  if (typeof enable === 'boolean') {
+    nodeStorage.setItem('track', enable)
+  }
+  else {
+    return nodeStorage.getItem('track') !== false
+  }
 }
