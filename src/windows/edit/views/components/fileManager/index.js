@@ -26,12 +26,6 @@ class FileManager extends Component {
     })
   }
 
-  exampleOpenHandle = () => {
-    // this.setState({
-    //   type: 'file',
-    // })
-  }
-
   refreshHandle() {
     const { fileStore } = this.props
     fileStore.refreshFiles()
@@ -61,7 +55,7 @@ class FileManager extends Component {
           </div>
 
           <div className="project-wrap">
-            <Example onOpen={this.exampleOpenHandle} />
+            <Example />
           </div>
         </div>
 

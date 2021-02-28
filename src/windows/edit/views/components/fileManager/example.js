@@ -27,10 +27,8 @@ class Example extends Component {
   }
 
   openExample(item) {
-    const { exampleStore, onOpen } = this.props
+    const { exampleStore } = this.props
     exampleStore.openExample(item)
-
-    onOpen()
   }
 
   activeHandle(item) {
@@ -99,12 +97,10 @@ class Example extends Component {
 
 Example.propTypes = {
   exampleStore: PropTypes.object,
-  onOpen: PropTypes.func,
 }
 
 Example.defaultProps = {
   exampleStore: {},
-  onOpen: () => {},
 }
 
 export default Example
