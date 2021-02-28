@@ -10,6 +10,7 @@ import logoPng from '@windows/assets/images/logo.png'
 import './index.scss'
 
 const trackEvent = remote.getGlobal('trackEvent').bind(null, 'NewProject')
+const pv = remote.getGlobal('pv')
 
 @inject(({ configStore }) => ({
   configStore,
@@ -23,7 +24,7 @@ class New extends Component {
   }
 
   componentDidMount() {
-    trackEvent('Open')
+    pv('/start/new_project', 'NewProject')
     const { configStore } = this.props
     configStore.initDefaultPath()
 

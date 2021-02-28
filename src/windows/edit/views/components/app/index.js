@@ -13,7 +13,7 @@ import './index.scss'
 
 const { remote } = require('electron')
 
-const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
+const pv = remote.getGlobal('pv')
 
 @inject(({ configStore }) => ({
   configStore,
@@ -21,7 +21,7 @@ const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 @observer
 class App extends Component {
   componentDidMount() {
-    trackEvent('Open')
+    pv('/edit', 'Edit')
   }
 
   consoleDragHandle = (height) => {

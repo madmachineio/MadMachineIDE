@@ -8,6 +8,7 @@ import { inject, observer } from 'mobx-react'
 import './index.scss'
 
 const trackEvent = remote.getGlobal('trackEvent').bind(null, 'SerialWindow')
+const pv = remote.getGlobal('pv')
 
 @inject(({ serialStore }) => ({
   serialStore,
@@ -21,7 +22,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    trackEvent('Open')
+    pv('/serial', 'Serial')
     document.addEventListener('keyup', this.keyUpHandle.bind(this))
   }
 

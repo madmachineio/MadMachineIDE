@@ -4,7 +4,7 @@ import {
 } from 'electron'
 import os from 'os'
 
-import { trackEvent } from './utils/ga'
+import { trackEvent, pv } from './utils/ga'
 import EditWindow from './windows/edit'
 import SettingWindow from './windows/setting'
 import UserWindow from './windows/user'
@@ -25,6 +25,7 @@ if (os.platform() === 'win32') {
 }
 // Share with renderer process
 global.trackEvent = trackEvent;
+global.pv = pv;
 
 class Main {
   constructor() {

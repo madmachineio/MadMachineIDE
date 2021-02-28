@@ -9,7 +9,7 @@ import Store from '@about/store'
 
 import './index.scss'
 
-const trackEvent = remote.getGlobal('trackEvent').bind(null, 'AboutWindow')
+const pv = remote.getGlobal('pv')
 
 ReactDOM.render(
   <Provider {...new Store()}>
@@ -17,7 +17,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 )
-trackEvent('Open')
+pv('/about', 'About')
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

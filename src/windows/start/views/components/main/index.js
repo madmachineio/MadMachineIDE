@@ -12,6 +12,7 @@ import blackIcon from '@windows/assets/images/file-icon-black.png'
 import whiteIcon from '@windows/assets/images/file-icon-white.png'
 
 const trackEvent = remote.getGlobal('trackEvent').bind(null, 'StartWindow')
+const pv = remote.getGlobal('pv')
 
 @inject(({ configStore }) => ({
   configStore,
@@ -19,7 +20,7 @@ const trackEvent = remote.getGlobal('trackEvent').bind(null, 'StartWindow')
 @observer
 class Main extends Component {
   componentDidMount() {
-    trackEvent('Open')
+    pv('/start', 'Start')
   }
 
   createProject() {

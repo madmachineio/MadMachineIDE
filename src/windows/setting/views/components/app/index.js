@@ -12,12 +12,17 @@ import imgThemeWhite from '@windows/assets/images/theme-white.png'
 import imgThemeBlack from '@windows/assets/images/theme-black.png'
 
 const trackEvent = remote.getGlobal('trackEvent').bind(null, 'SettingWindow')
+const pv = remote.getGlobal('pv')
 
 @inject(({ settingStore }) => ({
   settingStore,
 }))
 @observer
 class App extends Component {
+  componentDidMount() {
+    pv('/setting', 'Setting')
+  }
+
   setFontSize(val) {
     trackEvent('SetFontSize', 'FontSize', val)
     const { settingStore } = this.props

@@ -35,3 +35,16 @@ export function trackEvent(category, action, label, value) {
     .send()
   // console.log('ga.send', [category, action, label, value])
 }
+
+/**
+ * Send GA page view
+ * @param {*} dp document path
+ * @param {*} dt document title
+ * @param {*} dh document hostname
+ */
+export function pv(dp = '', dt = '', dh = '') {
+  ga
+    .pageview({ dp, dt, dh })
+    .send()
+  // ga('send', 'pageview', [page], [fieldsObject]);
+}
