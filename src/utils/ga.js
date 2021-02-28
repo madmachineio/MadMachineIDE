@@ -31,7 +31,7 @@ export function trackEvent(category, action, label, value) {
     .event(Object.assign({
       ec: category,
       ea: action,
-    }, label ? { el: label } : {}, value ? { ev: value } : {}))
+    }, label ? { el: label } : {}, value ? { ev: Number(value) } : {}))
     .send()
   // console.log('ga.send', [category, action, label, value])
 }
