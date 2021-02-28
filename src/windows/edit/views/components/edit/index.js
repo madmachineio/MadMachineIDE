@@ -11,6 +11,7 @@ import './styles/index.scss'
 
 const { clipboard, remote } = require('electron')
 
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 const findParent = (el) => {
   if (Array.from(el.classList).includes('layout-edit-body')) {
     return el
@@ -53,6 +54,7 @@ class Edit extends Component {
   }
 
   showMoreToolsHandle = (x, y) => {
+    trackEvent('ShowMoreTools')
     this.setState({
       showTabMore: true,
       moreTools: this.moreTools,
@@ -65,11 +67,13 @@ class Edit extends Component {
 
   initMenu() {
     const isMac = remote.getCurrentWindow().editWindow.getPlatform() === 'darwin'
+    const track = trackEvent.bind(null, 'EditorContextMenu')
 
     this.menuList = [
       {
         name: 'Format Document',
         click: () => {
+          track('FormatDocument')
           const { fileStore } = this.props
           const { activeEditor } = fileStore
           if (activeEditor) {
@@ -81,6 +85,7 @@ class Edit extends Component {
       {
         name: 'Format Selection',
         click: () => {
+          track('FormatSelection')
           const { fileStore } = this.props
           const { activeEditor } = fileStore
           if (activeEditor) {
@@ -96,6 +101,7 @@ class Edit extends Component {
         key: `${isMac ? '⌘' : 'Ctrl+'}X`,
         isDirectory: true,
         click: () => {
+          track('Cut')
           const { fileStore } = this.props
           const { activeEditor } = fileStore
           if (activeEditor) {
@@ -108,6 +114,7 @@ class Edit extends Component {
         name: 'Copy',
         key: `${isMac ? '⌘' : 'Ctrl+'}C`,
         click: () => {
+          track('Copy')
           const { fileStore } = this.props
           const { activeEditor } = fileStore
           if (activeEditor) {
@@ -120,6 +127,7 @@ class Edit extends Component {
         key: `${isMac ? '⌘' : 'Ctrl+'}V`,
         isDirectory: true,
         click: () => {
+          track('Paste')
           const { fileStore } = this.props
           const { activeEditor } = fileStore
           if (activeEditor) {
@@ -134,6 +142,7 @@ class Edit extends Component {
         name: 'Copy Path',
         // key: 'Shift+Alt+C',
         click: () => {
+          track('CopyPath')
           const { fileStore } = this.props
           const { activeFile } = fileStore
           fileStore.copyPath(activeFile.path)
@@ -143,10 +152,12 @@ class Edit extends Component {
   }
 
   initMoreTools() {
+    const track = trackEvent.bind(null, 'MoreTools')
     this.moreTools = [
       {
         name: 'Close All',
         click: () => {
+          track('CloseAll')
           const { fileStore } = this.props
           const { files } = fileStore
           files.forEach(file => fileStore.removeOpenFile(file))
@@ -155,6 +166,7 @@ class Edit extends Component {
       {
         name: 'Close Saved',
         click: () => {
+          track('CloseSaved')
           const { fileStore } = this.props
           const { files, editFileMap } = fileStore
           files.forEach((file) => {
@@ -196,6 +208,9 @@ class Edit extends Component {
         top: event.pageY,
       },
     })
+    if (isShow) {
+      trackEvent('ShowEditorContextMenu')
+    }
   }
 
   render() {

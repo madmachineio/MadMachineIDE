@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -6,6 +7,8 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import Icon from '@windows/components/icon'
 
 import './styles/tab.scss'
+
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 
 @inject(({ fileStore }) => ({
   fileStore,
@@ -47,6 +50,7 @@ class EditTab extends Component {
   }
 
   selectFileHandle(item) {
+    trackEvent('SelectFile')
     const { fileStore } = this.props
     fileStore.setActiveFile(item)
 
@@ -54,6 +58,7 @@ class EditTab extends Component {
   }
 
   removeFileHandle(file) {
+    trackEvent('RemoveFile')
     const { fileStore } = this.props
     fileStore.removeOpenFile(file)
   }

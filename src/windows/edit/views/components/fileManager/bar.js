@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
@@ -5,8 +6,11 @@ import Icon from '@windows/components/icon'
 
 import './styles/bar.scss'
 
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
+
 class BottomBar extends Component {
   setType(type) {
+    trackEvent('ToggleProject', 'Type', type)
     const { onUpdate } = this.props
     onUpdate(type)
   }

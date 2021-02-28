@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -8,6 +9,7 @@ import Icon from '@windows/components/icon'
 import ContentMenu from '@windows/components/contentMenu'
 import './styles/manager.scss'
 
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 const calcDeepPadding = deep => 14 + 20 * deep
 const MODIFY_TYPES = ['newFile', 'rename']
 const FOLDER_MODIFY_TYPES = ['newFolder']
@@ -34,6 +36,7 @@ class FileFolder extends Component {
   }
 
   initMenu() {
+    const track = trackEvent.bind(null, 'ExplorerContextMenu')
     this.menuList = [
       {
         name: 'New File',
@@ -41,6 +44,7 @@ class FileFolder extends Component {
           return fileData.isDirectory === true
         },
         click: () => {
+          track('NewFile')
           const { fileStore } = this.props
           fileStore.createFile()
 
@@ -60,6 +64,7 @@ class FileFolder extends Component {
           return true
         },
         click: () => {
+          track('NewFolder')
           const { fileStore } = this.props
           fileStore.createFolder()
 
@@ -80,6 +85,7 @@ class FileFolder extends Component {
           return true
         },
         click: () => {
+          track('Reveal')
           const { fileStore } = this.props
           fileStore.showInExplorer()
         },
@@ -97,6 +103,7 @@ class FileFolder extends Component {
           return false // fileData.isDirectory === true
         },
         click: () => {
+          track('Cut')
           const { fileStore } = this.props
           fileStore.cutFile()
         },
@@ -108,6 +115,7 @@ class FileFolder extends Component {
           return fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
+          track('Copy')
           const { fileStore } = this.props
           fileStore.copyFile()
         },
@@ -119,6 +127,7 @@ class FileFolder extends Component {
           return fileData.isDirectory === true
         },
         click: () => {
+          track('Paste')
           const { fileStore } = this.props
           fileStore.pasteFile()
         },
@@ -130,6 +139,7 @@ class FileFolder extends Component {
           return true
         },
         click: () => {
+          track('CopyPath')
           const { fileStore } = this.props
           fileStore.copyPath()
         },
@@ -147,6 +157,7 @@ class FileFolder extends Component {
           return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
+          track('Rename')
           const { fileStore } = this.props
           fileStore.rename()
         },
@@ -157,6 +168,7 @@ class FileFolder extends Component {
           return fileData.isDirectory === false && fileData.name !== 'main.swift' && !/\.mmp$/gi.test(fileData.name)
         },
         click: () => {
+          track('Delete')
           const { fileStore } = this.props
           fileStore.delFile()
         },
@@ -204,6 +216,7 @@ class FileFolder extends Component {
         top: event.pageY,
       },
     })
+    trackEvent('ShowExplorerContextMenu')
   }
 
   toggleFileHandle(data) {
@@ -220,6 +233,7 @@ class FileFolder extends Component {
         [key]: !pState.showMap[key],
       },
     }))
+    trackEvent('ExpandFolder', 'Expand', !showMap[key])
   }
 
   fileOpenHandle(fileData) {
@@ -229,6 +243,7 @@ class FileFolder extends Component {
 
     const { fileStore } = this.props
     fileStore.openFile(fileData)
+    trackEvent('OpenFile')
   }
 
   modifyFileBlurHandle(fileData, type, value) {

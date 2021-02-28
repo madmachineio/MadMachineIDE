@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -6,6 +7,8 @@ import Icon from '@windows/components/icon'
 import Progress from '@windows/components/progresss'
 
 import './styles/status.scss'
+
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 
 @inject(({ configStore, usbStore, consoleStore }) => ({
   configStore,
@@ -18,9 +21,11 @@ class ConsoleStatus extends Component {
     const { configStore } = this.props
     const { lastConsoleHeight, consoleHeight } = configStore
     configStore.setConsoleHeight(consoleHeight === '80%' ? lastConsoleHeight : '80%')
+    trackEvent('MaximizeConsole', 'Max', consoleHeight !== '80%')
   }
 
   consoleMinHandle() {
+    trackEvent('CloseConsole')
     const { configStore } = this.props
     configStore.setConsoleHeight(31)
   }

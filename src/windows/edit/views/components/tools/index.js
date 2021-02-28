@@ -10,6 +10,8 @@ import CopyFile from './copyFileTip'
 
 const { remote } = require('electron')
 
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
+
 const MODIFY_TYPES = ['newFolder', 'newFile', 'rename']
 const findModifyTypes = (folder) => {
   if (MODIFY_TYPES.includes(folder)) {
@@ -30,6 +32,7 @@ const findModifyTypes = (folder) => {
 @observer
 class Tools extends Component {
   newFileHandle() {
+    trackEvent('NewFile')
     const { fileStore } = this.props
     const {
       activeFile: { path = '' },
@@ -51,11 +54,13 @@ class Tools extends Component {
   }
 
   saveAllFileHandle() {
+    trackEvent('SaveAll')
     const { fileStore } = this.props
     fileStore.saveAllFile()
   }
 
   runBuildHandle() {
+    trackEvent('Build')
     const { consoleStore, configStore, fileStore } = this.props
     if (fileStore.getIsExample()) {
       return
@@ -75,16 +80,22 @@ class Tools extends Component {
     const { fileManagerShow } = configStore
 
     configStore.setFileManageShow(!fileManagerShow)
+    trackEvent('ToggleFileManage', 'Show', !fileManagerShow)
   }
 
   toggleConsoleHandle() {
     const { configStore } = this.props
     const { consoleHeight } = configStore
 
-    configStore.setConsoleHeight(consoleHeight === 31 ? 280 : 31)
+    const minHeight = 31
+    const normalHeight = 280
+    const targetHeight = consoleHeight === minHeight ? normalHeight : minHeight
+    configStore.setConsoleHeight(targetHeight)
+    trackEvent('ToggleConsole', 'Expand', targetHeight === normalHeight)
   }
 
   copyFileHandle() {
+    trackEvent('Download')
     const { usbStore, configStore, fileStore } = this.props
 
     if (fileStore.getIsExample()) {
@@ -102,6 +113,7 @@ class Tools extends Component {
   }
 
   showSerialHandle() {
+    trackEvent('ShowSerial')
     const { usbStore } = this.props
     usbStore.showSerial()
   }
@@ -109,6 +121,7 @@ class Tools extends Component {
   showUserHandle() {
     const { userStore } = this.props
     userStore.openCommunity()
+    trackEvent('OpenCommunity')
   }
 
   render() {

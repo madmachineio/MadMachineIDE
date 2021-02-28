@@ -1,3 +1,5 @@
+import { remote } from 'electron'
+import { basename } from 'path'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -6,6 +8,8 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import Icon from '@windows/components/icon'
 
 import './styles/example.scss'
+
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 
 @inject(({ exampleStore }) => ({
   exampleStore,
@@ -18,6 +22,8 @@ class Example extends Component {
   }
 
   unfoldHandle(path) {
+    const project = basename(path)
+    trackEvent('ExpandExampleGroup', 'Project', project)
     this.setState(pState => ({
       unfoldMap: {
         ...pState.unfoldMap,
@@ -27,11 +33,13 @@ class Example extends Component {
   }
 
   openExample(item) {
+    trackEvent('OpenExample', 'Project', item.name)
     const { exampleStore } = this.props
     exampleStore.openExample(item)
   }
 
   activeHandle(item) {
+    trackEvent('ClickExample', 'Project', item.name)
     this.setState({
       activeProject: item,
     })

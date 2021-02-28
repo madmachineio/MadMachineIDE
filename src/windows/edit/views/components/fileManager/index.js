@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -10,6 +11,8 @@ import Bar from './bar'
 import Example from './example'
 
 import './styles/index.scss'
+
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 
 @inject(({ fileStore }) => ({
   fileStore,
@@ -27,6 +30,7 @@ class FileManager extends Component {
   }
 
   refreshHandle() {
+    trackEvent('RefreshExplorer')
     const { fileStore } = this.props
     fileStore.refreshFiles()
   }

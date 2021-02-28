@@ -14,6 +14,8 @@ import './styles/index.scss'
 
 const { ipcRenderer, clipboard, remote } = require('electron')
 
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
+
 @inject(({ configStore, consoleStore }) => ({
   configStore,
   consoleStore,
@@ -80,6 +82,7 @@ class Console extends Component {
   }
 
   contentMenuHandle = (event) => {
+    trackEvent('ShowConsoleContextMenu')
     event.stopPropagation()
 
     // const { fileStore } = this.props
@@ -97,11 +100,13 @@ class Console extends Component {
 
   initMenu() {
     const isMac = remote.getCurrentWindow().editWindow.getPlatform() === 'darwin'
+    const track = trackEvent.bind(null, 'ConsoleContextMenu')
     this.menuList = [
       {
         name: 'Copy',
         key: `${isMac ? '⌘' : 'Ctrl+'}C`,
         click: () => {
+          track('Copy')
           clipboard.writeText(window.getSelection().toString())
         },
       },
