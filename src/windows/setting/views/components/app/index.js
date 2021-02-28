@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -10,17 +11,21 @@ import './index.scss'
 import imgThemeWhite from '@windows/assets/images/theme-white.png'
 import imgThemeBlack from '@windows/assets/images/theme-black.png'
 
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'SettingWindow')
+
 @inject(({ settingStore }) => ({
   settingStore,
 }))
 @observer
 class App extends Component {
   setFontSize(val) {
+    trackEvent('SetFontSize', 'FontSize', val)
     const { settingStore } = this.props
     settingStore.setFontSize(val)
   }
 
   themeChangeHandle(themeName) {
+    trackEvent('SetTheme', themeName)
     const { settingStore } = this.props
     settingStore.setTheme(themeName)
   }
