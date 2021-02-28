@@ -1,3 +1,4 @@
+import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
@@ -5,6 +6,8 @@ import { inject, observer } from 'mobx-react'
 // import classnames from 'classnames'
 
 import './index.scss'
+
+const trackEvent = remote.getGlobal('trackEvent').bind(null, 'SerialWindow')
 
 @inject(({ serialStore }) => ({
   serialStore,
@@ -18,6 +21,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    trackEvent('Open')
     document.addEventListener('keyup', this.keyUpHandle.bind(this))
   }
 
@@ -34,6 +38,7 @@ class App extends Component {
     const { serialStore } = this.props
 
     if (key.length === 1) {
+      console.log(key)
       serialStore.setIptValue(key)
     }
     if (code === 'Enter') {
@@ -45,10 +50,12 @@ class App extends Component {
 
   connectHandle() {
     const { serialStore } = this.props
-    serialStore.connect()
+    const connectResult = serialStore.connect()
+    trackEvent('Connect', 'Success', connectResult)
   }
 
   portSelectHandle({ target: { value } }) {
+    trackEvent('SelectPort')
     const { serialStore } = this.props
     serialStore.setPortName(value)
   }
