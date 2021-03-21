@@ -113,7 +113,6 @@
   "dependencies": {
     "chokidar": "^2.1.5",
     "drivelist": "^8.0.10",
-    "electron": "4.0.0",
     "electron-compile": "^6.4.4",
     "electron-progressbar": "^1.2.0",
     "electron-squirrel-startup": "^1.0.0",
@@ -156,6 +155,7 @@
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
+    "electron": "^4.0.0",
     "electron-builder": "^22.4.1",
     "electron-prebuilt-compile": "4.0.0",
     "eslint": "5.12.0",
