@@ -111,6 +111,7 @@
     }
   },
   "dependencies": {
+    "@iarna/toml": "^2.2.5",
     "chokidar": "^2.1.5",
     "drivelist": "^8.0.10",
     "electron-compile": "^6.4.4",
@@ -168,6 +169,7 @@
     "eslint-plugin-react": "7.12.4",
     "eventemitter2": "^5.0.1",
     "file-loader": "2.0.0",
+    "filehound": "^1.17.4",
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",

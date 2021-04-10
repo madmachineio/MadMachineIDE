@@ -5,6 +5,7 @@ import os from 'os'
 import path from 'path'
 import fs from 'fs'
 import Mode from 'stat-mode'
+import parseProjectFile from './parseProjectFile'
 
 /**
  * 返回一个函数
@@ -28,7 +29,7 @@ export const build = async (appPath, projectFolder, projectName, projectFiles, b
     modulePath = path.resolve(app.getPath('documents'), 'MadMachine', 'Library')
     filesPath = path.resolve(projectFolder, `Sources\\${projectName}`)
   } else if (process.env.platform === 'darwin') {
-    runPath = path.resolve(__dirname, 'public/build/lib/tools_mac/scripts/dist/mm/mm')
+    runPath = path.resolve(__dirname, 'public/build/lib/tools_mac/usr/mm/mm')
     sdkPath = path.resolve(__dirname, 'public/build/lib')
     modulePath = path.resolve(app.getPath('documents'), 'MadMachine', 'Library')
     filesPath = path.resolve(projectFolder, `Sources/${projectName}`)
@@ -44,7 +45,10 @@ export const build = async (appPath, projectFolder, projectName, projectFiles, b
   //   await runExec(`chmod u+x ${runPath}`)
   // }
 
-  await runExec(`"${runPath}" build --sdk "${sdkPath}" --module "${modulePath}"`, projectFolder)
+  const project = parseProjectFile(path.resolve(projectFolder, `${path.basename(projectFolder)}.mmp`))
+  const board = project.board
+  const floatType = project['float-type'] || 'soft'
+  await runExec(`"${runPath}" build -b "${board}" -f "${floatType}"`, projectFolder)
 }
 
 
@@ -54,7 +58,7 @@ export const init = async (projectFolder, runExec) => {
   if (process.env.platform === 'win32') {
     runPath = path.resolve(__dirname, 'public\\build\\lib\\tools_win\\scripts\\dist\\mm\\mm.exe')
   } else if (process.env.platform === 'darwin') {
-    runPath = path.resolve(__dirname, 'public/build/lib/tools_mac/scripts/dist/mm/mm')
+    runPath = path.resolve(__dirname, 'public/build/lib/tools_mac/usr/mm/mm')
   } else {
     runPath = path.resolve(__dirname, 'public/build/lib/tools_linux/scripts/dist/mm/mm')
   }

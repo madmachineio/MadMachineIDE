@@ -9,6 +9,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const nodeExternals = require('webpack-node-externals')
 const CopyPlugin = require('copy-webpack-plugin')
+const ReserveFileModePlugin = require('./reserveFileMode')
 
 // const { dependencies } = require('../../package.json')
 
@@ -148,6 +149,11 @@ module.exports = {
         to: pathResolve('/dist/build'),
       },
     ]),
+    new ReserveFileModePlugin({
+      paths: [
+        pathResolve(`/dist/public/build/lib/${os.platform() === 'win32' ? 'tools_win' : os.platform() === 'darwin' ? 'tools_mac' : 'tools_linux'}`),
+      ]
+    })
   ],
 
   /**
