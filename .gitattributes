@@ -1,3 +1,0 @@
-src/public/build/lib/tools_win/toolchains/swift/bin/swiftc.exe filter=lfs diff=lfs merge=lfs -text
-src/public/build/lib/tools_linux/toolchains/swift/bin/swift filter=lfs diff=lfs merge=lfs -text
-src/public/build/lib/tools_mac/toolchains/swift/bin/swift filter=lfs diff=lfs merge=lfs -text

@@ -30,14 +30,6 @@
     "productName": "MadMachine",
     "buildVersion": "1.0.0",
     "appId": "com.madmachine.app",
-    "files": [
-      "dist/**/*",
-      "package.json",
-      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-      "!**/node_modules/*.d.ts",
-      "!**/node_modules/.bin"
-    ],
     "directories": {
       "output": "build"
     },
@@ -87,6 +79,15 @@
       "icon": "resources/logo/install.icns",
       "background": "resources/imgs/macinstall.tiff",
       "window": {
+      ],
+      "files": [
+        "dist/**/*",
+        "sdk/win/**/*",
+        "package.json",
+        "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+        "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+        "!**/node_modules/*.d.ts",
+        "!**/node_modules/.bin"
         "width": 574,
         "height": 313
       }
