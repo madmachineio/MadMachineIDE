@@ -23,7 +23,7 @@
     "web:build": "cross-env ENV=prod node ./config/scripts/build.js",
     "web:test": "node ./config/scripts/test.js",
     "config:build": "node ./config/scripts/build.config.js",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps && node ./config/scripts/postinstall.js"
   },
   "build": {
     "asar": false,
@@ -50,6 +50,15 @@
       "target": [
         "dmg",
         "zip"
+      ],
+      "files": [
+        "dist/**/*",
+        "sdk/mac/**/*",
+        "package.json",
+        "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+        "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+        "!**/node_modules/*.d.ts",
+        "!**/node_modules/.bin"
       ]
     },
     "win": {
@@ -62,6 +71,15 @@
             "ia32"
           ]
         }
+      ],
+      "files": [
+        "dist/**/*",
+        "sdk/win/**/*",
+        "package.json",
+        "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+        "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+        "!**/node_modules/*.d.ts",
+        "!**/node_modules/.bin"
       ]
     },
     "nsis": {
@@ -79,15 +97,6 @@
       "icon": "resources/logo/install.icns",
       "background": "resources/imgs/macinstall.tiff",
       "window": {
-      ],
-      "files": [
-        "dist/**/*",
-        "sdk/win/**/*",
-        "package.json",
-        "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-        "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-        "!**/node_modules/*.d.ts",
-        "!**/node_modules/.bin"
         "width": 574,
         "height": 313
       }
@@ -114,6 +123,7 @@
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "chokidar": "^2.1.5",
+    "download-github-release": "^0.3.2",
     "drivelist": "^8.0.10",
     "electron-compile": "^6.4.4",
     "electron-progressbar": "^1.2.0",

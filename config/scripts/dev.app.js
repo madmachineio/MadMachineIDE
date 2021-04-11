@@ -10,7 +10,7 @@ webpack(configFactory).run((error, stats) => {
     return false
   }
 
-  const command = childProess.exec('electron dist/main.js')
+  const command = childProess.exec('electron .')
   command.stdout.on('data', (data) => {
     console.log(data)
   })

@@ -7,10 +7,11 @@ import fs from 'fs'
 import Mode from 'stat-mode'
 import parseProjectFile from './parseProjectFile'
 
+// May be xxx.asar
 const sdkPathMap = {
-  win: path.resolve(__dirname, '../../../sdk/win/scripts/dist/mm/mm.exe'),
-  mac: path.resolve(__dirname, '../../../sdk/mac/usr/mm/mm'),
-  linux: path.resolve(__dirname, '../../../sdk/linux/scripts/dist/mm/mm')
+  win: path.resolve(app.getAppPath(), './sdk/win/scripts/dist/mm/mm.exe'),
+  mac: path.resolve(app.getAppPath(), './sdk/mac/usr/mm/mm'),
+  linux: path.resolve(app.getAppPath(), './sdk/linux/scripts/dist/mm/mm'),
 }
 
 /**
