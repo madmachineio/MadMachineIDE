@@ -213,12 +213,6 @@ class FileStore {
     }
   }
 
-  @action openFolderData(folder) {
-    this.setActiveFile(folder)
-
-    this.rootStore.editWindow.fileManager.readeFolderSave(folder.path)
-  }
-
   /**
    * 右键菜单
    */

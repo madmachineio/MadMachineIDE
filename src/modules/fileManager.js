@@ -160,7 +160,7 @@ class FileManager {
 
   // 刷新文件夹
   refreshPathFiles(pathTmp) {
-    this.readeFolderSave(pathTmp)
+    this.readFolderSave(pathTmp)
   }
 
   /**
@@ -233,8 +233,11 @@ class FileManager {
     }
     this.projectName = name
 
-    // Sources/${projectName} 目录下放代码
-    this.readeFolderSave(sourcePath)
+    // 显示除.build外的所有目录
+    const outputDir = path.resolve(pathTmp, '.build')
+    this.readFolderSave(pathTmp, (filePath) => {
+      return !filePath.startsWith(outputDir)
+    })
 
     this.openFiles = []
     this.eventEmitter.emit('OPEN_FILES', this.openFiles)
@@ -242,60 +245,55 @@ class FileManager {
     this.syncFolderData()
   }
 
+  walkThroughFolder(folder, pathSegments = [], filter = () => true) {
+    const children = fs
+      .readdirSync(folder)
+      .filter(file => {
+        const filePath = path.resolve(folder, file)
+        return file !== '.DS_Store' && filter(filePath)
+      })
+      .map((file) => {
+        const filePath = path.resolve(folder, file)
+        const cKey = pathSegments.concat(file)
+        const stat = fs.statSync(filePath)
+        const fileData = {
+          name: file,
+          key: cKey,
+          path: filePath,
+          ctimeMs: stat.ctimeMs,
+          isDirectory: false,
+          children: [],
+        }
+        if (stat && stat.isDirectory()) {
+          fileData.isDirectory = true
+          fileData.children = this.walkThroughFolder(filePath, cKey)
+        }
+        return fileData
+      })
+
+    return children
+  }
+
   // 读取该路径下所有文件
-  readeFolderSave(pathTmp) {
-    const folderData = this.findFolderByPah(this.folderData, pathTmp)
-
+  readFolderSave(pathTmp, filter = () => true) {
+    const folderData = this.folderData
     if (folderData) {
-      const children = fs
-        .readdirSync(pathTmp)
-        .map((file) => {
-          const filePath = path.resolve(pathTmp, file) // `${pathTmp}/${file}`
-          const cKey = folderData.key.concat(file)
-          const stat = fs.statSync(filePath)
-          const fileData = {
-            name: file,
-            key: cKey,
-            path: filePath,
-            ctimeMs: stat.ctimeMs,
-            isDirectory: false,
-            children: [],
-          }
-          if (stat && stat.isDirectory()) {
-            fileData.isDirectory = true
-            fileData.children = []
-          }
-          return fileData
-        })
-        .filter(m => m.isDirectory || EXT_FILES.includes(fromatPath(m.name).ext))
-
-      // const hasMainSwift = children.findIndex(m => m.name === 'main.swift')
-      // if (hasMainSwift < 0) {
-      //   const filePath = path.resolve(folderData.path, 'main.swift') // `${folderData.path}/main.swift`
-      //   fs.writeFileSync(filePath, '')
-      //   children.push({
-      //     name: 'main.swift',
-      //     key: folderData.key.concat('main.swift'),
-      //     path: filePath,
-      //     isDirectory: false,
-      //     children: [],
-      //   })
-      // }
-
+      const children = this.walkThroughFolder(pathTmp, [path.basename(pathTmp)], filter)
+        .filter(file => path.extname(file.path) !== '.mmp')
       folderData.children = folderData.children.filter(m => m.fixed).concat(sortFiles(children))
     }
 
     this.eventEmitter.emit('OPEN_FOLDERS', this.folderData)
   }
 
-  findFolderByPah(data, pathTmp) {
+  findFolderByPath(data, pathTmp) {
     let result = null
 
     if (data.path === pathTmp) {
       result = data
     } else if (!result && data.children) {
       data.children.forEach((child) => {
-        const childResult = this.findFolderByPah(child, pathTmp)
+        const childResult = this.findFolderByPath(child, pathTmp)
         if (childResult) {
           result = childResult
         }
@@ -311,7 +309,7 @@ class FileManager {
       return
     }
 
-    const folderData = this.findFolderByPah(this.folderData, pathTmp)
+    const folderData = this.findFolderByPath(this.folderData, pathTmp)
     if (folderData && folderData.children) {
       const firstFileIndex = Math.max(0, folderData.children.findIndex(m => m.isDirectory === false))
       folderData.children.splice(firstFileIndex, 0, {
@@ -335,7 +333,7 @@ class FileManager {
       return
     }
 
-    const folderData = this.findFolderByPah(this.folderData, pathTmp)
+    const folderData = this.findFolderByPath(this.folderData, pathTmp)
     if (folderData && folderData.children) {
       folderData.children.splice(0, 0, {
         name: '',
@@ -357,7 +355,7 @@ class FileManager {
     if (name && !fs.existsSync(filePath)) {
       fs.writeFileSync(filePath, '')
     }
-    this.readeFolderSave(pathTmp)
+    this.readFolderSave(pathTmp)
   }
 
   // 真实创建文件夹
@@ -367,7 +365,7 @@ class FileManager {
     if (name && !fs.existsSync(filePath)) {
       fs.mkdirSync(filePath)
     }
-    this.readeFolderSave(pathTmp)
+    this.readFolderSave(pathTmp)
   }
 
   // 系统文件管理中显示当前目录或文件
@@ -392,7 +390,7 @@ class FileManager {
       return
     }
 
-    const data = this.findFolderByPah(this.folderData, pathTmp)
+    const data = this.findFolderByPath(this.folderData, pathTmp)
     if (data) {
       data.type = 'rename'
       this.eventEmitter.emit('OPEN_FOLDERS', this.folderData)
@@ -407,7 +405,7 @@ class FileManager {
 
     const parentPath = getPathParent(pathTmp)
     fs.renameSync(pathTmp, path.resolve(parentPath, newName))
-    this.readeFolderSave(parentPath)
+    this.readFolderSave(parentPath)
   }
 
   // 删除文件或者文件夹
@@ -431,7 +429,7 @@ class FileManager {
           deleteFile(pathTmp)
 
           const parentPath = getPathParent(pathTmp)
-          this.readeFolderSave(parentPath)
+          this.readFolderSave(parentPath)
         }
       },
     )
@@ -462,10 +460,10 @@ class FileManager {
 
     if (data.type === 'cut') {
       deleteFile(data.path)
-      this.readeFolderSave(getPathParent(data.path))
+      this.readFolderSave(getPathParent(data.path))
     }
 
-    this.readeFolderSave(data.targetPath)
+    this.readFolderSave(data.targetPath)
   }
 
   // 递归读取所有文件和文件夹

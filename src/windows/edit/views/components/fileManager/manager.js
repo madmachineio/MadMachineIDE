@@ -222,10 +222,6 @@ class FileFolder extends Component {
   toggleFileHandle(data) {
     const { showMap } = this.state
     const key = data.key.join(',')
-    if (!showMap[key]) {
-      const { fileStore } = this.props
-      fileStore.openFolderData(data)
-    }
 
     this.setState(pState => ({
       showMap: {
