@@ -6,7 +6,7 @@ import sudo from 'sudo-prompt'
 import * as os from 'os'
 import * as pty from 'node-pty'
 // import stripAnsi from 'strip-ansi'
-import { build as buildScript, init } from '../public/build/main'
+import { build as buildProject, init, generate, download } from '../public/build/main'
 import { mkdirsSync } from '../utils/path'
 // import iconv from 'iconv-lite'
 
@@ -37,19 +37,13 @@ class ConsoleManager {
     this.eventEmitter.emit('status', this.runStatus)
     this.cmdMessage = []
 
-    // const isPermssion = await this.checkPermission()
-    // if (!isPermssion) {
-    //   await this.chmodFolder()
-    // }
-
     const { fileManager } = this.editWindow
-    const buildFolder = path.resolve(fileManager.folderPath, '.build')
     // if (!fs.existsSync(buildFolder)) {
     //   mkdirsSync(buildFolder)
     // }
 
     try {
-      await buildScript(app.getAppPath(), fileManager.folderPath, fileManager.projectName, fileManager.folderData.children, buildFolder, this.execCmd.bind(this))
+      await buildProject(fileManager.folderPath, this.execCmd.bind(this))
     } catch (ex) {
       console.log(ex)
     }
@@ -63,35 +57,15 @@ class ConsoleManager {
   async initProject(folderPath) {
     try {
       await init(folderPath, this.execCmd.bind(this))
+      await generate(folderPath, this.execCmd.bind(this))
     } catch (e) {
       console.log(e)
     }
   }
 
-  async chmodFolder() {
-    return new Promise((resolve) => {
-      const options = {
-        name: 'MadMachine',
-        // icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
-      }
-
-      sudo.exec(`chmod -R 777 ${resolvePath()}`, options, (error, stdout) => {
-        resolve(stdout)
-      })
-    })
-  }
-
-  checkPermission() {
-    return new Promise((resolve) => {
-      fs.stat(resolvePath(), (error, stats) => {
-        if (error) {
-          resolve(false)
-        } else {
-          // eslint-disable-next-line
-          resolve((stats.mode & 0o777).toString(8) === '775')
-        }
-      })
-    })
+  async copyFile() {
+    const { fileManager } = this.editWindow
+    download(fileManager.folderPath, this.execCmd.bind(this))
   }
 
   execCmd2(cmd, isRoot = false) {

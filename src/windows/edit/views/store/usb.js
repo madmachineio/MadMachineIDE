@@ -29,7 +29,7 @@ class UsbStore {
 
     clearInterval(this.timeId)
     emitter.emit('CONSOLE_CLEAR')
-    this.rootStore.editWindow.usbManager.copyFile()
+    this.rootStore.editWindow.consoleManager.copyFile()
   }
 
   @action setShowTipFlag(flag) {
@@ -54,7 +54,7 @@ class UsbStore {
         console.log('===== run')
         await this.rootStore.editWindow.consoleManager.run(this.rootStore.consoleStore.cols, this.rootStore.consoleStore.rows, false)
         console.log('===== copy')
-        this.rootStore.editWindow.usbManager.copyFile()
+        this.rootStore.editWindow.consoleManager.copyFile()
       } else {
         clearInterval(this.timeId)
         this.isShowTip = isShow
