@@ -45,11 +45,15 @@
         "icon": "resources/ext/mmswift"
       }
     ],
+    "afterSign": "config/scripts/notarize.js",
     "mac": {
       "icon": "resources/logo/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "config/entitlements.mac.plist",
+      "entitlementsInherit": "config/entitlements.mac.plist",
       "target": [
-        "dmg",
-        "zip"
+        "dmg"
       ],
       "files": [
         "dist/**/*",
@@ -165,10 +169,11 @@
     "copy-webpack-plugin": "^5.0.3",
     "cross-env": "^5.2.0",
     "css-loader": "1.0.0",
-    "dotenv": "6.0.0",
+    "dotenv": "^6.0.0",
     "dotenv-expand": "4.2.0",
     "electron": "^4.0.0",
     "electron-builder": "^22.4.1",
+    "electron-notarize": "^1.0.0",
     "electron-prebuilt-compile": "4.0.0",
     "eslint": "5.12.0",
     "eslint-config-airbnb": "^17.1.0",
