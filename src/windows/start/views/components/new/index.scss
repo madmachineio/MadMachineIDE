@@ -79,7 +79,7 @@
           box-shadow: 0 0 0 1px val((start, newIptBorderColor));
         }
       }
-      > input {
+      > input, select {
         flex: 1;
         border: 0;
         background: none;

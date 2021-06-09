@@ -18,10 +18,11 @@ class ConsoleStore {
 
   // 编译
   @action runBuild() {
+    // 初始化状态
     this.rootStore.usbStore.setCopyProgress(0)
-
     this.runStatus = 'compiling'
 
+    // 清空控制台
     emitter.emit('CONSOLE_CLEAR')
     this.rootStore.editWindow.consoleManager.run(this.cols, this.rows)
   }

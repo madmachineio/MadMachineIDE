@@ -20,6 +20,8 @@ class UsbStore {
 
   @observable timeId = 0
 
+  @observable status = ''
+
   constructor(rootStore) {
     this.rootStore = rootStore
   }
@@ -43,30 +45,33 @@ class UsbStore {
   }
 
   @action async copyFile(isShow) {
-    if (this.rootStore.consoleStore.runStatus !== 'compiling') {
-      emitter.emit('CONSOLE_CLEAR')
-      const isHave = await this.rootStore.editWindow.usbManager.check()
+    console.log('mobx copyFile')
+    if (this.rootStore.consoleStore.runStatus === 'compiling') return
 
-      if (isHave) {
-        this.setCopyProgress(0)
+    emitter.emit('CONSOLE_CLEAR')
+    const isHave = this.status !== '' && this.status.includes('ready') // await this.rootStore.editWindow.usbManager.check()
 
-        this.rootStore.consoleStore.setConsoleRun('compiling')
-        console.log('===== run')
-        await this.rootStore.editWindow.consoleManager.run(this.rootStore.consoleStore.cols, this.rootStore.consoleStore.rows, false)
-        console.log('===== copy')
-        this.rootStore.editWindow.consoleManager.copyFile()
-      } else {
-        clearInterval(this.timeId)
-        this.isShowTip = isShow
-        if (this.isShowTip) {
-          this.tipTime = 5
-          this.timeId = setInterval(() => {
-            this.tipTime -= 1
-            if (this.tipTime === 0) {
-              this.setShowTip(false)
-            }
-          }, 1000)
-        }
+    console.log(isHave)
+
+    if (isHave) {
+      this.setCopyProgress(0)
+
+      this.rootStore.consoleStore.setConsoleRun('compiling')
+      console.log('===== run')
+      await this.rootStore.editWindow.consoleManager.run(this.rootStore.consoleStore.cols, this.rootStore.consoleStore.rows, false)
+      console.log('===== copy')
+      this.rootStore.editWindow.consoleManager.copyFile()
+    } else {
+      clearInterval(this.timeId)
+      this.isShowTip = isShow
+      if (this.isShowTip) {
+        this.tipTime = 5
+        this.timeId = setInterval(() => {
+          this.tipTime -= 1
+          if (this.tipTime === 0) {
+            this.setShowTip(false)
+          }
+        }, 1000)
       }
     }
   }
@@ -81,6 +86,11 @@ class UsbStore {
 
   @action showUser() {
     this.rootStore.editWindow.app.showUserView()
+  }
+
+  @action setStatus = (status) => {
+    if (status === this.status) return
+    this.status = status
   }
 }
 

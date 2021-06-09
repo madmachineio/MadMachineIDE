@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import classnames from 'classnames'
-
+import { remote } from 'electron'
 import './styles/index.scss'
 
 import Icon from '@windows/components/icon'
 import CopyFile from './copyFileTip'
 
-const { remote } = require('electron')
+// const { remote, dialog } = require('electron')
 
 const trackEvent = remote.getGlobal('trackEvent').bind(null, 'EditWindow')
 
@@ -94,17 +94,30 @@ class Tools extends Component {
     trackEvent('ToggleConsole', 'Expand', targetHeight === normalHeight)
   }
 
-  copyFileHandle() {
+  async copyFileHandle() {
     trackEvent('Download')
     const { usbStore, configStore, fileStore } = this.props
 
+    // 判断是否为示例
     if (fileStore.getIsExample()) {
       return
     }
 
+    // 检查板状态 If the SD card status is not "*** ready", stop and alert.
+    if (usbStore.status === '' || !usbStore.status.includes('ready')) {
+      remote.dialog.showMessageBox({
+        type: 'info',
+        title: 'Info',
+        message: usbStore.status || 'Board is not connected',
+      })
+      return
+    }
+
+    // 保存全部文件
     this.saveAllFileHandle()
 
-    usbStore.copyFile(!usbStore.showTipFlag)
+    // 复制文件到板
+    await usbStore.copyFile(!usbStore.showTipFlag)
 
     const { consoleHeight } = configStore
     if (consoleHeight < 100) {
@@ -127,6 +140,7 @@ class Tools extends Component {
   render() {
     const {
       configStore: { fileManagerShow, consoleHeight },
+      usbStore: { status },
       // userStore: {
       //   userInfo: { userName = 'Login' },
       // },
@@ -135,7 +149,8 @@ class Tools extends Component {
       },
     } = this.props
 
-    console.log(isExample)
+    // 下载按钮是否可点击
+    const downloadable = !isExample && !!(status && status.includes('ready'))
 
     return (
       <div className="layout-tools">
@@ -150,10 +165,20 @@ class Tools extends Component {
           </div>
 
           <div className="group">
-            <span onClick={this.runBuildHandle.bind(this)} title="Build" className={classnames({ disabled: isExample })}>
+            {/* 构建打包 */}
+            <span
+              onClick={this.runBuildHandle.bind(this)}
+              title="Build"
+              className={classnames({ disabled: isExample })}
+            >
               <Icon icon="Path" size="18" />
             </span>
-            <span onClick={this.copyFileHandle.bind(this)} title="Download" className={classnames({ disabled: isExample })}>
+            {/* 下载 */}
+            <span
+              onClick={this.copyFileHandle.bind(this)}
+              title="Download"
+              className={classnames({ disabled: !downloadable })}
+            >
               <Icon icon="download1" size="18" />
             </span>
           </div>

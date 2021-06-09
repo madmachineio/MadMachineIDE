@@ -49,7 +49,10 @@ class Example extends Component {
     const { unfoldMap } = this.state
 
     return data.map(item => (
-      <div className={`example-group ${unfoldMap[item.path] ? 'actived' : ''}`} key={item.path}>
+      <div
+        className={`example-group ${unfoldMap[item.path] ? 'actived' : ''}`}
+        key={item.path}
+      >
         <div className="example-item" onClick={this.unfoldHandle.bind(this, item.path)}>
           <div className="arrow">
             <Icon icon="arrow-left" size="12" />
@@ -90,8 +93,8 @@ class Example extends Component {
     return (
       <div className="file-example">
         <Scrollbars autoHide renderThumbHorizontal={() => <div className="h-scrollbar" />} renderThumbVertical={() => <div className="v-scrollbar" />}>
-          {exampleList.map(item => (
-              <div className="type-list">
+          {exampleList.map((item, index) => (
+              <div className="type-list" key={String(index)}>
                 <div className="type-name">{item.type}</div>
                 {this.renderGroup(item.list)}
               </div>

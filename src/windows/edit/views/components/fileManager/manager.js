@@ -1,3 +1,7 @@
+/**
+ * 左侧项目树
+ */
+
 import { remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -44,6 +48,8 @@ class FileFolder extends Component {
           return fileData.isDirectory === true
         },
         click: () => {
+          console.log('新增文件')
+
           track('NewFile')
           const { fileStore } = this.props
           fileStore.createFile()
@@ -198,6 +204,10 @@ class FileFolder extends Component {
     }
   }
 
+  /**
+   * 鼠标右键事件
+   * @param {*} event
+   */
   contentMenuHandle(event) {
     event.stopPropagation()
     const { target } = event
@@ -282,6 +292,11 @@ class FileFolder extends Component {
     )
   }
 
+  /**
+   * 生成文件夹
+   * @param {*} fileData
+   * @returns
+   */
   genFolder(fileData) {
     const {
       fileStore: { activeFile },
@@ -312,28 +327,41 @@ class FileFolder extends Component {
           {FOLDER_MODIFY_TYPES.includes(fileData.type) ? this.modifyFile(fileData, fileData.type) : <span className="text">{fileData.name}</span>}
         </div>
 
-        {showMap[key] ? children.map(item => (item.isDirectory ? this.genFolder(item) : this.genFile(item))) : null}
+        {showMap[key]
+          ? children.map(item => (item.isDirectory
+            ? this.genFolder(item)
+            : this.genFile(item)))
+          : null}
       </div>
     )
   }
 
   genFile(fileData) {
     const {
-      fileStore: { activeFile },
+      fileStore: { activeFile, editFileMap },
     } = this.props
+
     const fileStyle = {
       paddingLeft: `${calcDeepPadding(fileData.key.length)}px`,
     }
+
     return (
       <div
-        className={classnames({ 'block-file': true, actived: activeFile.path === fileData.path })}
+        className={classnames({
+          'block-file': true,
+          actived: activeFile.path === fileData.path,
+          'edit-file': editFileMap[fileData.path] || false,
+        })}
         data-path={fileData.path}
         key={fileData.key.join(',')}
         style={fileStyle}
         onClick={this.fileOpenHandle.bind(this, fileData)}
       >
         <Icon icon="file" size="14" />
-        {MODIFY_TYPES.includes(fileData.type) ? this.modifyFile(fileData, fileData.type) : <span className="text">{fileData.name}</span>}
+        {
+          MODIFY_TYPES.includes(fileData.type)
+            ? this.modifyFile(fileData, fileData.type)
+            : <span className="text">{fileData.name}</span>}
       </div>
     )
   }
@@ -342,19 +370,34 @@ class FileFolder extends Component {
     const {
       fileStore: { folders = {} },
     } = this.props
+
     const { showContentMenu, menuList, menuPos } = this.state
+
+    // console.log('folders')
+    // console.log(folders)
 
     // const fileStyle = {
     //   paddingLeft: `${calcDeepPadding(folders.key.length)}px`,
     // }
 
     return (
-      <div className="file-manager-folder" onContextMenu={this.contentMenuHandle.bind(this)}>
-        <Scrollbars autoHide renderThumbHorizontal={() => <div className="h-scrollbar" />} renderThumbVertical={() => <div className="v-scrollbar" />}>
+      <div
+        className="file-manager-folder"
+        onContextMenu={this.contentMenuHandle.bind(this)}
+      >
+        <Scrollbars
+          autoHide
+          renderThumbHorizontal={() => <div className="h-scrollbar" />}
+          renderThumbVertical={() => <div className="v-scrollbar" />}
+        >
           <div>{folders.key && this.genFolder(folders)}</div>
         </Scrollbars>
 
-        {showContentMenu ? <ContentMenu list={menuList} left={menuPos.left} top={menuPos.top} /> : null}
+        {
+          showContentMenu
+            ? <ContentMenu list={menuList} left={menuPos.left} top={menuPos.top} />
+            : null
+        }
       </div>
     )
   }

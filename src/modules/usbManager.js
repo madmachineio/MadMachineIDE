@@ -5,8 +5,9 @@ import childProcess from 'child_process'
 import path from 'path'
 import * as pty from 'node-pty'
 import Worker from 'tiny-worker'
-
+import { app } from 'electron'
 import { getConfig } from '../config'
+// import { runAplpaSDK } from '../public/build/main'
 
 class UsbManager {
   constructor(eventEmitter, editWindow) {
@@ -19,75 +20,56 @@ class UsbManager {
     this.path = ''
     this.copyProgress = 0
 
-    this.init()
+    // 接收信息
+    this.msg = ''
+
+    // 搜索电路板worker
+    this.usbDecetingWorker = null
+
+    this.startUsbDetecting()
+    console.log('初始化 Usb Manager')
   }
 
-  init() {
-    this.initEvent()
-  }
+  startUsbDetecting() {
+    console.log('开启电路板检测')
+    const projectFileSplits = String(this.editWindow.projectFile).split(global.PATH_SPLIT)
+    projectFileSplits.splice(projectFileSplits.length - 1, 1)
+    const projectPath = projectFileSplits.join(global.PATH_SPLIT)
 
-  initEvent() {
-    // usbspy.on('change', (device) => {
-    //   console.log(device)
-    // })
-
-    // const usbList = []
-    // usbDetect.on('add:8137:147', (device) => {
-    //   console.log('add', device)
-    //   const poll = setInterval(() => {
-    //     drivelist.list().then((drives) => {
-    //       console.log(JSON.stringify(drives))
-    //       drives.forEach((drive) => {
-    //         if (drive.isUSB) {
-    //           if (drive.mountpoints && drive.mountpoints.length > 0) {
-    //             const mountPath = drive.mountpoints[0].path
-    //             if (!usbList.includes(mountPath)) {
-    //               console.log(mountPath) // op
-    //               usbList.push(mountPath)
-    //               clearInterval(poll)
-    //             }
-    //           }
-    //         }
-    //       })
-    //     })
-    //   }, 2000)
-    // })
-    // usbDetect.on('add', (device) => {
-    //   setInterval(() => {
-    //     usbDetect.find(8137, 147, (err, devices) => { console.log('find', devices, err) })
-    //   }, 1000)
-    // })
-    // this.usb.on('attach', () => {
-    //   this.findDevice('add')
-    // })
-
-    // this.usb.on('detach', () => {
-    //   this.findDevice('remove')
-    // })
-
-    this.findDevice()
-  }
-
-  findDevice() {
-    const findUsbWorker = new Worker(
+    this.usbDecetingWorker = new Worker(
       path.resolve(__dirname, 'public/worker/usbFind.js'),
     )
-    findUsbWorker.onmessage = ({ data }) => {
-      this.path = data.usbPath
 
-      if (data.exist) {
+    this.usbDecetingWorker.onmessage = ({ data }) => {
+      const msg = `findUsbWorker 接收通信信息 ${JSON.stringify(data)}`
+      if (msg !== this.msg) {
+        console.log(msg)
+        this.msg = msg
+      }
+      // this.path = data.usbPath
+      const { status } = data
+      this.eventEmitter.emit('USB_CHANGE', status)
+
+      if (String(status).toLowerCase().includes('ready')) {
         this.isMount = true
-        this.eventEmitter.emit('USB_ADD', this.path)
+        // this.eventEmitter.emit('USB_ADD', this.path)
       } else {
         this.isMount = false
-        this.eventEmitter.emit('USB_REMOVE', this.path)
+        // this.eventEmitter.emit('USB_REMOVE', this.path)
       }
     }
 
-    findUsbWorker.postMessage({
+    // 发送通信信息
+    const paylaod = {
       name: getConfig('USB.NAME'),
       rootPath: path.resolve(__dirname),
-    })
+      projectPath, // 项目路径
+      sdkParentPath: app.getAppPath(),
+    }
+
+    console.log(`发送通信信息 ${JSON.stringify(paylaod)}`)
+    this.usbDecetingWorker.postMessage(paylaod)
+
     // const findUsb = () => {
     //   findUsbWorker.call(getConfig('USB.NAME'), type).then((data) => {
     //     console.log(data)
@@ -114,6 +96,13 @@ class UsbManager {
     // }
 
     // findUsb()
+  }
+
+  stopUsbDetecting() {
+    if (!this.usbDecetingWorker) return
+    this.usbDecetingWorker.terminate()
+    this.usbDecetingWorker = null
+    console.log('停止电路板检测')
   }
 
   check() {
