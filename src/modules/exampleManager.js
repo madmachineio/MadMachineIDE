@@ -109,7 +109,7 @@ class ExampleManager {
     }
 
     const homeDir = app.getPath('home')
-    const userConfigDir = path.resolve(homeDir, './MadMachine/projects') // `${homeDir}/MadMachine/projects`
+    const userConfigDir = path.resolve(homeDir, './MadMachine/Projects')
     const projectName = file.path.split(global.PATH_SPLIT).slice(-1)[0]
     const targetPath = path.resolve(userConfigDir, projectName)
 

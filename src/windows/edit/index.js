@@ -183,6 +183,10 @@ class EditWindow {
       this.editWindow.webContents.send('COPY_FILE_PROGRESS', progress)
     })
 
+    this.eventEmitter.on('USB_CHANGE', (status) => {
+      this.editWindow.webContents.send('USB_CHANGE', status)
+    })
+
     // 示例项目
     this.eventEmitter.on('EXAMPLE_LIST', (list) => {
       this.editWindow.webContents.send('EXAMPLE_LIST_PROJECT', list)

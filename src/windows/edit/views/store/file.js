@@ -207,6 +207,10 @@ class FileStore {
   @action setFoldersData(folders) {
     this.folders = cloneDeep(folders)
 
+    if (!Array.isArray(folders.children)) return
+
+    console.log('文件管理')
+
     const mianFile = folders.children.find(m => m.name === 'main.swift')
     if (mianFile && !this.activeFile) {
       this.openFile(mianFile)
@@ -216,26 +220,39 @@ class FileStore {
   /**
    * 右键菜单
    */
-  @action findFileByPath(path) {
-    const filePath = path || this.folders.path
-
+  @action findFileByPath(path = '') {
+    console.log(`右键路径 ${path}`)
+    let filePath = path
     let result = null
-    const findFile = (data, p) => {
-      if (data.path === p) {
-        result = data
-      } else {
-        (data.children || []).forEach(item => findFile(item, p))
+
+    if (filePath) {
+      // 路径存在
+      const findFile = (data, p) => {
+        // console.log(`${data.path} <=> ${p} ${data.path === p}`)
+        if (data.path === p) {
+          result = data
+        } else {
+          (data.children || []).forEach(item => findFile(item, p))
+        }
       }
+
+      findFile(this.folders, filePath)
+    } else {
+      // 路径不存在
+      filePath = this.folders.projectPath
+      result = JSON.parse(JSON.stringify(this.folders))
+      result.path = result.projectPath
     }
 
-    findFile(this.folders, filePath)
-
     this.managerContentFile = result
+    console.log(this.managerContentFile)
     return this.managerContentFile
   }
 
   // 新建文件
   @action createFile() {
+    console.log('mobx 新建文件')
+    console.log(this.managerContentFile.path)
     this.rootStore.editWindow.fileManager.createFolderFile(this.managerContentFile.path)
   }
 

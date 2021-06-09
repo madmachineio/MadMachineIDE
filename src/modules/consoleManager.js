@@ -1,13 +1,17 @@
-import { app } from 'electron'
+// import { app } from 'electron'
 import childProcess from 'child_process'
 import path from 'path'
-import fs from 'fs'
 import sudo from 'sudo-prompt'
 import * as os from 'os'
 import * as pty from 'node-pty'
 // import stripAnsi from 'strip-ansi'
-import { build as buildProject, init, generate, download } from '../public/build/main'
-import { mkdirsSync } from '../utils/path'
+import {
+//  build as buildProject,
+//  init, generate,
+//  download,
+ runAplpaSDK,
+} from '../public/build/main'
+// import { mkdirsSync } from '../utils/path'
 // import iconv from 'iconv-lite'
 
 const resolvePath = (dir = '') => path.resolve(__dirname, './public/build', dir)
@@ -24,8 +28,12 @@ class ConsoleManager {
     this.events = {}
   }
 
+  // 运行编译
   async run(cols, rows, showDone = true) {
+    console.log('运行编译')
+
     if (this.runStatus === 'compiling') {
+      console.log('compiling return')
       return null
     }
 
@@ -43,9 +51,20 @@ class ConsoleManager {
     // }
 
     try {
-      await buildProject(fileManager.folderPath, this.execCmd.bind(this))
-    } catch (ex) {
-      console.log(ex)
+      await runAplpaSDK(fileManager.folderPath, 'build', {
+        onData: (data) => {
+          console.log(`运行编译 data ${data}`)
+          this.eventEmitter.emit('message', data)
+        },
+
+        onError: () => {
+          console.log('运行编译错误')
+          this.runStatus = 'error'
+        },
+      })
+      // await buildProject(fileManager.folderPath, this.execCmd.bind(this))
+    } catch (e) {
+      console.log(e)
     }
 
     this.runStatus = this.runStatus !== 'error' ? (showDone ? 'success' : '') : 'error'
@@ -54,18 +73,48 @@ class ConsoleManager {
     return this.sendMessage
   }
 
-  async initProject(folderPath) {
+  async initProject(folderPath, projectType, boardType) {
     try {
-      await init(folderPath, this.execCmd.bind(this))
-      await generate(folderPath, this.execCmd.bind(this))
+      // 调用SDK生成项目
+      await runAplpaSDK(folderPath, 'init', {
+        projectType,
+        boardType,
+      })
+
+      return { result: true, msg: '' }
     } catch (e) {
       console.log(e)
+      return { result: false, msg: e.message }
     }
   }
 
   async copyFile() {
+    console.log('运行下载')
+
+    // 停止usb检测
+    this.editWindow.usbManager.stopUsbDetecting()
+
     const { fileManager } = this.editWindow
-    download(fileManager.folderPath, this.execCmd.bind(this))
+    await runAplpaSDK(
+      fileManager.folderPath,
+      'download',
+      {
+        onData: (data) => {
+          console.log(`运行编译 data ${data}`)
+          this.eventEmitter.emit('message', data)
+        },
+
+        onError: () => {
+          console.log('运行编译错误')
+          this.runStatus = 'error'
+        },
+      },
+    )
+
+    // 开始usb检测
+    this.editWindow.usbManager.startUsbDetecting()
+
+    // download(fileManager.folderPath, this.execCmd.bind(this))
   }
 
   execCmd2(cmd, isRoot = false) {
@@ -120,12 +169,13 @@ class ConsoleManager {
       ptyProc.on('data', (data) => {
         this.eventEmitter.emit('message', data)
       })
+
       ptyProc.on('exit', (code) => {
         if (code === 0) {
           resolve(true)
         } else {
           this.runStatus = 'error'
-          reject(false)
+          reject(new Error(`exit code ${code}`))
         }
 
         ptyProc.destroy()

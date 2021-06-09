@@ -7,9 +7,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  .folder-wrap {
-
-  }
+  
   .block-file {
     padding: 0 10px;
     height: 28px;
@@ -56,6 +54,21 @@
     }
     @include theme {
       @include val((file, fileBlock));
+    }
+  }
+
+  .edit-file {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 10px; 
+      top: 10px;  // 28
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba($color: #fff, $alpha: .7);
     }
   }
 }

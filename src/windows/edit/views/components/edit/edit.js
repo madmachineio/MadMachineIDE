@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import CodeMirror from 'codemirror'
 import classnames from 'classnames'
+import * as path from 'path'
 
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
@@ -14,6 +15,8 @@ import 'codemirror/addon/scroll/simplescrollbars.css'
 import './styles/edit.scss'
 
 import 'codemirror/mode/swift/swift'
+import 'codemirror/mode/gfm/gfm'
+import 'codemirror/mode/toml/toml'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/keymap/sublime'
@@ -33,6 +36,11 @@ import 'codemirror/addon/comment/comment'
 import formatRegiste from './libs/formatting'
 
 import emitter from '@/utils/emitter'
+
+const LANGUAGE_MODE_MAP = {
+  '.md': 'gfm',
+  '.mmp': 'toml',
+}
 
 formatRegiste(CodeMirror)
 
@@ -117,9 +125,12 @@ class EditBody extends Component {
     const mac = CodeMirror.keyMap.default === CodeMirror.keyMap.macDefault
     const cmdKey = mac ? 'Cmd' : 'Ctrl'
 
+    const ext = path.extname(file.path)
+    const mode = LANGUAGE_MODE_MAP[ext] || ext.slice(1)
+
     this.editor = CodeMirror.fromTextArea(this.editAreaRef.current, {
       lineNumbers: true,
-      mode: { name: 'swift' },
+      mode: { name: mode },
       theme: configStore.themeName === 'black' ? '3024-night' : '3024-day',
       matchBrackets: true,
       smartIndent: true,

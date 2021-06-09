@@ -40,6 +40,7 @@ class RootStore {
       this.fileStore.setFilesData(files)
     })
     ipcRenderer.on('PORJECT_NAME', (event, projectName) => {
+      // console.log(`ipcRenderer 设置标题 ${projectName}`)
       this.fileStore.setProjectName(projectName)
     })
 
@@ -67,6 +68,10 @@ class RootStore {
 
     ipcRenderer.on('USB_DEVICE_REMOVE', (event, dir) => {
       this.usbStore.setUsbDir(dir, false)
+    })
+
+    ipcRenderer.on('USB_CHANGE', (event, status) => {
+      this.usbStore.setStatus(status)
     })
 
     ipcRenderer.on('COPY_FILE_PROGRESS', (event, progress) => {
