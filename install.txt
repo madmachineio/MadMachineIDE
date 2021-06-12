@@ -1,0 +1,7 @@
+node版本一定要 v12.x.x, 当前版本 v12.22.1 建议使用nvm
+
+.node_modules/.bin/electron-rebuild
+
+npm run rebuild
+
+npm run start

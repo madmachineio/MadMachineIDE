@@ -20,6 +20,8 @@ class RootStore {
     })
 
     ipcRenderer.on('HISTORY_PROJECT', (event, historyProject) => {
+      console.log('历史项目')
+      console.log(JSON.stringify(historyProject))
       this.configStore.setHistoryPorject(historyProject)
     })
 

@@ -17,12 +17,14 @@ if (process.env.NODE_ENV === 'production') {
 const homeDir = app.getPath('appData')
 const userConfigDir = path.resolve(homeDir, 'MadMachine')
 const userConfigPath = path.resolve(userConfigDir, 'config.json') // `${userConfigDir}/config.json`
+console.log(userConfigPath)
+
 if (!fs.existsSync(userConfigDir)) {
   fs.mkdirSync(userConfigDir)
 }
 console.log(homeDir)
-if (!fs.existsSync(path.resolve(userConfigDir, 'projects'))) {
-  fs.mkdirSync(path.resolve(userConfigDir, 'projects'))
+if (!fs.existsSync(path.resolve(userConfigDir, 'Projects'))) {
+  fs.mkdirSync(path.resolve(userConfigDir, 'Projects'))
 }
 if (!fs.existsSync(userConfigPath)) {
   // 处理旧配置文件移动
@@ -68,6 +70,7 @@ export const getConfig = key => getPathVal(configData, key)
 
 // 设置配置
 export const setConfig = (keys, value) => {
+  // console.log('设置配置')
   setObjValue(userConfigData, keys.split('.'), value)
 
   fs.writeFileSync(userConfigPath, JSON.stringify(userConfigData))

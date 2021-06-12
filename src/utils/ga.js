@@ -60,8 +60,7 @@ export function pv(dp = '', dt = '', dh = '') {
 export function enableTrack(enable) {
   if (typeof enable === 'boolean') {
     nodeStorage.setItem('track', enable)
-  }
-  else {
+  } else {
     return nodeStorage.getItem('track') !== false
   }
 }

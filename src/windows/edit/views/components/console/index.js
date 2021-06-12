@@ -56,6 +56,7 @@ class Console extends Component {
 
       // this.termRef.current.write(message)
     })
+
     emitter.on('CONSOLE_CLEAR', () => {
       this.termRef.current.xterm.clear()
       this.termRef.current.xterm.reset()

@@ -24,9 +24,9 @@ if (os.platform() === 'win32') {
   global.PATH_SPLIT_REG = '/'
 }
 // Share with renderer process
-global.trackEvent = trackEvent;
-global.pv = pv;
-global.enableTrack = enableTrack;
+global.trackEvent = trackEvent
+global.pv = pv
+global.enableTrack = enableTrack
 
 class Main {
   constructor() {
@@ -47,6 +47,7 @@ class Main {
   }
 
   createEditWindow(projectFile, isExample = false) {
+    console.log(`创建编辑窗口 ${projectFile}`)
     if (!isExample && !exsitProjectFile(projectFile)) {
       dialog.showMessageBox({
         type: 'error',
@@ -261,5 +262,6 @@ class Main {
     // }
   }
 }
+
 
 new Main()

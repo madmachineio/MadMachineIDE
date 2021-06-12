@@ -9,7 +9,7 @@ import { EventEmitter } from 'events'
 import { format as formatUrl } from 'url'
 import { getConfig } from '../../config'
 import { mkdirsSync, exsitProject } from '../../utils/path'
-import ConsoleManager from "../../modules/consoleManager";
+import ConsoleManager from '../../modules/consoleManager'
 
 const getNewProjectPath = (opath, index = 0) => {
   let realPath = opath
@@ -50,9 +50,12 @@ class Start {
       fullscreenable: false,
       minimizable: false,
       maximizable: false,
-      resizable: false,
+      resizable: false, // TODO:
       titleBarStyle: 'hidden',
       icon: path.resolve(__dirname, 'resources/logo/icon.ico'),
+      webPreferences: {
+        nodeIntegration: true,
+      },
     })
 
     this.window.window = this
@@ -73,6 +76,7 @@ class Start {
 
   initEvent() {
     let setThemeHandle = null
+    let setHeightHandle = null
 
     this.window.on('closed', () => {
       this.parent.removeStartView()
@@ -82,12 +86,22 @@ class Start {
 
     this.window.on('close', () => {
       ipcMain.removeListener('SET_THEME_NAME', setThemeHandle)
+      ipcMain.removeListener('SET_WINDOW_HEIGHT', setHeightHandle)
     })
 
     ipcMain.on(
       'SET_THEME_NAME',
       (setThemeHandle = (event, themeName) => {
         this.setTheme(themeName)
+      }),
+    )
+
+    // 监听修改高度
+    ipcMain.on(
+      'SET_WINDOW_HEIGHT',
+      (setHeightHandle = (e, data) => {
+        // console.log(`SET_WINDOW_HEIGHT ${data}`)
+        this.window.setSize(800, data, true)
       }),
     )
   }
@@ -117,11 +131,15 @@ class Start {
   }
 
   setHistoryProject() {
-    this.window.webContents.send('HISTORY_PROJECT', (getConfig('PROJECT.HISTORY') || []).filter(m => exsitProject(m.folderPath)))
+    this.window.webContents.send(
+      'HISTORY_PROJECT',
+      (getConfig('PROJECT.HISTORY') || [])
+        .filter(m => exsitProject(m.folderPath) && !m.folderPath.includes('MadMachine/projects')),
+)
   }
 
   getDefaultPath() {
-    return getNewProjectPath(path.resolve(app.getPath('documents'), 'MadMachine', 'projects', 'untitled'))
+    return getNewProjectPath(path.resolve(app.getPath('documents'), 'MadMachine', 'Projects', 'untitled'))
   }
 
   selectDir(next) {
@@ -137,18 +155,62 @@ class Start {
     )
   }
 
-  async createProject(createPath) {
+  /**
+   * 新建项目
+   * @param {*} createPath 项目路径
+   * @param {*} projectType 项目类型
+   * @param {*} boardType 电路板类型
+   */
+  async createProject(createPath, projectType, boardType) {
+    console.log('emit root store createProject')
+
+    // 检查项目文件夹是否已存在
+    const isDirExist = fs.existsSync(createPath)
+    if (isDirExist) {
+      dialog.showMessageBox({
+        title: 'Fail to create',
+        type: 'info',
+        message: 'The project already exists, please reselect',
+      })
+      return
+    }
+
     mkdirsSync(createPath)
 
-    const projectName = createPath.split(global.PATH_SPLIT).slice(-1)[0]
+    const projectName = 'Package' // createPath.split(global.PATH_SPLIT).slice(-1)[0]
     const openPath = path.resolve(createPath, `${projectName}.mmp`)
     // fs.writeFileSync(openPath, '')
-    await this.consoleManager.initProject(createPath)
+    const initProjectResult = await this.consoleManager.initProject(createPath, projectType, boardType)
 
-    const result = this.parent.createEditWindow(openPath)
-    if (result) {
-      this.window.close()
+    // 新建失败
+    if (!initProjectResult.result) {
+      console.log('新建项目失败')
+      dialog.showMessageBox({
+        title: 'Fail to create',
+        type: 'error',
+        message: initProjectResult.msg,
+      })
+      return
     }
+
+    // 根据新建路径打开窗口
+    const dirPathSplits = openPath.split(global.PATH_SPLIT_REG)
+    // dirPathSplits.splice(dirPathSplits.length - 1, 1)
+    dirPathSplits[dirPathSplits.length - 1] = 'Sources'
+    const dirPath = dirPathSplits.join(global.PATH_SPLIT_REG)
+
+    console.log(`新项目地址 ${dirPath}`)
+    console.log(fs.readdirSync(dirPath))
+    const result = this.parent.createEditWindow(openPath)
+    console.log('打开新项目结束')
+    console.log(fs.readdirSync(dirPath))
+    if (result) {
+      console.log('打开新项目成功')
+      this.window.close()
+      return
+    }
+
+    console.log('打开新项目失败')
   }
 
   openProject(projectFile) {
