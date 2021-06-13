@@ -31,10 +31,12 @@ async function downloadSdk(platform, releaseOnly = false) {
 
 function downloadExamples() {
   const targetDir = path.resolve(rootDir, 'resources', 'project', 'Examples')
-  if (!fse.existsSync(targetDir)) {
-    fse.mkdirSync(targetDir)
+  if (fse.existsSync(targetDir)) {
+    console.log(`Emptying ${targetDir}`)
+    fse.removeSync(targetDir)
   }
   childProcess.execSync(`git clone --depth 1 https://github.com/madmachineio/MadExamples.git ${targetDir}`)
+  childProcess.execSync(`git rev-parse HEAD > .version`, { cwd: targetDir })
 }
 
 (async () => {
