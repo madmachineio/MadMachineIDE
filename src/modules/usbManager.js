@@ -1,13 +1,11 @@
 import os from 'os'
 import fs from 'fs'
-// import { app } from 'electron'
 import childProcess from 'child_process'
 import path from 'path'
 import * as pty from 'node-pty'
 import Worker from 'tiny-worker'
 import { app } from 'electron'
 import { getConfig } from '../config'
-// import { runAplpaSDK } from '../public/build/main'
 
 class UsbManager {
   constructor(eventEmitter, editWindow) {
@@ -27,7 +25,6 @@ class UsbManager {
     this.usbDecetingWorker = null
 
     this.startUsbDetecting()
-    console.log('初始化 Usb Manager')
   }
 
   startUsbDetecting() {
@@ -52,10 +49,8 @@ class UsbManager {
 
       if (String(status).toLowerCase().includes('ready')) {
         this.isMount = true
-        // this.eventEmitter.emit('USB_ADD', this.path)
       } else {
         this.isMount = false
-        // this.eventEmitter.emit('USB_REMOVE', this.path)
       }
     }
 
@@ -69,33 +64,6 @@ class UsbManager {
 
     console.log(`发送通信信息 ${JSON.stringify(paylaod)}`)
     this.usbDecetingWorker.postMessage(paylaod)
-
-    // const findUsb = () => {
-    //   findUsbWorker.call(getConfig('USB.NAME'), type).then((data) => {
-    //     console.log(data)
-    //     this.path = data.usbPath
-
-    //     if (type === 'add') {
-    //       if (data.exist) {
-    //         this.isMount = true
-    //         this.eventEmitter.emit('USB_ADD', this.path)
-    //       } else {
-    //         setTimeout(() => findUsb(), 2000)
-    //       }
-    //     }
-
-    //     if (type === 'remove') {
-    //       if (data.exist) {
-    //         setTimeout(() => findUsb(), 2000)
-    //       } else {
-    //         this.isMount = false
-    //         this.eventEmitter.emit('USB_REMOVE', this.path)
-    //       }
-    //     }
-    //   })
-    // }
-
-    // findUsb()
   }
 
   stopUsbDetecting() {

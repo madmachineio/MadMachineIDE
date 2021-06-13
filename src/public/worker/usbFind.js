@@ -60,8 +60,8 @@ const getStatus = async (sdkParentPath, cwd) => {
 
     // 根据系统获取路径
     const platform = os.platform()
-    const sdkPath = platform === 'win32' 
-      ? sdkPaths.win 
+    const sdkPath = platform === 'win32'
+      ? sdkPaths.win
       : platform === 'darwin'
         ? sdkPaths.mac
         : sdkPaths.linux
@@ -84,9 +84,6 @@ const getStatus = async (sdkParentPath, cwd) => {
 
     workerProcess.on('exit', (code) => {
       if (code !== 0) {
-        const now = new Date()
-        console.log(`子进程退出 ${code} 时间${now.toLocaleTimeString()}`)
-        // console.log(fs.readdirSync(`${cwd}${global.PATH_SPLIT}Sources`))
         resolve({ result: false, msg: `Fail to get status with code ${code}`, data: '' })
       }
     })
@@ -96,46 +93,11 @@ const getStatus = async (sdkParentPath, cwd) => {
 onmessage = function (ev) {
   console.log('window 接收通信信息 ' + JSON.stringify(ev))
   const config = ev.data
-  // const usbName = config.name
-  // const rootPath = config.rootPath
   const projectPath = config.projectPath
   const sdkParentPath = config.sdkParentPath
 
-  // const vid = '0x1fc9' // 8137
-  // const pid = '0x0093' // 147
-  // const deviceId = '0123456789ABCDEF'
-
   const timeId = setInterval(async () => {
-    const date = new Date()
-    console.log('Detecting usb at ' + date.toLocaleTimeString())
     const { result, msg, data } = await getStatus(sdkParentPath, projectPath)
     sendMsg(result ? data : msg)
-    
-    // switch (os.platform()) {
-    //   case 'win32':
-    //     {
-    //       const drives = await drivelist.list();
-    //       const drivePath = drives
-    //         .map(({ mountpoints }) => {
-    //           const mountPoint = mountpoints[0] || {}
-    //           return mountPoint.path
-    //         }).find(usbPath => {
-    //           const result = iconv.decode(childProcess.execSync(`${path.resolve(rootPath, 'public/usb/usb.exe')} ${usbPath.replace('\\', '')}`), 'cp936')
-    //           return result && result.includes(deviceId)
-    //         })
-          
-    //       sendMsg(drivePath)
-    //     }
-    //     break
-    //   case 'darwin':
-    //     {
-    //       const result = childProcess.execSync('/usr/sbin/system_profiler -json mini SPUSBDataType')
-    //       const resObj = JSON.parse(result)
-    //       const usbData = findUsb(resObj.SPUSBDataType, vid, pid)
-    //       sendMsg(getUsbPath(usbData))
-    //     }
-    //     break
-    //   default:
-    // }
   }, 1000)
 }
