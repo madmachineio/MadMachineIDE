@@ -1,5 +1,5 @@
 import path from 'path'
-import fs from 'fs'
+import fse from 'fs-extra'
 import os from 'os'
 import childProcess from 'child_process'
 import { app } from 'electron'
@@ -21,10 +21,10 @@ class ExampleManager {
   readExampleList() {
     const formatFile = (rpath, file, dir = '') => {
       const filePath = path.resolve(rpath, file, dir) // `${rpath}/${file}`
-      if (!fs.existsSync(filePath)) {
+      if (!fse.existsSync(filePath)) {
         return {}
       }
-      const stat = fs.statSync(filePath)
+      const stat = fse.statSync(filePath)
       const fileData = {
         name: file,
         path: filePath,
@@ -40,13 +40,13 @@ class ExampleManager {
 
     try {
       const exampleDir = path.resolve(app.getPath('documents'), 'MadMachine', 'Examples')
-      const exampleList = fs
+      const exampleList = fse
         .readdirSync(exampleDir)
         .filter(m => !/^\./g.test(m))
         .map((file) => {
           const fileData = formatFile(exampleDir, file)
-          if (fileData && fileData.isDirectory && fs.existsSync(fileData.path)) {
-            fileData.children = fs
+          if (fileData && fileData.isDirectory && fse.existsSync(fileData.path)) {
+            fileData.children = fse
               .readdirSync(fileData.path)
               .map(cFile => formatFile(fileData.path, cFile))
               .filter(m => m.isDirectory)
@@ -63,26 +63,29 @@ class ExampleManager {
         }))
 
       const libraryDir = path.resolve(app.getPath('documents'), 'MadMachine', 'Library')
-      const LibraryExampleList = fs
-        .readdirSync(libraryDir)
-        .filter(m => !/^\./g.test(m))
-        .map(file => {
-          const fileData = formatFile(libraryDir, file, 'Examples')
-          if (fileData && fileData.isDirectory && fs.existsSync(fileData.path)) {
-            fileData.children = fs
-              .readdirSync(fileData.path)
-              .map(cFile => formatFile(fileData.path, cFile))
-              .filter(m => m.isDirectory)
-          }
-          return fileData
-        }).filter(m => m.isDirectory)
-        .map(item => ({
-          ...item,
-          // children: (item.children || []).sort((a, b) => {
-          //   const reg = /^Mission(\d+)/
-          //   return a.name.match(reg)[1] - b.name.match(reg)[1]
-          // }),
-        }))
+      let LibraryExampleList = []
+      if (fse.existsSync(libraryDir)) {
+        LibraryExampleList = fse
+          .readdirSync(libraryDir)
+          .filter(m => !/^\./g.test(m))
+          .map(file => {
+            const fileData = formatFile(libraryDir, file, 'Examples')
+            if (fileData && fileData.isDirectory && fse.existsSync(fileData.path)) {
+              fileData.children = fse
+                .readdirSync(fileData.path)
+                .map(cFile => formatFile(fileData.path, cFile))
+                .filter(m => m.isDirectory)
+            }
+            return fileData
+          }).filter(m => m.isDirectory)
+          .map(item => ({
+            ...item,
+            // children: (item.children || []).sort((a, b) => {
+            //   const reg = /^Mission(\d+)/
+            //   return a.name.match(reg)[1] - b.name.match(reg)[1]
+            // }),
+          }))
+      }
 
       this.list = [
         {
@@ -104,7 +107,7 @@ class ExampleManager {
   }
 
   copyExample(file) {
-    if (!fs.existsSync(file.path)) {
+    if (!fse.existsSync(file.path)) {
       return null
     }
 
@@ -113,11 +116,11 @@ class ExampleManager {
     const projectName = file.path.split(global.PATH_SPLIT).slice(-1)[0]
     const targetPath = path.resolve(userConfigDir, projectName)
 
-    if (!fs.existsSync(userConfigDir)) {
-      fs.mkdirSync(userConfigDir)
+    if (!fse.existsSync(userConfigDir)) {
+      fse.mkdirSync(userConfigDir)
     }
 
-    if (fs.existsSync(targetPath)) {
+    if (fse.existsSync(targetPath)) {
       return targetPath
     }
 
@@ -141,7 +144,7 @@ class ExampleManager {
   copyExampleTo(filePath, otargetPath) {
     const targetPath = path.resolve(otargetPath, path.basename(filePath))
 
-    if (!fs.existsSync(targetPath)) {
+    if (!fse.existsSync(targetPath)) {
       mkdirsSync(targetPath)
     }
 
