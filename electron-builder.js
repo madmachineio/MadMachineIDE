@@ -29,10 +29,6 @@ module.exports = {
       "icon": "resources/ext/mmswift"
     }
   ],
-  "asarUnpack": [
-    "**/*.node",
-    "**/*.a",
-  ],
   "mac": {
     "icon": "resources/logo/icon.icns",
     "hardenedRuntime": true,
