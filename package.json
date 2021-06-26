@@ -14,116 +14,17 @@
     "start": "concurrently \"npm run web:start\" \"npm run app:start\"",
     "app:start": "cross-env NODE_ENV=development node ./config/scripts/dev.app.js",
     "app:build": "cross-env NODE_ENV=production ENV=prod webpack --config ./config/webpack.electron.config.js --colors",
-    "app:package": "cross-env ENV=prod electron-builder --dir",
-    "app:publish": "npm run web:build && npm run app:build && cross-env ENV=prod electron-builder --platform=all",
-    "app:publish:win": "npm run web:build && npm run app:build && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ electron-builder --win",
-    "app:publish:mac": "npm run web:build && npm run app:build && cross-env ENV=prod electron-builder --mac",
-    "app:publish:linux": "npm run web:build && npm run app:build && cross-env ENV=prod electron-builder --linux",
+    "app:package": "cross-env ENV=prod electron-builder --dir --config electron-builder.js",
+    "app:publish": "npm run web:build && npm run app:build && cross-env ENV=prod electron-builder --platform=all --config electron-builder.js",
+    "app:publish:win": "npm run web:build && npm run app:build && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ electron-builder --win --config electron-builder.js",
+    "app:publish:mac": "npm run web:build && npm run app:build && cross-env ENV=prod electron-builder --mac --config electron-builder.js && node config/scripts/notarize.js",
+    "app:publish:linux": "npm run web:build && npm run app:build && cross-env ENV=prod electron-builder --linux --config electron-builder.js",
     "web:start": "cross-env ENV=dev node ./config/scripts/start.js",
     "web:build": "cross-env ENV=prod node ./config/scripts/build.js",
     "web:test": "node ./config/scripts/test.js",
     "config:build": "node ./config/scripts/build.config.js",
     "postinstall": "electron-builder install-app-deps && node ./config/scripts/postinstall.js",
     "rebuild": "electron-rebuild -f -w serialport"
-  },
-  "build": {
-    "asar": false,
-    "productName": "MadMachine",
-    "buildVersion": "1.0.0",
-    "appId": "com.madmachine.app",
-    "directories": {
-      "output": "build"
-    },
-    "publish": [
-      {
-        "provider": "generic",
-        "url": ""
-      }
-    ],
-    "fileAssociations": [
-      {
-        "ext": "mmp",
-        "icon": "resources/ext/mmswift"
-      }
-    ],
-    "afterSign": "config/scripts/notarize.js",
-    "mac": {
-      "icon": "resources/logo/icon.icns",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "entitlements": "config/entitlements.mac.plist",
-      "entitlementsInherit": "config/entitlements.mac.plist",
-      "target": [
-        "dmg"
-      ],
-      "files": [
-        "dist/**/*",
-        "sdk/mac/**/*",
-        "package.json",
-        "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-        "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-        "!**/node_modules/*.d.ts",
-        "!**/node_modules/.bin"
-      ]
-    },
-    "win": {
-      "icon": "resources/logo/icon.ico",
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ],
-      "files": [
-        "dist/**/*",
-        "sdk/win/**/*",
-        "package.json",
-        "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-        "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-        "!**/node_modules/*.d.ts",
-        "!**/node_modules/.bin"
-      ]
-    },
-    "nsis": {
-      "installerIcon": "resources/logo/install.ico",
-      "uninstallerIcon": "resources/logo/install.ico",
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "perMachine": true,
-      "allowElevation": true,
-      "createDesktopShortcut": true,
-      "runAfterFinish": true,
-      "include": "installer.nsh"
-    },
-    "dmg": {
-      "icon": "resources/logo/install.icns",
-      "background": "resources/imgs/macinstall.tiff",
-      "window": {
-        "width": 574,
-        "height": 313
-      }
-    },
-    "pkg": {
-      "scripts": "../resources/build/pkg-scripts",
-      "installLocation": "/Applications",
-      "background": {
-        "alignment": "bottomleft"
-      },
-      "allowAnywhere": true,
-      "allowCurrentUserHome": true,
-      "allowRootDirectory": true,
-      "isVersionChecked": true,
-      "isRelocatable": false,
-      "overwriteAction": "upgrade"
-    },
-    "linux": {
-      "icon": "resources/logo/icon.icns",
-      "target": "deb",
-      "category": "Development"
-    }
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
@@ -174,7 +75,6 @@
     "dotenv-expand": "4.2.0",
     "electron": "^4.0.0",
     "electron-builder": "^22.4.1",
-    "electron-notarize": "^1.0.0",
     "electron-prebuilt-compile": "4.0.0",
     "electron-rebuild": "^2.3.5",
     "eslint": "5.12.0",
@@ -186,6 +86,7 @@
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.12.4",
     "eventemitter2": "^5.0.1",
+    "fast-glob": "^3.2.5",
     "file-loader": "2.0.0",
     "filehound": "^1.17.4",
     "fs-extra": "7.0.1",
