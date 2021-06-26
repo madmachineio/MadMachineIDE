@@ -24,4 +24,5 @@ yarn-error.log*
 /sdk
 /resources/project/Examples
 .env
+notarize.log
 
