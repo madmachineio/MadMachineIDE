@@ -88,10 +88,10 @@ class SerialManager {
   }
 
   initSerialList() {
-    SerialPort.list((error, ports) => {
-      if (!error) {
-        this.eventEmitter.emit('SERIAL-LIST', ports)
-      }
+    SerialPort.list().then((ports) => {
+      this.eventEmitter.emit('SERIAL-LIST', ports)
+    }).catch(error => {
+      console.error(error)
     })
   }
 

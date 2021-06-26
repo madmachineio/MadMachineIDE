@@ -99,8 +99,8 @@ class App extends Component {
             <select onChange={this.portSelectHandle.bind(this)}>
               <option value="">Select</option>
               {portsList.map(item => (
-                <option value={item.comName} key={item.comName}>
-                  {item.comName}
+                <option value={item.path} key={item.path}>
+                  {item.path}
                 </option>
               ))}
             </select>
